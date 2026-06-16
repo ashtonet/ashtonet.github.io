@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #030712;
+  --glass: rgba(255,255,255,0.04);
+  --glass-2: rgba(255,255,255,0.03);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-[var(--bg)] text-slate-300 antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+.container-wide {
+  @apply max-w-5xl mx-auto px-6;
+}
+
+.glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+.accent-gradient {
+  background: linear-gradient(90deg, #60a5fa 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.particle-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 10% 10%, rgba(99,102,241,0.06), transparent 10%), radial-gradient(ellipse at 90% 90%, rgba(59,130,246,0.04), transparent 8%);
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.section-heading {
+  @apply text-4xl md:text-5xl font-semibold text-slate-100;
+}
+
+/* small helpers */
+.nav-link { @apply text-slate-300 hover:text-white transition; }
+.glass-card { @apply glass rounded-xl p-6; }
+

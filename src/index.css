@@ -146,11 +146,21 @@ h2 {
   border-bottom: 1px solid rgba(255,255,255,0.04);
   box-shadow: 0 6px 30px rgba(2,6,23,0.45);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* ensure nav links hidden on small screens (explicit) */
 .nav-links { display: none; }
 @media (min-width: 768px) { .nav-links { display: flex; } }
+
+/* Utility to support Tailwind-like `md:hidden` classname used in JSX when Tailwind isn't applied */
+.md\:hidden { display: block; }
+@media (min-width: 768px) { .md\:hidden { display: none !important; } }
+
+/* ensure nav links push to the right when visible */
+.nav-links { margin-left: auto; }
 
 /* Hero refinements */
 .hero-compact { padding-top: 6rem; padding-bottom: 6rem; }

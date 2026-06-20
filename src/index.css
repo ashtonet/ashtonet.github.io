@@ -54,6 +54,20 @@ body {
   line-height: 1.5;
 }
 
+/* Responsive heading scale */
+h1 {
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 1.02;
+  font-weight: 800;
+  margin: 0 0 0.25rem 0;
+}
+h2 {
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  line-height: 1.06;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
 /* Responsive typography tweaks */
 @media (max-width: 640px) {
   body { font-size: 15px; }
@@ -125,7 +139,14 @@ body {
 /* Navigation refinements inspired by modern templates */
 .nav-bar-inner { display:flex; align-items:center; justify-content:space-between; gap:1.25rem; padding:0.25rem 0.5rem; }
 .site-logo { display:inline-flex; align-items:center; gap:.5rem; font-weight:700; color: #fff; }
-.nav-glass { padding: .5rem 1rem; border-radius: .75rem; background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); }
+.nav-glass {
+  padding: .5rem 1rem;
+  border-radius: .75rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 30px rgba(2,6,23,0.45);
+  position: relative;
+}
 
 /* ensure nav links hidden on small screens (explicit) */
 .nav-links { display: none; }
@@ -321,6 +342,11 @@ body {
   z-index: 0;
   background: radial-gradient(ellipse at 10% 10%, rgba(99,102,241,0.045), transparent 10%), radial-gradient(ellipse at 90% 90%, rgba(59,130,246,0.03), transparent 8%);
   animation: float 8s ease-in-out infinite;
+}
+
+/* make decorative layers non-interactive so UI controls remain clickable */
+.particle-bg, .particles-layer .particle, .mesh, .orb {
+  pointer-events: none;
 }
 
 /* CSS particles layer */

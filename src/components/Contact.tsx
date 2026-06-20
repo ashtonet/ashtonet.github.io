@@ -11,7 +11,7 @@ export default function Contact() {
       transition={{ duration: 0.6 }}
     >
       <div className="container-wide">
-        <h2 className="text-2xl text-white font-semibold">Contact</h2>
+        <h2 className="section-heading">Contact</h2>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
           <a href="mailto:placeholder@example.com" className="glass-card flex items-center gap-3">
             <Mail /> <div className="text-sm">placeholder@example.com</div>

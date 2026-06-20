@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <linearGradient id="g3" x1="0" x2="1">
+      <stop offset="0" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g3)" rx="20"/>
+  <g fill="#ffffff" fill-opacity="0.09">
+    <rect x="100" y="90" width="300" height="180" rx="12"/>
+    <rect x="540" y="150" width="460" height="420" rx="12"/>
+  </g>
+  <text x="100" y="620" font-family="Inter, Arial, sans-serif" font-size="36" fill="#fff" fill-opacity="0.95">Project Three</text>
+</svg>

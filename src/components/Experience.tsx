@@ -14,7 +14,7 @@ export default function Experience() {
       transition={{ duration: 0.6 }}
     >
       <div className="container-wide">
-        <h2 className="text-2xl text-white font-semibold">Experience</h2>
+        <h2 className="section-heading">Experience</h2>
         <div className="mt-6 space-y-4">
           {items.map((it) => (
             <div key={it.role} className="glass-card flex justify-between items-center">

@@ -16,7 +16,7 @@ export default function Education() {
       transition={{ duration: 0.6 }}
     >
       <div className="container-wide">
-        <h2 className="text-2xl text-white font-semibold">Education</h2>
+        <h2 className="section-heading">Education</h2>
         <div className="mt-6 space-y-4">
           {ed.map((e) => (
             <div key={e.school} className="glass-card flex justify-between items-center">

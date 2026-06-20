@@ -10,6 +10,9 @@ module.exports = {
           DEFAULT: '#3b82f6',
           light: '#60a5fa',
         },
+        cyan: '#06b6d4',
+        violet: '#8b5cf6',
+        indigo: '#5b21b6',
         accent: {
           blue: '#60a5fa',
           purple: '#8b5cf6'

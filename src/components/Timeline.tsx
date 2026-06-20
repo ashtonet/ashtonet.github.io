@@ -11,21 +11,17 @@ const events = [
 
 export default function Timeline() {
   return (
-    <motion.section
-      id="timeline"
-      className="py-20"
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
+    <motion.section id="timeline" className="py-20" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
       <div className="container-wide">
-        <h2 className="text-2xl text-white font-semibold">Timeline</h2>
-        <div className="mt-8 border-l border-white/6 pl-6 space-y-8">
-          {events.map((ev) => (
-            <div key={ev.year} className="relative">
-              <div className="absolute -left-3 top-0 w-6 h-6 rounded-full bg-gradient-to-br from-primary to-violet-500" />
-              <div className="text-white font-medium">{ev.title}</div>
-              <div className="text-slate-400 text-sm">{ev.year}</div>
+        <h2 className="section-heading">Timeline</h2>
+        <div className="mt-8 timeline">
+          {events.map((ev, idx) => (
+            <div key={`${ev.year}-${ev.title}-${idx}`} className="timeline-item">
+              <div className="timeline-dot" style={{ transform: `translateY(${idx * 0}px)` }} />
+              <div className="pl-6">
+                <div className="text-white font-medium">{ev.title}</div>
+                <div className="text-slate-400 text-sm">{ev.year}</div>
+              </div>
             </div>
           ))}
         </div>

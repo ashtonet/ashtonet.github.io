@@ -10,27 +10,37 @@ export default function About() {
       transition={{ duration: 0.6 }}
     >
       <div className="container-wide">
-        <h2 className="text-2xl text-white font-semibold">About</h2>
+        <h2 className="section-heading">About</h2>
         <div className="mt-6 grid md:grid-cols-2 gap-6">
-          <div className="glass-card">
-            <p className="text-slate-300">
-              I'm a software engineer based in New Jersey working on large-scale
-              systems at Amazon. I joined Amazon in 2024 and completed my
-              Master's degree in Computer Engineering from the University of
-              Michigan while working full-time.
-            </p>
+            <div className="gradient-border">
+              <div className="inner">
+                <p className="text-slate-300 leading-relaxed">
+                  I'm a software engineer based in New Jersey working on large-scale
+                  systems at Amazon. I joined Amazon in 2024 and completed my
+                  Master's degree in Computer Engineering from the University of
+                  Michigan while working full-time.
+                </p>
+              </div>
+            </div>
+            <div className="gradient-border">
+              <div className="inner">
+                <p className="text-slate-300 leading-relaxed">
+                  My interests span machine learning, computer vision, optimization,
+                  algorithms, robotics, and distributed systems. I'm particularly
+                  interested in bridging theoretical ideas with practical
+                  applications operating at scale.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="badge pill">Machine Learning</span>
+                  <span className="badge pill">Computer Vision</span>
+                  <span className="badge pill">Distributed Systems</span>
+                  <span className="badge pill">Optimization</span>
+                  <span className="badge pill">Robotics</span>
+                  <span className="badge pill">Algorithms</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="glass-card">
-            <p className="text-slate-300">
-              My interests span machine learning, computer vision, optimization,
-              algorithms, robotics, and distributed systems. I'm particularly
-              interested in bridging theoretical ideas with practical
-              applications operating at scale. Outside of work, I enjoy language
-              learning, genealogy, history, and exploring culture and citizenship
-              by descent.
-            </p>
-          </div>
-        </div>
       </div>
     </motion.section>
   )

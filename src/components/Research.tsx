@@ -1,6 +1,15 @@
 import { motion } from 'framer-motion'
 import { Book } from 'lucide-react'
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } },
+}
+const item = {
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0 },
+}
+
 const items = [
   { title: 'Machine Learning', desc: 'Algorithms and systems for learning at scale', icon: Book },
   { title: 'Computer Vision', desc: 'Perception and visual understanding', icon: Book },
@@ -21,12 +30,12 @@ export default function Research() {
       transition={{ duration: 0.6 }}
     >
       <div className="container-wide">
-        <h2 className="text-2xl text-white font-semibold">Research</h2>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 className="section-heading">Research</h2>
+        <motion.div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
           {items.map((it) => {
             const Icon = it.icon
             return (
-              <div key={it.title} className="glass-card flex gap-4 items-center">
+              <motion.div key={it.title} className="glass-card flex gap-4 items-center p-4" variants={item} whileHover={{ scale: 1.02 }}>
                 <div className="p-3 rounded-lg bg-white/5">
                   <Icon size={20} className="text-white" />
                 </div>
@@ -34,10 +43,10 @@ export default function Research() {
                   <div className="text-white font-medium">{it.title}</div>
                   <div className="text-slate-400 text-sm">{it.desc}</div>
                 </div>
-              </div>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   )

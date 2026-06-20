@@ -36,6 +36,9 @@ html, body, #root {
   height: 100%;
 }
 
+/* ensure anchored sections aren't hidden under fixed nav */
+section { scroll-margin-top: 6.25rem; }
+
 body {
   background-color: var(--bg);
   color: #cbd5e1;
@@ -85,6 +88,19 @@ body {
   padding: .5rem .75rem;
   border-radius: .375rem;
   z-index: 80;
+}
+
+/* Screen reader only helper */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 /* subtle noise background overlay for premium texture */
@@ -190,6 +206,14 @@ body {
 .glass-card:focus-within, .glass-card:focus {
   outline: none;
   box-shadow: 0 20px 60px rgba(99,102,241,0.12), 0 0 20px rgba(139,92,246,0.08);
+}
+
+/* stronger visible focus for keyboard users */
+.glass-card:focus-visible {
+  outline: 3px solid rgba(99,102,241,0.16);
+  outline-offset: 4px;
+  transform: translateY(-6px);
+  box-shadow: 0 26px 80px rgba(99,102,241,0.18), 0 0 30px rgba(139,92,246,0.12);
 }
 
 /* Heading gradient */
@@ -311,10 +335,18 @@ body {
   100% { transform: translateY(0) scale(1); }
 }
 
+/* respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .mesh, .orb, .particles-layer .particle, .orb, .mesh, .particle-bg { animation: none !important; }
+  * { transition-duration: 0ms !important; }
+}
+
 .section-heading {
   font-weight: 600;
   color: #f8fafc;
-  font-size: 1.875rem;
+  font-size: 2.125rem;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
   position: relative;
   display: inline-block;
 }
@@ -352,6 +384,19 @@ body {
 /* small helpers */
 .nav-link { color: #cbd5e1; text-decoration: none; transition: color .15s ease; }
 .nav-link:hover { color: #fff; }
+.nav-link.active { position: relative; color: #fff; }
+.nav-link.active:after{
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -8px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#60a5fa,#8b5cf6,#06b6d4);
+  box-shadow: 0 6px 20px rgba(139,92,246,0.12);
+  opacity: 0.95;
+}
 .glass-card { border-radius: .85rem; padding: 1.25rem; }
 
 /* focus visible for keyboard users */

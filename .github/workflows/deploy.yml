@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Debug environment
         run: |
@@ -39,6 +39,8 @@ jobs:
           npm run build
           echo "--- dist contents ---"
           ls -la dist || true
+          echo "--- add SPA fallback (404.html) ---"
+          if [ -f dist/index.html ]; then cp dist/index.html dist/404.html || true; fi
 
       - uses: actions/upload-pages-artifact@v3
         with:

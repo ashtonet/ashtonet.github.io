@@ -112,7 +112,7 @@ export default function Navbar() {
                 key={l}
                 href={`#${id}`}
                 onClick={() => setOpen(false)}
-                className={`nav-link px-3 py-2 rounded-md text-sm ${active === id ? 'text-white bg-white/5 ring-1 ring-indigo-500' : 'text-slate-300 hover:text-white'}`}
+                  className={`nav-link px-3 py-2 rounded-md text-sm ${active === id ? 'active text-white' : 'text-slate-300 hover:text-white'}`}
                 role="menuitem"
                 aria-current={active === id ? 'page' : undefined}
               >
@@ -124,21 +124,48 @@ export default function Navbar() {
 
         {/* mobile */}
         <div className="md:hidden">
-          <button ref={toggleRef} aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen((s) => !s)} className="p-2 rounded-md bg-white/3 relative z-50">
+          <button
+            ref={toggleRef}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-haspopup="dialog"
+            onClick={() => setOpen((s) => !s)}
+            className="p-2 rounded-md bg-white/3 relative z-50"
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-slate-200"><path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
         </div>
       </div>
       <AnimatePresence>
         {open && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="md:hidden fixed inset-0 z-50">
+            <motion.div
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mobile-menu-title"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="md:hidden fixed inset-0 z-50"
+            >
             <div className="mobile-menu-backdrop fixed inset-0" onClick={() => setOpen(false)} aria-hidden />
-            <motion.div initial="hidden" animate="show" exit="hidden" variants={menuList} transition={{ type: 'spring', stiffness: 300, damping: 28 }} className="fixed inset-x-4 top-16 z-50">
+            <motion.div
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+              variants={menuList}
+              transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+              className="fixed inset-x-4 top-16 z-50"
+              role="menu"
+              aria-label="Mobile navigation"
+            >
               <div ref={menuRef} className="glass p-4 space-y-2 rounded-lg shadow-lg">
+                <h2 id="mobile-menu-title" className="sr-only">Navigation menu</h2>
                 {links.map((l, i) => {
                   const id = l.toLowerCase()
                   return (
-                    <motion.a ref={i === 0 ? firstLinkRef : i === links.length - 1 ? lastLinkRef : undefined} key={`m-${l}`} href={`#${id}`} onClick={() => setOpen(false)} variants={menuItem} className={`block nav-link px-3 py-2 rounded-md ${active === id ? 'text-white bg-white/5' : 'text-slate-300 hover:text-white'}`}>
+                    <motion.a ref={i === 0 ? firstLinkRef : i === links.length - 1 ? lastLinkRef : undefined} key={`m-${l}`} href={`#${id}`} onClick={() => setOpen(false)} variants={menuItem} className={`block nav-link px-3 py-2 rounded-md ${active === id ? 'active text-white' : 'text-slate-300 hover:text-white'}`}>
                       {l}
                     </motion.a>
                   )

@@ -21,8 +21,24 @@ jobs:
         with:
           node-version: 22
 
+      - name: Debug environment
+        run: |
+          echo "--- Node / NPM versions ---"
+          node -v || true
+          npm -v || true
+          echo "--- Workspace pwd / listing ---"
+          pwd
+          ls -la
+          echo "--- package.json ---"
+          cat package.json || true
+
       - run: npm ci
-      - run: npm run build
+      - name: Build (verbose)
+        run: |
+          set -x
+          npm run build
+          echo "--- dist contents ---"
+          ls -la dist || true
 
       - uses: actions/upload-pages-artifact@v3
         with:

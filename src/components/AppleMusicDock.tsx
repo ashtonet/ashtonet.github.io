@@ -20,8 +20,8 @@ export default function AppleMusicDock() {
   }
 
   return (
-    <button type="button" onClick={openMusic} className="group fixed bottom-5 left-5 z-[60] flex items-center rounded-full border border-white/15 bg-[#100914]/90 p-1.5 text-white shadow-[0_14px_45px_rgba(250,45,101,.24)] backdrop-blur-xl transition hover:border-rose-300/40 hover:bg-[#170c1c] focus-visible:border-rose-300/50" aria-label="Jump to my Apple Music activity">
-      <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-[#fa2d65] via-[#d72a7d] to-[#8737bd]">
+    <button type="button" onClick={openMusic} className="group fixed bottom-3 left-3 z-[60] flex items-center rounded-full border border-white/15 bg-[#100914]/90 p-1 text-white shadow-[0_14px_45px_rgba(250,45,101,.24)] backdrop-blur-xl transition hover:border-rose-300/40 hover:bg-[#170c1c] focus-visible:border-rose-300/50 sm:bottom-5 sm:left-5 sm:p-1.5" aria-label="Jump to my Apple Music activity">
+      <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-[#fa2d65] via-[#d72a7d] to-[#8737bd] sm:h-11 sm:w-11">
         <span className="absolute inset-0 animate-pulse rounded-full bg-white/10" />
         <Music2 size={20} className="relative" />
       </span>

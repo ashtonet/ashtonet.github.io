@@ -82,22 +82,22 @@ export default function MusicProfile() {
   return (
     <section id="music" className="section" aria-labelledby="music-profile-title">
       <div className="shell">
-        <motion.div initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} className="relative overflow-hidden rounded-[2rem] border border-rose-400/15 bg-[#0b0710] shadow-[0_30px_100px_rgba(0,0,0,.35)]">
+        <motion.div initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} className="relative overflow-hidden rounded-[1.35rem] border border-rose-400/15 bg-[#0b0710] shadow-[0_30px_100px_rgba(0,0,0,.35)] sm:rounded-[2rem]">
           <div className="grid md:grid-cols-[.78fr_1.22fr]">
-            <div className="relative min-h-80 overflow-hidden bg-gradient-to-br from-[#fa2d65] via-[#b82891] to-[#5a32a3] p-8 sm:p-10">
+            <div className="relative min-h-[17rem] overflow-hidden bg-gradient-to-br from-[#fa2d65] via-[#b82891] to-[#5a32a3] p-5 sm:min-h-80 sm:p-10 md:min-h-[29rem]">
               {leadTrack?.image && <img src={leadTrack.image} alt="" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-2xl" />}
               <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/10 to-black/55" />
-              <div className="relative flex h-full flex-col justify-between">
+              <div className="relative flex min-h-[13.5rem] flex-col justify-between sm:min-h-[17rem] md:min-h-[24rem]">
                 <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[.18em] text-white/80"><span className="flex items-center gap-2"><Music2 size={16} /> Apple Music</span>{leadTrack?.nowPlaying && <span className="rounded-full bg-white/15 px-3 py-1.5 text-[.62rem] tracking-[.14em] backdrop-blur">Now playing</span>}</div>
                 <div>
-                  {leadTrack?.image && <a href={leadTrack.url} target="_blank" rel="noreferrer"><img src={leadTrack.image} alt={`${leadTrack.name} artwork`} className="mb-6 h-28 w-28 rounded-2xl object-cover shadow-2xl ring-1 ring-white/20 transition hover:scale-[1.03]" /></a>}
+                  {leadTrack?.image && <a href={leadTrack.url} target="_blank" rel="noreferrer"><img src={leadTrack.image} alt={`${leadTrack.name} artwork`} className="mb-4 h-24 w-24 rounded-xl object-cover shadow-2xl ring-1 ring-white/20 transition hover:scale-[1.03] sm:mb-6 sm:h-28 sm:w-28 sm:rounded-2xl" /></a>}
                   <div className="flex h-10 items-end gap-1.5" aria-hidden="true">{bars.map((height, index) => <span key={index} className="music-bar w-1.5 rounded-full bg-white/85" style={{ height, animationDelay: `${index * -.11}s` }} />)}</div>
                   {leadTrack ? <div className="mt-5"><p className="text-lg font-semibold text-white">{leadTrack.name}</p><p className="mt-1 text-sm text-white/70">{leadTrack.artist}{leadTrack.album ? ` · ${leadTrack.album}` : ''}</p></div> : <p className="mt-5 text-sm text-white/70">A small window into what’s in my headphones.</p>}
                 </div>
               </div>
             </div>
 
-            <div className="relative p-8 sm:p-10 lg:p-12">
+            <div className="relative p-5 py-7 sm:p-10 lg:p-12">
               <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-rose-500/10 blur-3xl" />
               <div className="relative">
                 <div className="eyebrow before:bg-gradient-to-r before:from-rose-400 before:to-fuchsia-500">Listening lately</div>
@@ -105,7 +105,7 @@ export default function MusicProfile() {
 
                 {loading && <div className="mt-10 flex items-center gap-3 text-sm text-slate-500"><LoaderCircle size={17} className="animate-spin" /> Loading recent listens…</div>}
 
-                {!loading && available && data.tracks.length > 0 && <div className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
+                {!loading && available && data.tracks.length > 0 && <div className="mt-6 grid gap-7 sm:mt-8 lg:grid-cols-[1.2fr_.8fr]">
                   <div>
                     <p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-slate-500">Recent tracks</p>
                     <div className="mt-3 space-y-2">{data.tracks.slice(leadTrack?.nowPlaying ? 1 : 0, 4).map((track) => <a key={`${track.name}-${track.artist}`} href={track.url} target="_blank" rel="noreferrer" className="group flex items-center gap-3 rounded-xl p-2 transition hover:bg-white/[.05]">{track.image ? <img src={track.image} alt="" className="h-11 w-11 rounded-lg object-cover" /> : <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/5"><Music2 size={16} /></span>}<span className="min-w-0"><span className="block truncate text-sm font-medium text-slate-200 group-hover:text-white">{track.name}</span><span className="mt-1 block truncate text-xs text-slate-500">{track.artist}</span></span></a>)}</div>
@@ -119,7 +119,7 @@ export default function MusicProfile() {
                 {!loading && (!available || data.tracks.length === 0) && <p className="mt-5 max-w-xl leading-7 text-slate-400">Music follows me through coding sessions, long drives, and everything between. Browse my public profile to see the playlists and music I’m sharing.</p>}
 
                 <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <a href={appleProfileUrl} target="_blank" rel="noreferrer" className="secondary-button"><Headphones size={16} /> Apple Music <ArrowUpRight size={15} /></a>
+                  <a href={appleProfileUrl} target="_blank" rel="noreferrer" className="secondary-button w-full sm:w-auto"><Headphones size={16} /> Apple Music <ArrowUpRight size={15} /></a>
                 </div>
               </div>
             </div>

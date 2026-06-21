@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Code2, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { projectCategories, projects } from '../data/projects'
+import { getProjectSlug, projectCategories, projects } from '../data/projects'
 
 export default function Projects({ featured = false }: { featured?: boolean }) {
   const [category, setCategory] = useState('All')
@@ -31,15 +31,16 @@ export default function Projects({ featured = false }: { featured?: boolean }) {
 
         <motion.div layout className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((project, index) => <motion.article layout key={project.title} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .1 }} transition={{ delay: Math.min(index, 5) * .05 }} className="glass card group flex flex-col">
-            <a href={project.href} target="_blank" rel="noreferrer" className="relative block aspect-[16/9] overflow-hidden border-b border-white/[.06] bg-gradient-to-br from-blue-500/15 via-slate-900 to-violet-500/10" aria-label={`Open ${project.title} project page`}>
+            <a href={`#/projects/${getProjectSlug(project)}`} className="relative block aspect-[16/9] overflow-hidden border-b border-white/[.06] bg-gradient-to-br from-blue-500/15 via-slate-900 to-violet-500/10" aria-label={`Open ${project.title} project page`}>
               {project.image ? <img src={project.image} alt="" loading="lazy" className="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-[1.04] group-hover:opacity-95" /> : <div className="grid h-full place-items-center"><span className="text-5xl font-semibold tracking-[-.08em] text-white/10">VR</span></div>}
               <span className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-slate-950/70 text-slate-300 backdrop-blur"><ArrowUpRight size={16} /></span>
             </a>
             <div className="flex flex-1 flex-col p-5">
-              <div className="flex items-start justify-between gap-4"><div><p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-indigo-400">{project.categories[0]}</p><h3 className="mt-2 text-xl font-semibold tracking-tight text-white">{project.title}</h3></div>{project.date && <span className="text-xs text-slate-600">{project.date}</span>}</div>
+              <div className="flex items-start justify-between gap-4"><div><p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-indigo-400">{project.categories[0]}</p><h3 className="mt-2 text-xl font-semibold tracking-tight text-white"><a href={`#/projects/${getProjectSlug(project)}`} className="transition hover:text-indigo-200">{project.title}</a></h3></div>{project.date && <span className="text-xs text-slate-600">{project.date}</span>}</div>
               <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-400">{project.description}</p>
               <details className="project-details mt-3 text-sm text-slate-400"><summary className="cursor-pointer text-xs font-medium text-indigo-300">Read full description</summary><p className="mt-3 leading-6">{project.description}</p></details>
-              <div className="mt-auto flex flex-wrap gap-2 pt-5">{project.languages.map((language) => <span className="pill" key={language}>{language}</span>)}</div>
+              <div className="flex flex-wrap gap-2 pt-5">{project.languages.map((language) => <span className="pill" key={language}>{language}</span>)}</div>
+              <a href={`#/projects/${getProjectSlug(project)}`} className="mt-auto flex items-center gap-2 pt-5 text-xs font-semibold text-indigo-300 transition hover:text-white">View case study <ArrowUpRight size={14} /></a>
             </div>
           </motion.article>)}
         </motion.div>

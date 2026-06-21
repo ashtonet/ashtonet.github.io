@@ -34,6 +34,9 @@ jobs:
 
       - run: npm ci
       - name: Build (verbose)
+        env:
+          VITE_LASTFM_USERNAME: aethom00
+          VITE_LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
         run: |
           set -x
           npm run build

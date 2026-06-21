@@ -6,6 +6,14 @@ export type Project = {
   href: string
   description: string
   date?: string
+  versions?: {
+    version: string
+    title: string
+    description: string
+    technologies: string[]
+    href?: string
+    linkLabel?: string
+  }[]
 }
 
 const oldSite = 'https://aethom00.github.io'
@@ -113,8 +121,40 @@ export const projects: Project[] = [
   },
   {
     title: 'Personal Website', languages: ['HTML', 'CSS', 'JavaScript'], categories: ['Web'], image: `${oldSite}/assets/img/old_photos/website_final.png`, href: `${oldSite}/website`,
-    description: `The previous generation of this portfolio, developed iteratively after learning HTML, CSS, and JavaScript in University of Michigan courses SI 339 and EECS 201. It evolved through multiple redesigns and remains the source archive for this current site.`
+    description: `A portfolio that has grown through three distinct generations—from my first experiments with front-end development, through a larger project archive, to the modern site you are viewing now. Each version reflects a different stage in how I approach design, storytelling, and engineering on the web.`,
+    versions: [
+      {
+        version: 'Version 1',
+        title: 'The foundation',
+        description: `The original portfolio began as a place to apply what I was learning in the University of Michigan courses SI 339 and EECS 201. Built with foundational HTML, CSS, and JavaScript, it established the structure and visual language of the site while giving me a practical space to learn responsive layouts, accessibility, and the basics of presenting technical work online.`,
+        technologies: ['HTML', 'CSS', 'JavaScript'],
+      },
+      {
+        version: 'Version 2',
+        title: 'The project archive',
+        description: `The second generation expanded the site into a much deeper archive of coursework, experiments, and engineering projects. Individual project pages carried detailed write-ups and imagery, and the site grew organically as new work was completed. That archive preserved the progression of my work and became the content source for the portfolio that followed.`,
+        technologies: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+        href: 'https://aethom00.github.io/mhacks_geoguessr',
+        linkLabel: 'Visit the archived site',
+      },
+      {
+        version: 'Version 3',
+        title: 'The current portfolio',
+        description: `The newest generation rethinks the portfolio as a cohesive, fast, and accessible experience rather than a collection of separate pages. It brings the full project archive into a shared design system, adds native case studies and richer interactive sections, and uses a modern React and TypeScript foundation that is easier to maintain and extend as my work continues to evolve.`,
+        technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
+        href: '#/',
+        linkLabel: 'Explore the current site',
+      },
+    ],
   },
 ]
+
+export const getProjectSlug = (project: Project) => project.title
+  .toLowerCase()
+  .replace(/&/g, 'and')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/(^-|-$)/g, '')
+
+export const getProjectBySlug = (slug: string) => projects.find((project) => getProjectSlug(project) === slug)
 
 export const projectCategories = ['All', 'C/C++', 'Python', 'Web', 'Machine Learning', 'Assembly', 'MATLAB', 'Julia', 'Quantum', 'Algorithms', 'Optimization', 'XR']

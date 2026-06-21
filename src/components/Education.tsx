@@ -1,34 +1,4 @@
 import { motion } from 'framer-motion'
-
-const ed = [
-  { school: "Associate's Degree (completed at age 18)", degree: "Associate's", date: '2021' },
-  { school: "Bachelor's Degree in Computer Engineering (completed at age 21)", degree: "B.S. Computer Engineering", date: '2024' },
-  { school: 'University of Michigan', degree: "M.S. Computer Engineering (completed while working full-time)", date: '2025' },
-]
-
-export default function Education() {
-  return (
-    <motion.section
-      id="education"
-      className="py-20"
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="container-wide">
-        <h2 className="section-heading">Education</h2>
-        <div className="mt-6 space-y-4">
-          {ed.map((e, idx) => (
-            <article key={e.school} tabIndex={0} aria-labelledby={`edu-${idx}-title`} className="glass-card flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-              <div className="flex-1 min-w-0">
-                <div id={`edu-${idx}-title`} className="text-white font-medium truncate">{e.school}</div>
-                <div className="text-slate-400 text-sm">{e.degree}</div>
-              </div>
-              <div className="text-slate-400 text-sm sm:ml-4">{e.date}</div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </motion.section>
-  )
-}
+import { GraduationCap } from 'lucide-react'
+const schools=[{year:'2025',degree:'M.S. Computer Engineering',school:'University of Michigan',note:'Completed while working full-time.'},{year:'2024',degree:'B.S. Computer Engineering',school:'Computer Engineering',note:'Completed at age 21.'},{year:'2021',degree:'Associate Degree',school:'Early college program',note:'Completed at age 18.'}]
+export default function Education(){return <section id="education" className="section border-y border-white/[.05] bg-white/[.012]"><div className="shell"><div className="eyebrow">Education</div><h2 className="section-title">A fast, focused foundation.</h2><div className="mt-10 grid gap-4 md:grid-cols-3">{schools.map((item,i)=><motion.article key={item.degree} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*.08}} className="glass card p-6"><div className="flex items-center justify-between"><div className="icon-box"><GraduationCap size={19}/></div><span className="text-sm font-medium text-slate-500">{item.year}</span></div><h3 className="mt-7 text-lg font-semibold text-white">{item.degree}</h3><p className="mt-2 text-sm text-indigo-300">{item.school}</p><p className="mt-4 text-sm leading-6 text-slate-500">{item.note}</p></motion.article>)}</div></div></section>}

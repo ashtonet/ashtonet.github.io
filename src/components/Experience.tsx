@@ -1,32 +1,3 @@
 import { motion } from 'framer-motion'
-
-const items = [
-  { role: 'Software Development Engineer', org: 'Amazon', date: '2024–Present' },
-]
-
-export default function Experience() {
-  return (
-    <motion.section
-      id="experience"
-      className="py-20"
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="container-wide">
-        <h2 className="section-heading">Experience</h2>
-        <div className="mt-6 space-y-4">
-          {items.map((it, idx) => (
-            <article key={it.role} tabIndex={0} aria-labelledby={`exp-${idx}-title`} className="glass-card flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-              <div className="flex-1 min-w-0">
-                <div id={`exp-${idx}-title`} className="text-white font-medium truncate">{it.role}</div>
-                <div className="text-slate-400 text-sm">{it.org}</div>
-              </div>
-              <div className="text-slate-400 text-sm sm:ml-4">{it.date}</div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </motion.section>
-  )
-}
+import { ArrowUpRight, Building2 } from 'lucide-react'
+export default function Experience() { return <section id="experience" className="section"><div className="shell"><div className="eyebrow">Experience</div><h2 className="section-title">Building for real-world scale.</h2><motion.article initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="glass card mt-10 grid gap-6 p-6 md:grid-cols-[auto_1fr_auto] md:p-8"><div className="icon-box"><Building2 size={20}/></div><div><div className="flex flex-wrap items-center gap-3"><h3 className="text-xl font-semibold text-white">Software Development Engineer</h3><span className="pill">Full-time</span></div><p className="mt-1 text-indigo-300">Amazon</p><p className="mt-5 max-w-2xl leading-7 text-slate-400">Engineering reliable software for high-throughput environments, with a focus on scalable architecture, operational excellence, and thoughtful execution.</p><div className="mt-5 flex flex-wrap gap-2"><span className="pill">Large-scale systems</span><span className="pill">Cloud infrastructure</span><span className="pill">Software design</span></div></div><div className="flex items-start gap-2 text-sm text-slate-500">2024 — Present <ArrowUpRight size={14}/></div></motion.article></div></section> }

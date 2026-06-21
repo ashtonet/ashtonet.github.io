@@ -1,67 +1,36 @@
-import { TypeAnimation } from 'react-type-animation'
 import { motion } from 'framer-motion'
+import { ArrowDown, Code2 as Github, Mail, UserRound as Linkedin } from 'lucide-react'
+import { TypeAnimation } from 'react-type-animation'
 import Particles from './Particles'
 
 export default function Hero() {
   return (
-    <section id="home" className="relative hero-compact">
-      <div className="particle-bg" aria-hidden />
-      <Particles />
-      <div className="container-wide relative z-10 hero-inner">
-        <div className="absolute right-6 top-8 hidden lg:block">
-          <div className="mesh" aria-hidden />
-          <div className="orb orb-1" aria-hidden />
-          <div className="orb orb-2" aria-hidden />
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="max-w-3xl mx-auto px-4 text-center lg:text-left">
-            <h1 className="text-4xl md:text-6xl font-extrabold heading-gradient leading-tight">
-              Ashton Thomas
-            </h1>
-            <div className="mt-2 text-sm hero-sub">Software Development Engineer @ Amazon — Machine Learning & Systems</div>
-            <div className="mt-3 text-base md:text-lg text-slate-300">
-            <TypeAnimation
-              sequence={[
-                'Machine Learning',
-                1200,
-                'Computer Vision',
-                1200,
-                'Algorithms',
-                1200,
-                'Distributed Systems',
-                1200,
-                'Optimization',
-                1200,
-                'Robotics',
-                1200,
-                'Large-Scale Systems',
-                1200,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-              className="accent-gradient"
-            />
+    <section id="home" className="relative flex min-h-screen items-center overflow-hidden pt-24">
+      <div className="mesh-bg"><div className="mesh-grid" /></div><Particles />
+      <div className="shell relative z-10 py-24 text-center">
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
+          <div className="mx-auto mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/5 px-3 py-1.5 text-xs text-emerald-300">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" /> Building at the edge of research &amp; engineering
           </div>
-
-            <div className="mt-8 flex items-center justify-center lg:justify-start gap-4">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <a className="cta-primary inline-flex items-center gap-2 text-sm md:text-base" href="#contact">
-                Contact
-              </a>
-              <a className="glass-card inline-flex items-center gap-2 text-sm md:text-base" href="#projects">
-                Projects
-              </a>
-              <a className="badge" href="#" style={{ background: 'linear-gradient(90deg,#8b5cf6,#06b6d4)', color: 'white' }}>Resume</a>
-            </div>
-            </div>
+          <h1 className="gradient-text mx-auto max-w-5xl text-[clamp(3.2rem,10vw,7.5rem)] font-semibold leading-[.86] tracking-[-.075em]">Ashton Thomas</h1>
+          <p className="mt-7 text-sm font-medium uppercase tracking-[.22em] text-slate-500">Software Development Engineer &middot; Amazon</p>
+          <div className="mt-4 min-h-9 text-xl text-slate-300 md:text-2xl">
+            <TypeAnimation sequence={['Machine learning systems', 1700, 'Computer vision', 1700, 'Distributed infrastructure', 1700, 'Optimization & robotics', 1700]} repeat={Infinity} speed={45} />
+            <span className="text-indigo-400">_</span>
+          </div>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-400 md:text-lg">I design intelligent, reliable systems that turn ambitious ideas into useful software at scale.</p>
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
+            <a href="#/projects" className="primary-button">Explore my work <ArrowDown size={15} /></a>
+            <a href="#/contact" className="secondary-button">Start a conversation</a>
+          </div>
+          <div className="mt-8 flex justify-center gap-2">
+            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="https://github.com/ashtonet" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={18} /></a>
+            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="#/contact" aria-label="LinkedIn"><Linkedin size={18} /></a>
+            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="#/contact" aria-label="Email"><Mail size={18} /></a>
           </div>
         </motion.div>
       </div>
+      <a href="#/about" aria-label="Open about page" className="absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-slate-600 transition hover:text-slate-300"><ArrowDown size={18} /></a>
     </section>
   )
 }

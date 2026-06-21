@@ -105,7 +105,7 @@ export default function MusicProfile() {
 
                 {loading && <div className="mt-10 flex items-center gap-3 text-sm text-slate-500"><LoaderCircle size={17} className="animate-spin" /> Loading recent listens…</div>}
 
-                {leadTrack && <a href={leadTrack.url} target="_blank" rel="noreferrer" className="mt-6 flex items-center gap-3 rounded-2xl border border-white/[.08] bg-white/[.04] p-3 transition active:bg-white/[.08] md:hidden">
+                {leadTrack && <a href={leadTrack.url} target="_blank" rel="noreferrer" className="mt-6 flex items-center gap-3 rounded-2xl border border-white/[.08] bg-white/[.04] p-3 transition active:bg-white/[.08] lg:hidden">
                   {leadTrack.image ? <img src={leadTrack.image} alt="" className="h-14 w-14 shrink-0 rounded-xl object-cover" /> : <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-white/[.06]"><Music2 size={18} /></span>}
                   <span className="min-w-0 flex-1"><span className="block text-[.62rem] font-semibold uppercase tracking-[.14em] text-rose-300">{leadTrack.nowPlaying ? 'Now playing' : 'Most recent'}</span><span className="mt-1 block truncate text-sm font-semibold text-white">{leadTrack.name}</span><span className="mt-0.5 block truncate text-xs text-slate-400">{leadTrack.artist}{leadTrack.album ? ` · ${leadTrack.album}` : ''}</span></span>
                   <ArrowUpRight size={15} className="shrink-0 text-slate-500" />

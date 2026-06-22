@@ -9,9 +9,6 @@ export default function Hero() {
       <div className="mesh-bg"><div className="mesh-grid" /></div><Particles />
       <div className="shell relative z-10 py-24 text-center">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
-          <div className="mx-auto mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/5 px-3 py-1.5 text-xs text-emerald-300">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" /> Building at the edge of research &amp; engineering
-          </div>
           <h1 className="gradient-text mx-auto max-w-5xl text-[clamp(3.2rem,10vw,7.5rem)] font-semibold leading-[.86] tracking-[-.075em]">Ashton Thomas</h1>
           <p className="mt-7 text-sm font-medium uppercase tracking-[.22em] text-slate-500">Software Development Engineer &middot; Amazon</p>
           <div className="mt-4 min-h-9 text-xl text-slate-300 md:text-2xl">

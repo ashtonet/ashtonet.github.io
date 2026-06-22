@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--site-bg); color: #e5e7eb; font-synthesis: none; --site-bg:#030712; --panel:15,23,42; --panel-deep:8,12,24; --accent:#818cf8; --accent-a:#3b82f6; --accent-b:#a855f7; --accent-rgb:99,102,241; }
-:root[data-theme="aurora"] { --site-bg:#020b0d; --panel:6,30,29; --panel-deep:2,18,20; --accent:#5eead4; --accent-a:#10b981; --accent-b:#22d3ee; --accent-rgb:16,185,129; }
-:root[data-theme="ember"] { --site-bg:#100505; --panel:38,15,18; --panel-deep:24,7,12; --accent:#fb923c; --accent-a:#f97316; --accent-b:#e11d48; --accent-rgb:244,63,94; }
-:root[data-theme="ocean"] { --site-bg:#020916; --panel:7,24,46; --panel-deep:3,14,31; --accent:#67e8f9; --accent-a:#06b6d4; --accent-b:#2563eb; --accent-rgb:6,182,212; }
+:root[data-theme="spring"] { --site-bg:#07100d; --panel:12,35,29; --panel-deep:7,22,20; --accent:#6ee7b7; --accent-a:#10b981; --accent-b:#c084fc; --accent-rgb:52,211,153; }
+:root[data-theme="summer"] { --site-bg:#06101a; --panel:9,32,48; --panel-deep:5,20,34; --accent:#67e8f9; --accent-a:#06b6d4; --accent-b:#f59e0b; --accent-rgb:34,211,238; }
+:root[data-theme="autumn"] { --site-bg:#130906; --panel:43,24,16; --panel-deep:27,13,10; --accent:#fbbf24; --accent-a:#f59e0b; --accent-b:#be123c; --accent-rgb:245,158,11; }
+:root[data-theme="winter"] { --site-bg:#050914; --panel:15,25,45; --panel-deep:8,14,30; --accent:#bae6fd; --accent-a:#38bdf8; --accent-b:#818cf8; --accent-rgb:125,211,252; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--site-bg); }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--site-bg); overflow-x: hidden; }
@@ -31,8 +32,8 @@ section { scroll-margin-top: 6rem; }
 .mesh-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .mesh-bg::before { content: ""; position: absolute; inset: -40%; background: radial-gradient(circle at 50% 45%, rgba(59,130,246,.16), transparent 20%), radial-gradient(circle at 64% 38%, rgba(139,92,246,.14), transparent 18%), radial-gradient(circle at 35% 58%, rgba(14,165,233,.08), transparent 17%); filter: blur(30px); animation: mesh-drift 14s ease-in-out infinite alternate; }
 .mesh-grid { position: absolute; inset: 0; opacity: .16; background-image: linear-gradient(rgba(148,163,184,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,.13) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse 60% 45% at 50% 35%, black, transparent); }
-.particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #93c5fd; box-shadow: 0 0 12px #60a5fa; animation: float 7s ease-in-out infinite; }
-.particle:nth-child(2n) { background: #c4b5fd; animation-delay: -2.5s; animation-duration: 9s; }
+.particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent-a); animation: float 7s ease-in-out infinite; }
+.particle:nth-child(2n) { background: var(--accent-b); animation-delay: -2.5s; animation-duration: 9s; }
 .particle:nth-child(3n) { width: 2px; height: 2px; animation-delay: -5s; }
 @keyframes mesh-drift { to { transform: translate3d(5%, 3%, 0) rotate(4deg) scale(1.08); } }
 @keyframes float { 50% { transform: translateY(-24px); opacity: .35; } }
@@ -44,6 +45,7 @@ section { scroll-margin-top: 6rem; }
 .nav-link.active::after { content: ""; position: absolute; left: .65rem; right: .65rem; bottom: .15rem; height: 1px; background: linear-gradient(90deg,#60a5fa,#a78bfa); }
 .primary-button, .secondary-button { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 2.85rem; padding: 0 1.1rem; border-radius: .75rem; font-size: .88rem; font-weight: 600; transition: transform .2s, box-shadow .2s, border-color .2s; }
 .primary-button { background: linear-gradient(110deg,var(--accent-a),var(--accent-b)); color: white; box-shadow: 0 12px 32px rgba(var(--accent-rgb),.22); }
+:root[data-theme="summer"] .primary-button { background: linear-gradient(110deg, #38bdf8, #facc15); box-shadow: 0 12px 34px rgba(250,204,21,.16); }
 .secondary-button { border: 1px solid rgba(148,163,184,.17); background: rgba(15,23,42,.55); color: #dbeafe; }
 .primary-button:hover, .secondary-button:hover { transform: translateY(-2px); border-color: rgba(129,140,248,.4); box-shadow: 0 16px 40px rgba(79,70,229,.22); }
 .timeline-line { background: linear-gradient(to bottom, var(--accent-a), var(--accent-b) 75%, transparent); }

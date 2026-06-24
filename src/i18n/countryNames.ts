@@ -27,6 +27,11 @@ const custom: Record<Exclude<Language, 'en'>, Record<string, string>> = {
     'Cyprus UN Buffer Zone': 'Strefa buforowa ONZ na Cyprze', 'Akrotiri U.K. Cyprus Territory': 'Brytyjskie terytorium Akrotiri',
     'Dhekelia U.K. Cyprus Territory': 'Brytyjskie terytorium Dhekelia',
   },
+  es: {
+    Catalonia: 'Cataluña', 'Turkish Republic of Northern Cyprus': 'República Turca del Norte de Chipre',
+    'Cyprus UN Buffer Zone': 'Zona de amortiguación de la ONU en Chipre', 'Akrotiri U.K. Cyprus Territory': 'Territorio británico de Akrotiri',
+    'Dhekelia U.K. Cyprus Territory': 'Territorio británico de Dhekelia',
+  },
 }
 
 export function getLocalizedCountryName(name: string, language: Language) {

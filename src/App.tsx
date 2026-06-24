@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
+import Volunteering from './components/Volunteering'
 import Education from './components/Education'
 import Projects from './components/Projects'
 import Research from './components/Research'
@@ -18,7 +19,7 @@ import { getProjectBySlug } from './data/projects'
 
 const Travel = lazy(() => import('./components/Travel'))
 
-const pages = ['home', 'about', 'experience', 'education', 'projects', 'research', 'timeline', 'travel', 'contact'] as const
+const pages = ['home', 'about', 'experience', 'volunteering', 'education', 'projects', 'research', 'timeline', 'travel', 'contact'] as const
 type Page = (typeof pages)[number]
 
 function readRoute(): { page: Page, projectSlug?: string } {
@@ -36,13 +37,14 @@ function PageContent({ page }: { page: Page }) {
   switch (page) {
     case 'about': return <><About /><Timeline /></>
     case 'experience': return <Experience />
+    case 'volunteering': return <Volunteering />
     case 'education': return <><Education /><Timeline /></>
     case 'projects': return <Projects />
     case 'research': return <Research />
     case 'timeline': return <Timeline />
     case 'travel': return <Suspense fallback={<div className="grid min-h-[70vh] place-items-center text-sm text-slate-500">Loading travel atlas…</div>}><Travel /></Suspense>
     case 'contact': return <><MusicProfile /><Contact /></>
-    default: return <><Hero /><About /><Projects featured /><Research /><MusicProfile /><Contact /></>
+    default: return <><Hero /><About /><Projects featured /><Research /><Volunteering /><MusicProfile /><Contact /></>
   }
 }
 

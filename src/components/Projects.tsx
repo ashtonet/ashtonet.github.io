@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Code2, Search } from 'lucide-react'
+import { ArrowUpRight, Check, Code2, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { getProjectSlug, projectCategories, projects } from '../data/projects'
 
@@ -7,7 +7,7 @@ export default function Projects({ featured = false }: { featured?: boolean }) {
   const [category, setCategory] = useState('All')
   const [query, setQuery] = useState('')
   const visibleProjects = useMemo(() => {
-    if (featured) return projects.slice(0, 6)
+    if (featured) return projects.slice(0, 3)
     const search = query.trim().toLowerCase()
     return projects.filter((project) => {
       const matchesCategory = category === 'All' || project.categories.includes(category)
@@ -26,7 +26,7 @@ export default function Projects({ featured = false }: { featured?: boolean }) {
 
         {!featured && <div className="mt-9 space-y-4">
           <label className="glass flex max-w-md items-center gap-3 rounded-xl px-4"><Search size={17} className="text-slate-500" /><span className="sr-only">Search projects</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search projects or technologies" className="h-12 w-full bg-transparent text-sm text-white placeholder:text-slate-600 focus:outline-none" /></label>
-          <div className="flex flex-wrap gap-2" aria-label="Filter projects by category">{projectCategories.map((item) => <button type="button" key={item} onClick={() => setCategory(item)} aria-pressed={category === item} className={`pill cursor-pointer transition ${category === item ? 'border-indigo-400/50 bg-indigo-500/15 text-indigo-200' : 'hover:border-white/25 hover:text-white'}`}>{item}</button>)}</div>
+          <div className="flex flex-wrap gap-2" aria-label="Filter projects by category">{projectCategories.map((item) => <button type="button" key={item} onClick={() => setCategory(item)} aria-pressed={category === item} className={`pill project-filter cursor-pointer transition ${category === item ? 'active' : 'hover:border-white/25 hover:text-white'}`}>{category === item && <Check size={12} strokeWidth={2.5} />}{item}</button>)}</div>
         </div>}
 
         <motion.div layout className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

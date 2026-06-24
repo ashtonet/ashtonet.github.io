@@ -1,7 +1,7 @@
 import { projects } from '../data/projects'
 import type { Language } from './LanguageContext'
 
-type SupportedLanguage = Exclude<Language, 'en'>
+type SupportedLanguage = Exclude<Language, 'en' | 'es'>
 
 const descriptions: Record<SupportedLanguage, Record<string, string>> = {
   de: {

@@ -8,6 +8,7 @@ const links = [
   { key: 'home', page: 'home', href: '#/' },
   { key: 'about', page: 'about', href: '#/about' },
   { key: 'experience', page: 'experience', href: '#/experience' },
+  { key: 'volunteering', page: 'volunteering', href: '#/volunteering' },
   { key: 'education', page: 'education', href: '#/education' },
   { key: 'projects', page: 'projects', href: '#/projects' },
   { key: 'research', page: 'research', href: '#/research' },
@@ -21,6 +22,7 @@ const languages: { code: Language, short: string, label: string }[] = [
   { code: 'de', short: 'DE', label: 'Deutsch' },
   { code: 'fr', short: 'FR', label: 'Français' },
   { code: 'pl', short: 'PL', label: 'Polski' },
+  { code: 'es', short: 'ES', label: 'Español' },
 ]
 
 type NavbarProps = {
@@ -58,7 +60,7 @@ export default function Navbar({ activePage, onNavigate }: NavbarProps) {
         {open && <motion.div id="mobile-navigation" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="shell glass mt-2 grid rounded-2xl p-3 lg:hidden">
           {links.map((link) => <a key={link.page} href={link.href} onClick={(event) => { event.preventDefault(); onNavigate(link.page); setOpen(false) }} aria-current={activePage === link.page ? 'page' : undefined} className={`nav-link rounded-lg px-4 py-3 ${activePage === link.page ? 'active bg-white/5' : ''}`}>{t(link.key)}</a>)}
           <div className="mt-2 border-t border-white/[.06] px-3 pt-3"><div className="mb-2 flex items-center gap-2 text-[.65rem] uppercase tracking-[.14em] text-slate-600"><Palette size={13} />Theme</div><div className="grid grid-cols-3 gap-2">{themes.map((item) => <button type="button" key={item.id} onClick={() => setTheme(item.id)} title={item.label} aria-label={`${item.label} theme`} aria-pressed={theme === item.id} className={`grid h-9 place-items-center rounded-lg border transition ${theme === item.id ? 'border-white/50 bg-white/10' : 'border-white/10'}`}><span className="h-3.5 w-3.5 rounded-full" style={{ background: `linear-gradient(135deg, ${item.colors[0]}, ${item.colors[1]})` }} /></button>)}</div></div>
-          <div className="mt-2 border-t border-white/[.06] px-3 pt-3"><div className="mb-2 flex items-center gap-2 text-[.65rem] uppercase tracking-[.14em] text-slate-600"><Globe2 size={13} />{t('language')}</div><div className="grid grid-cols-4 gap-2">{languages.map((item) => <button type="button" key={item.code} onClick={() => setLanguage(item.code)} className={`rounded-lg border px-2 py-2 text-xs transition ${language === item.code ? 'border-indigo-400/50 bg-indigo-500/15 text-white' : 'border-white/10 text-slate-500 hover:text-white'}`} aria-pressed={language === item.code}>{item.short}</button>)}</div></div>
+          <div className="mt-2 border-t border-white/[.06] px-3 pt-3"><div className="mb-2 flex items-center gap-2 text-[.65rem] uppercase tracking-[.14em] text-slate-600"><Globe2 size={13} />{t('language')}</div><div className="grid grid-cols-5 gap-2">{languages.map((item) => <button type="button" key={item.code} onClick={() => setLanguage(item.code)} className={`rounded-lg border px-2 py-2 text-xs transition ${language === item.code ? 'border-indigo-400/50 bg-indigo-500/15 text-white' : 'border-white/10 text-slate-500 hover:text-white'}`} aria-pressed={language === item.code}>{item.short}</button>)}</div></div>
         </motion.div>}
       </AnimatePresence>
     </motion.header>

@@ -4,6 +4,7 @@ import { sitePhrases } from './sitePhrases'
 import { projectPhrases } from './projectPhrases'
 import { sectionPhrases } from './sectionPhrases'
 import { getLocalizedCountryName } from './countryNames'
+import { spanishPhrases } from './spanishPhrases'
 
 const originals = new WeakMap<Text, string>()
 const lastApplied = new WeakMap<Text, string>()
@@ -13,12 +14,12 @@ export default function SiteTranslator() {
 
   useEffect(() => {
     const translateTree = () => {
-      const map: Record<string, string> = language === 'en' ? {} : { ...sitePhrases[language], ...projectPhrases[language], ...sectionPhrases[language] }
+      const map: Record<string, string> = language === 'en' ? {} : language === 'es' ? spanishPhrases : { ...sitePhrases[language], ...projectPhrases[language], ...sectionPhrases[language] }
       const translate = (source: string) => {
         if (language === 'en') return source
         const locationSearch = source.match(/^Search (\d+) locations$/)
         if (locationSearch) {
-          const labels = { de: `${locationSearch[1]} Orte durchsuchen`, fr: `Rechercher parmi ${locationSearch[1]} lieux`, pl: `Szukaj wśród ${locationSearch[1]} miejsc` }
+          const labels = { de: `${locationSearch[1]} Orte durchsuchen`, fr: `Rechercher parmi ${locationSearch[1]} lieux`, pl: `Szukaj wśród ${locationSearch[1]} miejsc`, es: `Buscar entre ${locationSearch[1]} lugares` }
           return labels[language]
         }
         return map[source] ?? getLocalizedCountryName(source, language) ?? source
@@ -27,7 +28,7 @@ export default function SiteTranslator() {
       let node = walker.nextNode() as Text | null
       while (node) {
         const parent = node.parentElement
-        if (parent && !['SCRIPT', 'STYLE', 'OPTION'].includes(parent.tagName)) {
+        if (parent && !['SCRIPT', 'STYLE'].includes(parent.tagName)) {
           const prior = originals.get(node)
           const applied = lastApplied.get(node)
           // Preserve the original English across language switches. If React changes

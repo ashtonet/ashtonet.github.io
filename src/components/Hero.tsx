@@ -21,7 +21,7 @@ export default function Hero() {
             <a href="#/contact" className="secondary-button">Start a conversation</a>
           </div>
           <div className="mt-8 flex justify-center gap-2">
-            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="https://github.com/ashtonet" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={18} /></a>
+            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="https://github.com/aethom00" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={18} /></a>
             <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="#/contact" aria-label="LinkedIn"><Linkedin size={18} /></a>
             <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="#/contact" aria-label="Email"><Mail size={18} /></a>
           </div>

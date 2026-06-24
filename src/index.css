@@ -2,7 +2,7 @@
 
 :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--site-bg); color: #e5e7eb; font-synthesis: none; --site-bg:#030712; --panel:15,23,42; --panel-deep:8,12,24; --accent:#818cf8; --accent-a:#3b82f6; --accent-b:#a855f7; --accent-rgb:99,102,241; }
 :root[data-theme="spring"] { --site-bg:#07100d; --panel:12,35,29; --panel-deep:7,22,20; --accent:#6ee7b7; --accent-a:#10b981; --accent-b:#c084fc; --accent-rgb:52,211,153; }
-:root[data-theme="summer"] { --site-bg:#06101a; --panel:9,32,48; --panel-deep:5,20,34; --accent:#67e8f9; --accent-a:#06b6d4; --accent-b:#f59e0b; --accent-rgb:34,211,238; }
+:root[data-theme="summer"] { --site-bg:#0b1512; --panel:20,38,29; --panel-deep:11,25,20; --accent:#fde68a; --accent-a:#14b8a6; --accent-b:#eab308; --accent-rgb:234,179,8; }
 :root[data-theme="autumn"] { --site-bg:#130906; --panel:43,24,16; --panel-deep:27,13,10; --accent:#fbbf24; --accent-a:#f59e0b; --accent-b:#be123c; --accent-rgb:245,158,11; }
 :root[data-theme="winter"] { --site-bg:#050914; --panel:15,25,45; --panel-deep:8,14,30; --accent:#bae6fd; --accent-a:#38bdf8; --accent-b:#818cf8; --accent-rgb:125,211,252; }
 * { box-sizing: border-box; }
@@ -27,10 +27,19 @@ section { scroll-margin-top: 6rem; }
 .card:hover::before { opacity: 1; }
 .gradient-text { background: linear-gradient(110deg, #f8fafc 10%, #93c5fd 48%, #c4b5fd 78%); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .pill { display: inline-flex; align-items: center; border: 1px solid rgba(148,163,184,.13); border-radius: 999px; padding: .38rem .7rem; background: rgba(15,23,42,.56); color: #aebbd0; font-size: .75rem; }
+.project-filter { gap: .3rem; }
+.project-filter.active { color: color-mix(in srgb, var(--accent) 76%, white); border-color: rgba(var(--accent-rgb),.58); background: rgba(var(--accent-rgb),.17); box-shadow: 0 0 0 1px rgba(var(--accent-rgb),.08), 0 7px 22px rgba(var(--accent-rgb),.14); }
+.experience-current { border-color: rgba(var(--accent-rgb),.25); }
+.experience-live { display: inline-flex; align-items: center; gap: .4rem; color: var(--accent); font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.experience-live i { width: .4rem; height: .4rem; border-radius: 999px; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: music-pulse 1.4s ease-in-out infinite alternate; }
 .icon-box { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex: none; border-radius: .85rem; color: var(--accent); border: 1px solid rgba(var(--accent-rgb),.22); background: linear-gradient(145deg, rgba(var(--accent-rgb),.16), rgba(var(--accent-rgb),.06)); }
+.about-photo-wrap { display: flex; justify-content: center; }
+.about-portrait { position: relative; width: min(100%, 22rem); aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid rgba(var(--accent-rgb),.28); border-radius: 1.5rem; background: rgba(var(--panel-deep),.7); box-shadow: 0 24px 70px rgba(0,0,0,.3), 0 0 0 6px rgba(var(--accent-rgb),.035); }
+.about-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 54%; transform: scale(1.04); transform-origin: 50% 54%; transition: transform .45s ease; }
+.about-portrait:hover img { transform: scale(1.08); }
 
 .mesh-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.mesh-bg::before { content: ""; position: absolute; inset: -40%; background: radial-gradient(circle at 50% 45%, rgba(59,130,246,.16), transparent 20%), radial-gradient(circle at 64% 38%, rgba(139,92,246,.14), transparent 18%), radial-gradient(circle at 35% 58%, rgba(14,165,233,.08), transparent 17%); filter: blur(30px); animation: mesh-drift 14s ease-in-out infinite alternate; }
+.mesh-bg::before { content: ""; position: absolute; inset: -40%; background: radial-gradient(circle at 50% 45%, rgba(var(--accent-rgb),.16), transparent 20%), radial-gradient(circle at 64% 38%, color-mix(in srgb, var(--accent-b) 14%, transparent), transparent 18%), radial-gradient(circle at 35% 58%, color-mix(in srgb, var(--accent-a) 9%, transparent), transparent 17%); filter: blur(30px); animation: mesh-drift 14s ease-in-out infinite alternate; }
 .mesh-grid { position: absolute; inset: 0; opacity: .16; background-image: linear-gradient(rgba(148,163,184,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,.13) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse 60% 45% at 50% 35%, black, transparent); }
 .particle { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent-a); animation: float 7s ease-in-out infinite; }
 .particle:nth-child(2n) { background: var(--accent-b); animation-delay: -2.5s; animation-duration: 9s; }
@@ -45,7 +54,7 @@ section { scroll-margin-top: 6rem; }
 .nav-link.active::after { content: ""; position: absolute; left: .65rem; right: .65rem; bottom: .15rem; height: 1px; background: linear-gradient(90deg,#60a5fa,#a78bfa); }
 .primary-button, .secondary-button { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 2.85rem; padding: 0 1.1rem; border-radius: .75rem; font-size: .88rem; font-weight: 600; transition: transform .2s, box-shadow .2s, border-color .2s; }
 .primary-button { background: linear-gradient(110deg,var(--accent-a),var(--accent-b)); color: white; box-shadow: 0 12px 32px rgba(var(--accent-rgb),.22); }
-:root[data-theme="summer"] .primary-button { background: linear-gradient(110deg, #38bdf8, #facc15); box-shadow: 0 12px 34px rgba(250,204,21,.16); }
+:root[data-theme="summer"] .primary-button { background: linear-gradient(110deg, #14b8a6, #eab308); box-shadow: 0 12px 34px rgba(234,179,8,.17); }
 .secondary-button { border: 1px solid rgba(148,163,184,.17); background: rgba(15,23,42,.55); color: #dbeafe; }
 .primary-button:hover, .secondary-button:hover { transform: translateY(-2px); border-color: rgba(129,140,248,.4); box-shadow: 0 16px 40px rgba(79,70,229,.22); }
 .timeline-line { background: linear-gradient(to bottom, var(--accent-a), var(--accent-b) 75%, transparent); }

@@ -2,7 +2,7 @@ import type { Language } from './LanguageContext'
 
 type PhraseMap = Record<string, string>
 
-export const sitePhrases: Record<Exclude<Language, 'en'>, PhraseMap> = {
+export const sitePhrases: Record<Exclude<Language, 'en' | 'es'>, PhraseMap> = {
   de: {
     'Building at the edge of research & engineering': 'An der Schnittstelle von Forschung und Technik',
     'Software Development Engineer · Amazon': 'Softwareentwicklungsingenieur · Amazon',

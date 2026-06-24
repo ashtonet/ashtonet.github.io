@@ -14,6 +14,7 @@ import { detailedIndonesiaShape } from '../data/detailedIndonesia'
 import { detailedIslandCountryShapes } from '../data/detailedIslandCountries'
 import { microDetailedCountryShapes } from '../data/detailedMicroCountries'
 import { southeastAsiaCoreShapes } from '../data/detailedSoutheastAsiaCore'
+import { detailedSaintMartinShapes } from '../data/detailedSaintMartin'
 import { detailedUnitedStatesShape } from '../data/detailedUnitedStates'
 import { visitedCountryShapes } from '../data/visitedCountries'
 
@@ -63,6 +64,7 @@ const detailedCountryFeatures = [...new Map([
   ...detailedUnitedStatesShape.features,
   ...detailedCanadaShape.features,
   ...correctedCountryShapes.features,
+  ...detailedSaintMartinShapes.features,
 ].map((country) => [country.properties.name, country])).values()]
 const detailedCountryNames = new Set(detailedCountryFeatures.map((country) => country.properties.name))
 const renderedCountryShapes = {

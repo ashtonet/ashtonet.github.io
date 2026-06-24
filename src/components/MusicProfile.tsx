@@ -25,17 +25,37 @@ function appleSearchUrl(term: string) {
   return `https://music.apple.com/us/search?term=${encodeURIComponent(term)}`
 }
 
+function normalize(value: string) {
+  return value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, ' ').trim()
+}
+
+function artistTokens(value: string) {
+  return normalize(value).split(' ').filter((part) => part.length > 2 && !['and', 'feat', 'ft', 'the'].includes(part))
+}
+
+function chooseAppleResult(results: { artistName: string, trackName: string }[], track: Track) {
+  const targetTrack = normalize(track.name)
+  const targetArtists = artistTokens(track.artist)
+  return results.find((result) => {
+    const appleTrack = normalize(result.trackName)
+    const appleArtists = artistTokens(result.artistName)
+    const trackMatches = appleTrack === targetTrack
+    const artistMatches = targetArtists.some((part) => appleArtists.includes(part))
+    return trackMatches && artistMatches
+  })
+}
+
 async function findOnAppleMusic(track: Track): Promise<Track> {
   try {
     const term = encodeURIComponent(`${track.artist} ${track.name}`)
-    const response = await fetch(`https://itunes.apple.com/search?term=${term}&entity=song&limit=1`)
+    const response = await fetch(`https://itunes.apple.com/search?term=${term}&media=music&entity=song&country=US&limit=8`)
     if (!response.ok) return track
-    const result = (await response.json()).results?.[0]
+    const result = chooseAppleResult((await response.json()).results ?? [], track)
     if (!result) return track
     return {
       ...track,
-      image: result.artworkUrl100?.replace('100x100bb', '600x600bb') || track.image,
-      url: result.trackViewUrl || appleSearchUrl(`${track.artist} ${track.name}`),
+      image: 'artworkUrl100' in result && typeof result.artworkUrl100 === 'string' ? result.artworkUrl100.replace('100x100bb', '600x600bb') : track.image,
+      url: 'trackViewUrl' in result && typeof result.trackViewUrl === 'string' ? result.trackViewUrl : appleSearchUrl(`${track.artist} ${track.name}`),
     }
   } catch {
     return track
@@ -90,7 +110,10 @@ export default function MusicProfile() {
               <div className="relative flex min-h-[13.5rem] flex-col justify-between sm:min-h-[17rem] md:min-h-[24rem]">
                 <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[.18em] text-white/80"><span className="flex items-center gap-2"><Music2 size={16} /> Apple Music</span>{leadTrack?.nowPlaying && <span className="rounded-full bg-white/15 px-3 py-1.5 text-[.62rem] tracking-[.14em] backdrop-blur">Now playing</span>}</div>
                 <div>
-                  {leadTrack?.image && <a href={leadTrack.url} target="_blank" rel="noreferrer"><img src={leadTrack.image} alt={`${leadTrack.name} artwork`} className="mb-4 h-24 w-24 rounded-xl object-cover shadow-2xl ring-1 ring-white/20 transition hover:scale-[1.03] sm:mb-6 sm:h-28 sm:w-28 sm:rounded-2xl" /></a>}
+                  {leadTrack?.image && <div className="relative mb-4 w-fit sm:mb-6">
+                    <a href={leadTrack.url} target="_blank" rel="noreferrer"><img src={leadTrack.image} alt={`${leadTrack.name} artwork`} className="h-24 w-24 rounded-xl object-cover shadow-2xl ring-1 ring-white/20 transition hover:scale-[1.03] sm:h-28 sm:w-28 sm:rounded-2xl" /></a>
+                    <a href={leadTrack.url} target="_blank" rel="noreferrer" aria-label={`Open ${leadTrack.name} on Apple Music`} className="absolute -bottom-2 -right-2 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-black/70 text-white shadow-xl backdrop-blur transition hover:scale-105 hover:bg-black/85"><ArrowUpRight size={16} /></a>
+                  </div>}
                   <div className="flex h-10 items-end gap-1.5" aria-hidden="true">{bars.map((height, index) => <span key={index} className="music-bar w-1.5 rounded-full bg-white/85" style={{ height, animationDelay: `${index * -.11}s` }} />)}</div>
                   {leadTrack ? <div className="mt-5"><p className="text-lg font-semibold text-white">{leadTrack.name}</p><p className="mt-1 text-sm text-white/70">{leadTrack.artist}{leadTrack.album ? ` · ${leadTrack.album}` : ''}</p></div> : <p className="mt-5 text-sm text-white/70">A small window into what’s in my headphones.</p>}
                 </div>
@@ -105,16 +128,24 @@ export default function MusicProfile() {
 
                 {loading && <div className="mt-10 flex items-center gap-3 text-sm text-slate-500"><LoaderCircle size={17} className="animate-spin" /> Loading recent listens…</div>}
 
-                {leadTrack && <a href={leadTrack.url} target="_blank" rel="noreferrer" className="mt-6 flex items-center gap-3 rounded-2xl border border-white/[.08] bg-white/[.04] p-3 transition active:bg-white/[.08] lg:hidden">
-                  {leadTrack.image ? <img src={leadTrack.image} alt="" className="h-14 w-14 shrink-0 rounded-xl object-cover" /> : <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-white/[.06]"><Music2 size={18} /></span>}
+                {leadTrack && <div className="mt-6 flex items-center gap-3 rounded-2xl border border-white/[.08] bg-white/[.04] p-3 transition active:bg-white/[.08] lg:hidden">
+                  <a href={leadTrack.url} target="_blank" rel="noreferrer" className="contents">
+                    {leadTrack.image ? <img src={leadTrack.image} alt="" className="h-14 w-14 shrink-0 rounded-xl object-cover" /> : <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-white/[.06]"><Music2 size={18} /></span>}
+                  </a>
                   <span className="min-w-0 flex-1"><span className="block text-[.62rem] font-semibold uppercase tracking-[.14em] text-rose-300">{leadTrack.nowPlaying ? 'Now playing' : 'Most recent'}</span><span className="mt-1 block truncate text-sm font-semibold text-white">{leadTrack.name}</span><span className="mt-0.5 block truncate text-xs text-slate-400">{leadTrack.artist}{leadTrack.album ? ` · ${leadTrack.album}` : ''}</span></span>
-                  <ArrowUpRight size={15} className="shrink-0 text-slate-500" />
-                </a>}
+                  <a href={leadTrack.url} target="_blank" rel="noreferrer" aria-label={`Open ${leadTrack.name} on Apple Music`} className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[.06] text-white transition hover:bg-white/[.1]"><ArrowUpRight size={15} /></a>
+                </div>}
 
                 {!loading && available && data.tracks.length > 0 && <div className="mt-6 grid gap-7 sm:mt-8 lg:grid-cols-[1.2fr_.8fr]">
                   <div>
                     <p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-slate-500">Recent tracks</p>
-                    <div className="mt-3 space-y-2">{data.tracks.slice(leadTrack?.nowPlaying ? 1 : 0, 4).map((track) => <a key={`${track.name}-${track.artist}`} href={track.url} target="_blank" rel="noreferrer" className="group flex items-center gap-3 rounded-xl p-2 transition hover:bg-white/[.05]">{track.image ? <img src={track.image} alt="" className="h-11 w-11 rounded-lg object-cover" /> : <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/5"><Music2 size={16} /></span>}<span className="min-w-0"><span className="block truncate text-sm font-medium text-slate-200 group-hover:text-white">{track.name}</span><span className="mt-1 block truncate text-xs text-slate-500">{track.artist}</span></span></a>)}</div>
+                    <div className="mt-3 space-y-2">{data.tracks.slice(leadTrack?.nowPlaying ? 1 : 0, 4).map((track) => <div key={`${track.name}-${track.artist}`} className="group flex items-center gap-3 rounded-xl p-2 transition hover:bg-white/[.05]">
+                      <a href={track.url} target="_blank" rel="noreferrer" className="contents">
+                        {track.image ? <img src={track.image} alt="" className="h-11 w-11 rounded-lg object-cover" /> : <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/5"><Music2 size={16} /></span>}
+                        <span className="min-w-0 flex-1"><span className="block truncate text-sm font-medium text-slate-200 group-hover:text-white">{track.name}</span><span className="mt-1 block truncate text-xs text-slate-500">{track.artist}</span></span>
+                      </a>
+                      <a href={track.url} target="_blank" rel="noreferrer" aria-label={`Open ${track.name} on Apple Music`} className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[.04] text-slate-300 opacity-100 transition hover:bg-white/[.09] hover:text-white lg:opacity-0 lg:group-hover:opacity-100"><ArrowUpRight size={13} /></a>
+                    </div>)}</div>
                   </div>
                   <div>
                     <p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-slate-500">Top artists · 7 days</p>

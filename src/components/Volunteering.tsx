@@ -8,7 +8,7 @@ const volunteering = [
     date: 'Oct 2025 — Present',
     cause: 'Politics',
     description: 'Volunteer work with The Kosciuszko Foundation, supporting civic and cultural engagement through an organization dedicated to Polish-American connection and public life.',
-    link: 'https://www.thekf.org/',
+    link: 'https://thekf.org',
     tags: ['Civic engagement', 'Polish-American community', 'Public service'],
   },
   {
@@ -17,6 +17,7 @@ const volunteering = [
     date: 'Aug 2021 — May 2022',
     cause: 'Service',
     description: 'Contributed to service-oriented work through National Honor Society, emphasizing community involvement, leadership, and academic responsibility.',
+    link: 'https://www.nationalhonorsociety.org',
     tags: ['Community service', 'Leadership', 'Academic service'],
   },
 ]

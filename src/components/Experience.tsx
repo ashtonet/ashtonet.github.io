@@ -7,10 +7,6 @@ const experiences = [
     description: 'Building and operating software for AWS in an on-site engineering role in New York.', skills: ['Web Development', 'HTML', 'Software Engineering'], current: true,
   },
   {
-    role: 'Computational Neuroscience Research Assistant — Polk Lab', company: 'University of Michigan', type: 'Part-time', date: 'Sep 2024 — Jun 2025', location: 'Ann Arbor, Michigan · Hybrid',
-    description: 'Contributed to computational neuroscience research in the Polk Lab using MATLAB, Git, and research workflows.', skills: ['Computational Neuroscience', 'MATLAB', 'Git'], url: 'https://sites.lsa.umich.edu/polklab/',
-  },
-  {
     role: 'SDE Software Engineer Intern', company: 'Amazon', type: 'Full-time', date: 'Sep 2024 — Nov 2024', location: 'Boston, Massachusetts · On-site',
     description: 'Completed a Fall 2024 SDE internship focused on software engineering, responsive web design, and React Native.', skills: ['Software Engineering', 'Responsive Web Design', 'React Native'],
   },

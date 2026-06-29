@@ -9,6 +9,7 @@ import Education from './components/Education'
 import Projects from './components/Projects'
 import Research from './components/Research'
 import Timeline from './components/Timeline'
+import ResumeCard from './components/ResumeCard'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ProjectDetail from './components/ProjectDetail'
@@ -23,7 +24,7 @@ const pages = ['home', 'about', 'experience', 'volunteering', 'education', 'proj
 type Page = (typeof pages)[number]
 
 function readRoute(): { page: Page, projectSlug?: string } {
-  const path = window.location.hash.startsWith('#/') ? window.location.hash.slice(2) : 'home'
+  const path = window.location.hash.startsWith('#/') ? window.location.hash.slice(2) || 'home' : 'home'
   const [candidate, projectSlug] = path.split('/')
   if (candidate === 'projects' && projectSlug) return { page: 'projects', projectSlug }
   return { page: pages.includes(candidate as Page) ? candidate as Page : 'home' }
@@ -43,8 +44,8 @@ function PageContent({ page }: { page: Page }) {
     case 'research': return <Research />
     case 'timeline': return <Timeline />
     case 'travel': return <Suspense fallback={<div className="grid min-h-[70vh] place-items-center text-sm text-slate-500">Loading travel atlas…</div>}><Travel /></Suspense>
-    case 'contact': return <><MusicProfile /><Contact /></>
-    default: return <><Hero /><About /><Projects featured /><Research /><Volunteering /><MusicProfile /><Contact /></>
+    case 'contact': return <><MusicProfile /><ResumeCard /><Contact /></>
+    default: return <><Hero /><About /><Projects featured /><Research /><Volunteering /><MusicProfile /><ResumeCard /><Contact /></>
   }
 }
 

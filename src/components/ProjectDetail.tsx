@@ -8,6 +8,15 @@ function projectFocus(project: Project) {
   return `This project sits at the intersection of ${areas}. It was built with ${tools}, with an emphasis on turning the underlying technical ideas into a complete, working system.`
 }
 
+function projectInitials(project: Project) {
+  return project.title
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 3)
+    .toUpperCase()
+}
+
 export default function ProjectDetail({ project }: { project: Project }) {
   const index = projects.indexOf(project)
   const previous = projects[(index - 1 + projects.length) % projects.length]
@@ -36,7 +45,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
         <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .08 }} className="glass mt-12 overflow-hidden rounded-[1.75rem]">
           <div className="aspect-[16/7] min-h-64 bg-gradient-to-br from-blue-500/15 via-slate-900 to-violet-500/10">
-            {project.image ? <img src={project.image} alt={`${project.title} project`} className="h-full w-full object-cover opacity-80" /> : <div className="grid h-full place-items-center"><span className="text-8xl font-semibold tracking-[-.08em] text-white/10">VR</span></div>}
+            {project.image ? <img src={project.image} alt={`${project.title} project`} className="h-full w-full object-cover opacity-80" /> : <div className="grid h-full place-items-center"><span className="text-8xl font-semibold tracking-[-.08em] text-white/10">{projectInitials(project)}</span></div>}
           </div>
         </motion.div>
 
@@ -46,6 +55,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white">From idea to implementation.</h2>
             <p className="mt-5 leading-8 text-slate-400">{project.description}</p>
             <p className="mt-5 leading-8 text-slate-400">{projectFocus(project)}</p>
+            {project.reportUrl && <a href={project.reportUrl} target="_blank" rel="noreferrer" className="secondary-button mt-7 w-fit">{project.reportLabel ?? 'View report'} <ArrowUpRight size={15} /></a>}
           </motion.article>
 
           <motion.aside initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: .06 }} className="glass rounded-3xl p-7 sm:p-8">

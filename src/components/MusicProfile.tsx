@@ -33,6 +33,20 @@ function artistTokens(value: string) {
   return normalize(value).split(' ').filter((part) => part.length > 2 && !['and', 'feat', 'ft', 'the'].includes(part))
 }
 
+function trackKey(track: Track) {
+  return `${normalize(track.artist)}::${normalize(track.name)}`
+}
+
+function dedupeTracks(tracks: Track[]) {
+  const seen = new Set<string>()
+  return tracks.filter((track) => {
+    const key = trackKey(track)
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
 function chooseAppleResult(results: { artistName: string, trackName: string }[], track: Track) {
   const targetTrack = normalize(track.name)
   const targetArtists = artistTokens(track.artist)
@@ -90,7 +104,7 @@ export default function MusicProfile() {
         url: appleSearchUrl(`${track.artist['#text']} ${track.name}`),
         nowPlaying: track['@attr']?.nowplaying === 'true',
       }))
-      const tracks = await Promise.all(rawTracks.map(findOnAppleMusic))
+      const tracks = dedupeTracks(await Promise.all(rawTracks.map(findOnAppleMusic)))
       const artists: Artist[] = (top.topartists?.artist ?? []).map((artist: { name: string, playcount: string }) => ({ name: artist.name, playcount: artist.playcount, url: appleSearchUrl(artist.name) }))
       setData({ tracks, artists })
       setAvailable(true)

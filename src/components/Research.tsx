@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, BrainCircuit, Code2, GitBranch, Microscope } from 'lucide-react'
+import { ArrowUpRight, BrainCircuit, Code2, Database, GitBranch, Microscope } from 'lucide-react'
 
 const researchMethods = [
   { icon: BrainCircuit, title: 'Computational Neuroscience', text: 'Cognition, behavior, and computational models.' },
   { icon: Code2, title: 'MATLAB + analysis tooling', text: 'Data processing, analysis, and result evaluation.' },
+  { icon: Database, title: 'Research data tooling', text: 'Interactive CSV workflows for selecting, filtering, and exporting large research datasets.' },
   { icon: GitBranch, title: 'Research workflows', text: 'Organized, version-controlled, reproducible work.' },
 ]
 
@@ -16,7 +17,7 @@ export default function Research() {
             <div className="eyebrow">Research</div>
           </div>
           <h2 className="section-title">Computational cognition in practice.</h2>
-          <p className="section-copy mx-auto">My research experience is rooted in the Polk Lab at the University of Michigan, where I contributed to computational neuroscience work using MATLAB, Git, and structured research workflows.</p>
+          <p className="section-copy mx-auto">My research experience is rooted in the Polk Lab at the University of Michigan, where I contributed to computational neuroscience work using MATLAB, Python, Git, and structured research workflows.</p>
         </div>
 
         <motion.article initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} className="glass card mx-auto mt-12 max-w-5xl overflow-hidden p-0">
@@ -32,9 +33,9 @@ export default function Research() {
             <div className="p-6 md:p-8">
               <p className="text-xs font-semibold uppercase tracking-[.16em] text-indigo-400">Computational neuroscience</p>
               <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">Research Assistant</h3>
-              <p className="mt-5 max-w-3xl leading-7 text-slate-400">Contributed to computational neuroscience research in the Polk Lab, supporting analysis and research workflows with MATLAB, Git, and reproducible technical practices.</p>
+              <p className="mt-5 max-w-3xl leading-7 text-slate-400">Contributed to computational neuroscience research in the Polk Lab, supporting analysis workflows and building Python tooling for navigating large master CSV datasets, organizing variable hierarchies, filtering rows and columns, and exporting focused research sheets for analysis.</p>
 
-              <div className="mt-7 grid gap-3 lg:grid-cols-3">
+              <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {researchMethods.map(({ icon: Icon, title, text }) => (
                   <div key={title} className="rounded-2xl border border-white/[.08] bg-slate-950/35 p-4">
                     <Icon size={17} className="text-indigo-300" />
@@ -45,7 +46,7 @@ export default function Research() {
               </div>
 
               <div className="mt-7 flex flex-wrap items-center gap-3">
-                {['MATLAB', 'Git', 'Research Methods'].map((skill) => <span className="pill" key={skill}>{skill}</span>)}
+                {['MATLAB', 'Python', 'Pandas', 'Git', 'Research Methods', 'CSV tooling'].map((skill) => <span className="pill" key={skill}>{skill}</span>)}
                 <a href="https://sites.lsa.umich.edu/polklab/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-300 transition hover:text-white">
                   Polk Lab Website <ArrowUpRight size={15} />
                 </a>

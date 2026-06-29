@@ -3,6 +3,15 @@ import { ArrowUpRight, Check, Code2, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { getProjectSlug, projectCategories, projects } from '../data/projects'
 
+function projectInitials(title: string) {
+  return title
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 3)
+    .toUpperCase()
+}
+
 export default function Projects({ featured = false }: { featured?: boolean }) {
   const [category, setCategory] = useState('All')
   const [query, setQuery] = useState('')
@@ -32,7 +41,7 @@ export default function Projects({ featured = false }: { featured?: boolean }) {
         <motion.div layout className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((project, index) => <motion.article layout key={project.title} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .1 }} transition={{ delay: Math.min(index, 5) * .05 }} className="glass card group flex flex-col">
             <a href={`#/projects/${getProjectSlug(project)}`} className="relative block aspect-[16/9] overflow-hidden border-b border-white/[.06] bg-gradient-to-br from-blue-500/15 via-slate-900 to-violet-500/10" aria-label={`Open ${project.title} project page`}>
-              {project.image ? <img src={project.image} alt="" loading="lazy" className="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-[1.04] group-hover:opacity-95" /> : <div className="grid h-full place-items-center"><span className="text-5xl font-semibold tracking-[-.08em] text-white/10">VR</span></div>}
+              {project.image ? <img src={project.image} alt="" loading="lazy" className="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-[1.04] group-hover:opacity-95" /> : <div className="grid h-full place-items-center"><span className="text-5xl font-semibold tracking-[-.08em] text-white/10">{projectInitials(project.title)}</span></div>}
               <span className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-slate-950/70 text-slate-300 backdrop-blur"><ArrowUpRight size={16} /></span>
             </a>
             <div className="flex flex-1 flex-col p-5">

@@ -6,6 +6,8 @@ export type Project = {
   href: string
   description: string
   date?: string
+  reportUrl?: string
+  reportLabel?: string
   versions?: {
     version: string
     title: string
@@ -32,8 +34,55 @@ export const projects: Project[] = [
     description: `We created three versions of an Instagram clone: a static site, a dynamic server-rendered site, and a dynamic client-side application. The work progressed from HTML, Python, Jinja, and CSS templates to SQL, Flask, sessions, authentication, likes, comments, accounts, and posts. The final version used REST APIs, React, and JavaScript to eliminate hard reloads while adding infinite scroll and double-tap to like.`
   },
   {
-    title: 'Computer Lab VR', languages: ['Unreal Engine 5', 'Jira'], categories: ['XR'], image: '', href: `${oldSite}/ComputerLabVR`, date: 'Winter 2025',
-    description: `An interactive VR recreation of a room in the University of Michigan Bob and Betty Beyster Building. The environment lets visitors talk to NPCs and drive a racecar on a racetrack.`
+    title: 'MadiTaylorPhoto Website',
+    languages: ['HTML', 'CSS', 'JavaScript'],
+    categories: ['Web'],
+    image: '',
+    href: 'https://maditaylorphoto.com',
+    date: 'Jun 2022 — Jul 2024',
+    reportUrl: 'https://maditaylorphoto.com',
+    reportLabel: 'Visit website',
+    description: `A company website project for Madi Taylor Photo built and maintained with a focus on a seamless user experience. The work included front-end development with HTML, CSS, and JavaScript, payment-solution integration, form validation for smoother client transactions, and collaboration with a professional photographer to support high-quality marketing imagery.`
+  },
+  {
+    title: 'Camping Simulator',
+    languages: ['Unreal Engine 5', 'VR'],
+    categories: ['XR'],
+    image: '',
+    href: `${oldSite}/campingSimulator/`,
+    description: `A poly-art VR camping safety simulator that teaches real-world outdoor skills through hands-on interactions. Players can fish with motion controls, gather branches and build campfires, refill and use a canteen, store food safely away from bears, identify poison ivy, follow a park-ranger radio guide, and learn eco-friendly practices for preventing forest fires and protecting the campsite.`
+  },
+  {
+    title: 'Pizza Delivery Scheduler',
+    languages: ['C++'],
+    categories: ['C/C++', 'Algorithms'],
+    image: '',
+    href: '#/projects/pizza-delivery-scheduler',
+    description: `An EECS 482 multithreaded pizza-delivery simulation built around synchronization, condition variables, and mutex-protected shared state. Driver threads and customer threads coordinate through a matcher that pairs available drivers with waiting customers using rectilinear distance, then enforces the full order lifecycle: driver readiness, customer requests, matching, driving to the delivery location, payment, and safe reuse of drivers for future orders.`
+  },
+  {
+    title: 'User-Level Thread Library',
+    languages: ['C++'],
+    categories: ['C/C++'],
+    image: '',
+    href: '#/projects/user-level-thread-library',
+    description: `An EECS 482 thread-library implementation that builds user-level threading primitives on top of a simulated CPU interface. The library manages thread control blocks, manually allocated stacks, ucontext-based context switching, FIFO ready queues, thread creation, yielding, joining, mutex ownership, condition-variable wait, signal, and broadcast behavior, while carefully disabling and re-enabling simulated interrupts around scheduler and synchronization critical sections.`
+  },
+  {
+    title: 'Virtual Memory Pager',
+    languages: ['C++'],
+    categories: ['C/C++', 'Algorithms'],
+    image: '',
+    href: '#/projects/virtual-memory-pager',
+    description: `An EECS 482 virtual-memory pager that manages per-process arenas, page tables, physical frames, swap-backed pages, and shared file-backed mappings. The pager handles process creation and switching, page faults, zero-page optimization, copy-on-write behavior, dirty and reference tracking through page-table protection bits, swap block allocation, file block sharing, eviction, and a clock-style page replacement policy when physical memory fills.`
+  },
+  {
+    title: 'Networked File Server',
+    languages: ['C++', 'Boost', 'Sockets'],
+    categories: ['C/C++'],
+    image: '',
+    href: '#/projects/networked-file-server',
+    description: `An EECS 482 networked file-system server that accepts client requests over sockets and implements file and directory operations on a block-based disk abstraction. The server supports reading, writing, creating, and deleting files or directories while validating ownership, pathnames, usernames, offsets, file types, disk capacity, and directory capacity. It uses per-block shared and exclusive locking, hand-over-hand directory traversal, threaded request handling, free-block allocation, and safe cleanup of deleted file-system resources.`
   },
   {
     title: 'Assembly Linker', languages: ['C'], categories: ['C/C++', 'Assembly'], image: `${oldSite}/new_images/linker.png`, href: `${oldSite}/370_p2l`,
@@ -84,6 +133,16 @@ export const projects: Project[] = [
     description: `A trained text classifier that sorts discussion posts into topics. It uses recursive methods and binary search trees, learning from labeled paragraphs and improving its ability to categorize new posts as the training set grows.`
   },
   {
+    title: 'Invariant Learning Experiments',
+    languages: ['Python', 'NumPy', 'PyTorch', 'yfinance'],
+    categories: ['Python', 'Machine Learning', 'Optimization'],
+    image: '',
+    href: 'https://github.com/aethom00/ECE_553_Final_Project',
+    reportUrl: 'https://github.com/aethom00/ECE_553_Final_Project',
+    reportLabel: 'View GitHub repo',
+    description: `An ECE 553 final project exploring invariant learning under distribution shift. The work compares empirical risk minimization, invariant risk minimization, and IRM-Games across Colored MNIST, synthetic chain-equation data, and financial time-series environments, using controlled spurious correlations, trend regimes, volatility settings, and factor-based experiments to evaluate when models learn stable causal signals instead of brittle shortcuts.`
+  },
+  {
     title: 'Calculating Rocket Payloads', languages: ['C++'], categories: ['C/C++', 'Optimization'], image: `${oldSite}/assets/img/old_photos/rockets.png`, href: `${oldSite}/rocket`,
     description: `A numerical toolkit using finite-difference methods to optimize rocket fuel loads for a payload, calculate maximum reachable altitude under gravity and air resistance, and binary-search for the ideal fuel mass needed to reach a target height.`
   },
@@ -102,6 +161,17 @@ export const projects: Project[] = [
   {
     title: 'Study Group Coordinator', languages: ['Python', 'Qiskit'], categories: ['Python', 'Quantum'], image: `${oldSite}/new_images/studygroup.jpeg`, href: `${oldSite}/498_p2`,
     description: `A quantum study-group scheduler that uses Grover's algorithm and quantum counting to satisfy constraints expressed in conjunctive normal form. It includes Bitflip and Phase Oracles, solution optimization, and a counting circuit for estimating the number of feasible groupings.`
+  },
+  {
+    title: 'Ethereum Consensus Landscape',
+    languages: ['Research', 'LaTeX'],
+    categories: ['Cryptography', 'Algorithms'],
+    image: '',
+    href: '/EECS_475_Final_Project.pdf',
+    date: 'Fall 2023',
+    reportUrl: '/EECS_475_Final_Project.pdf',
+    reportLabel: 'View final report',
+    description: `An EECS 475 final project report titled "Navigating the Consensus Landscape: A Comparative Analysis of Security and Consensus Algorithms of Ethereum in the Modern World." The paper traces the evolution from traditional currency to cryptocurrency, explains blockchain data structures and cryptographic hashes, and compares how decentralized systems use consensus mechanisms such as proof of work, proof of stake, and Byzantine fault-tolerant ideas to balance security, transparency, scalability, and environmental tradeoffs.`
   },
   {
     title: 'Tumor Detection', languages: ['MATLAB'], categories: ['MATLAB'], image: `${oldSite}/assets/img/old_photos/brain_final.png`, href: `${oldSite}/tumor_detection`,
@@ -157,4 +227,4 @@ export const getProjectSlug = (project: Project) => project.title
 
 export const getProjectBySlug = (slug: string) => projects.find((project) => getProjectSlug(project) === slug)
 
-export const projectCategories = ['All', 'C/C++', 'Python', 'Web', 'Machine Learning', 'Assembly', 'MATLAB', 'Julia', 'Quantum', 'Algorithms', 'Optimization', 'XR']
+export const projectCategories = ['All', 'C/C++', 'Python', 'Web', 'Machine Learning', 'Assembly', 'MATLAB', 'Julia', 'Quantum', 'Cryptography', 'Algorithms', 'Optimization', 'XR']

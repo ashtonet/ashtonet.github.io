@@ -15,12 +15,13 @@ import Footer from './components/Footer'
 import ProjectDetail from './components/ProjectDetail'
 import MusicProfile from './components/MusicProfile'
 import AppleMusicDock from './components/AppleMusicDock'
+import VisualEffectsLab from './components/VisualEffectsLab'
 import SiteTranslator from './i18n/SiteTranslator'
 import { getProjectBySlug } from './data/projects'
 
 const Travel = lazy(() => import('./components/Travel'))
 
-const pages = ['home', 'about', 'experience', 'volunteering', 'education', 'projects', 'research', 'timeline', 'travel', 'contact'] as const
+const pages = ['home', 'about', 'experience', 'volunteering', 'education', 'projects', 'research', 'timeline', 'travel', 'contact', 'effects'] as const
 type Page = (typeof pages)[number]
 
 function readRoute(): { page: Page, projectSlug?: string } {
@@ -45,6 +46,7 @@ function PageContent({ page }: { page: Page }) {
     case 'timeline': return <Timeline />
     case 'travel': return <Suspense fallback={<div className="grid min-h-[70vh] place-items-center text-sm text-slate-500">Loading travel atlas…</div>}><Travel /></Suspense>
     case 'contact': return <><MusicProfile /><ResumeCard /><Contact /></>
+    case 'effects': return <VisualEffectsLab />
     default: return <><Hero /><About /><Projects featured /><Research /><Volunteering /><MusicProfile /><ResumeCard /><Contact /></>
   }
 }

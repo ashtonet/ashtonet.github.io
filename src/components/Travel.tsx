@@ -17,6 +17,7 @@ import { southeastAsiaCoreShapes } from '../data/detailedSoutheastAsiaCore'
 import { detailedSaintMartinShapes } from '../data/detailedSaintMartin'
 import { detailedUnitedStatesShape } from '../data/detailedUnitedStates'
 import { visitedCountryShapes } from '../data/visitedCountries'
+import BlurredPhotoParallax from './BlurredPhotoParallax'
 
 type TravelKind = TravelPlace['kind']
 
@@ -206,7 +207,7 @@ export default function Travel() {
     setQuery('')
   }
 
-  return <section id="travel" className="section"><div className="shell">
+  return <section id="travel" className="section overflow-hidden"><BlurredPhotoParallax image="/ashton-travel.jpg" variant="travel" position="center 45%" /><div className="shell relative z-10">
     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
       <div><div className="eyebrow">Travel atlas</div><h2 className="section-title">The world, explored.</h2><p className="section-copy">A living map of the cities, landmarks, countries, and territories that have shaped my view of the world.</p></div>
       <div className="grid grid-cols-3 gap-2">

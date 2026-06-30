@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { BookOpen, BrainCircuit, Code2, Database, Globe2, Map, Tv, Wifi } from 'lucide-react'
+import BlurredPhotoParallax from './BlurredPhotoParallax'
 
 const skills = [
   { icon: Wifi, title: 'Web Development', text: 'Building full-stack experiences with HTML, CSS, JavaScript, React, APIs, and modern web tooling.' },
@@ -18,8 +19,9 @@ const facts = [
 
 export default function About() {
   return (
-    <section id="about" className="section border-t border-white/[.05]">
-      <div className="shell">
+    <section id="about" className="section overflow-hidden border-t border-white/[.05]">
+      <BlurredPhotoParallax image="/ashton_pfp.jpg" variant="section" position="50% 54%" />
+      <div className="shell relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }}>
             <div className="eyebrow">About</div>

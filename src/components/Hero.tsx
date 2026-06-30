@@ -62,14 +62,14 @@ export default function Hero() {
       <motion.div className="hero-scroll-transition" style={{ opacity: fadeOpacity }} aria-hidden="true" />
       <motion.div key={activeImage.label} className="hero-location-note" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 2.2, ease: [0.45, 0, 0.2, 1] }} aria-hidden="true">{activeImage.label}</motion.div>
       <motion.div className="shell relative z-10 py-24 text-center" style={{ y: contentY }}>
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
+        <motion.div className="hero-copy-lockup mx-auto max-w-5xl" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
           <h1 className="gradient-text hero-name-light mx-auto max-w-5xl text-[clamp(3.2rem,10vw,7.5rem)] font-semibold leading-[.86] tracking-[-.075em]">Ashton Thomas</h1>
-          <p className="mt-7 text-sm font-medium uppercase tracking-[.22em] text-slate-500">Software Development Engineer &middot; Amazon</p>
-          <div className="mt-4 min-h-9 text-xl text-slate-300 md:text-2xl">
+          <p className="hero-role mt-7 text-sm font-medium uppercase tracking-[.22em]">Software Development Engineer &middot; Amazon</p>
+          <div className="hero-type mt-4 min-h-9 text-xl md:text-2xl">
             <TypeAnimation sequence={['Machine learning systems', 1700, 'Computer vision', 1700, 'Distributed infrastructure', 1700, 'Optimization & robotics', 1700]} repeat={Infinity} speed={45} />
             <span className="text-indigo-400">_</span>
           </div>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-400 md:text-lg">I design intelligent, reliable systems that turn ambitious ideas into useful software at scale.</p>
+          <p className="hero-summary mx-auto mt-6 max-w-2xl text-base leading-7 md:text-lg">I design intelligent, reliable systems that turn ambitious ideas into useful software at scale.</p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <a href="#/projects" className="primary-button hero-primary-button">Explore my work <ArrowDown size={15} /></a>
             <a href="#/contact" className="secondary-button">Start a conversation</a>

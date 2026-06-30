@@ -28,6 +28,12 @@ section { scroll-margin-top: 6rem; }
 .gradient-text { background: linear-gradient(110deg, #f8fafc 10%, #93c5fd 48%, #c4b5fd 78%); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .hero-name-light { position: relative; background: linear-gradient(110deg, #f8fafc 4%, #dbeafe 24%, #93c5fd 42%, #fde68a 50%, #c4b5fd 62%, #f8fafc 82%); background-size: 210% 100%; background-clip: text; -webkit-background-clip: text; animation: hero-name-glint 13s cubic-bezier(.65,0,.35,1) infinite; filter: drop-shadow(0 18px 42px rgba(15,23,42,.38)); }
 .hero-section:hover .hero-name-light { animation-duration: 10s; }
+.hero-copy-lockup { position: relative; isolation: isolate; padding: clamp(1rem, 3vw, 2rem); }
+.hero-copy-lockup::before { content: ""; position: absolute; z-index: -1; inset: 12% 3% 2%; border-radius: 999px; background: radial-gradient(ellipse at 50% 48%, rgba(2,6,23,.58), rgba(2,6,23,.36) 38%, transparent 72%); filter: blur(18px); opacity: .88; }
+.hero-role { display: inline-block; position: relative; color: rgba(248,250,252,.92); text-shadow: 0 2px 12px rgba(0,0,0,.9), 0 0 26px rgba(0,0,0,.82), 0 0 38px rgba(var(--accent-rgb),.2); }
+.hero-role::after { content: ""; position: absolute; left: .08em; right: .08em; bottom: -.45rem; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent); box-shadow: 0 0 18px rgba(var(--accent-rgb),.22); opacity: .82; }
+.hero-type { color: rgba(226,232,240,.94); text-shadow: 0 2px 20px rgba(0,0,0,.78), 0 0 28px rgba(var(--accent-rgb),.16); }
+.hero-summary { color: rgba(226,232,240,.86); text-shadow: 0 2px 18px rgba(0,0,0,.78), 0 0 30px rgba(15,23,42,.72); }
 .hero-scroll-transition { position: absolute; inset: 0; z-index: 4; pointer-events: none; background: linear-gradient(180deg, transparent 0 34%, rgba(2,6,23,.5) 74%, #020617 100%); }
 .hero-location-note { position: absolute; right: clamp(1rem, 4vw, 3rem); bottom: clamp(1.4rem, 4vw, 3rem); z-index: 12; border-right: 1px solid rgba(255,255,255,.22); padding-right: .9rem; color: rgba(255,255,255,.82); font-size: .68rem; font-weight: 800; letter-spacing: .22em; text-align: right; text-transform: uppercase; animation: hero-note-in .9s ease-out .35s both; }
 .hero-section-preparing .photo-parallax-camera-light { opacity: .46; }

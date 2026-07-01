@@ -93,7 +93,7 @@ export const portraitHeroImages: HeroImage[] = [
     "position": "center 42%"
   },
   {
-    "src": "/images/hero-portrait/San Marino.jpeg",
+    "src": "/images/hero-portrait/San_Marino.jpeg",
     "label": "SAN MARINO",
     "position": "center 42%"
   },

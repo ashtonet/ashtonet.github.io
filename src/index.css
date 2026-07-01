@@ -309,6 +309,36 @@ section { scroll-margin-top: 6rem; }
 .secondary-button { border: 1px solid rgba(148,163,184,.17); background: rgba(15,23,42,.55); color: #dbeafe; }
 .primary-button:hover, .secondary-button:hover { transform: translateY(-2px); border-color: rgba(129,140,248,.4); box-shadow: 0 16px 40px rgba(79,70,229,.22); }
 .timeline-line { background: linear-gradient(to bottom, var(--accent-a), var(--accent-b) 75%, transparent); }
+.timeline-journey { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, .78fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.timeline-event { border-radius: 1.35rem; outline: none; }
+.timeline-event.timeline-event:focus,
+.timeline-event.timeline-event:focus-visible { outline: none; outline-offset: 0; }
+.timeline-event-card { position: relative; border: 1px solid transparent; border-radius: 1.35rem; padding: 1.15rem 1.2rem; background: rgba(3, 7, 18, .28); transition: border-color .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease; }
+.timeline-event-active .timeline-event-card,
+.timeline-event:focus-visible .timeline-event-card,
+.timeline-event:hover .timeline-event-card { border-color: rgba(var(--accent-rgb), .28); background: rgba(15, 23, 42, .54); box-shadow: 0 24px 70px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255, 255, 255, .04); transform: translateX(.18rem); }
+.timeline-event-active .timeline-dot { border-color: var(--accent); box-shadow: 0 0 24px rgba(var(--accent-rgb), .85); }
+.timeline-photo-rail { position: sticky; top: 6.5rem; display: none; min-height: 32rem; }
+.timeline-photo-frame { position: relative; min-height: 32rem; overflow: hidden; border: 1px solid rgba(148, 163, 184, .16); border-radius: 2rem; background: rgba(2, 6, 23, .56); box-shadow: 0 28px 90px rgba(0, 0, 0, .34); isolation: isolate; }
+.timeline-photo-frame::before { content: ""; position: absolute; inset: 0; z-index: 2; background: radial-gradient(circle at 28% 22%, rgba(255, 255, 255, .18), transparent 22%), linear-gradient(180deg, rgba(3, 7, 18, .02), rgba(3, 7, 18, .58)); pointer-events: none; }
+.timeline-photo-frame::after { content: ""; position: absolute; inset: 1rem; z-index: 3; border: 1px solid rgba(255, 255, 255, .12); border-radius: 1.35rem; pointer-events: none; }
+.timeline-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.05) contrast(1.04); }
+.timeline-photo-frame-empty { display: grid; place-items: center; }
+.timeline-photo-placeholder { position: relative; z-index: 4; display: grid; max-width: 19rem; gap: .75rem; padding: 2rem; text-align: center; }
+.timeline-photo-placeholder span { color: var(--accent); font-size: .68rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+.timeline-photo-placeholder strong { color: white; font-size: clamp(1.55rem, 3vw, 2.4rem); line-height: 1.02; }
+.timeline-photo-placeholder p { color: #94a3b8; line-height: 1.7; }
+.timeline-photo-glow { position: absolute; inset: auto -20% -28% -20%; z-index: 2; height: 45%; background: radial-gradient(ellipse at center, rgba(var(--accent-rgb), .35), transparent 62%); filter: blur(24px); pointer-events: none; }
+.timeline-photo-caption { position: absolute; bottom: 2rem; left: 2rem; right: 2rem; z-index: 4; display: flex; align-items: end; justify-content: space-between; gap: 1rem; color: white; }
+.timeline-photo-caption span { color: rgba(226, 232, 240, .74); font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.timeline-photo-caption strong { font-size: clamp(1.25rem, 3vw, 2rem); font-weight: 800; letter-spacing: .08em; text-shadow: 0 12px 30px rgba(0, 0, 0, .45); }
+@media (min-width: 768px) {
+  .timeline-photo-rail { display: block; }
+}
+@media (max-width: 767px) {
+  .timeline-journey { display: block; }
+  .timeline-event-card { padding: 1rem; }
+}
 .travel-map.leaflet-container { font-family: inherit; }
 .travel-map .leaflet-control-zoom { overflow: hidden; border: 1px solid rgba(148,163,184,.18); border-radius: .75rem; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
 .travel-map .leaflet-control-zoom a { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 0; border-bottom: 1px solid rgba(148,163,184,.12); background: rgba(3,7,18,.88); color: #cbd5e1; line-height: 1; }

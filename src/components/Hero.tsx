@@ -10,7 +10,17 @@ const fallbackHeroImage = { src: '/images/hero-landscape/Honolulu.jpg', label: '
 const HERO_ROTATION_MS = 12000
 const HERO_PRE_SWITCH_MS = 1800
 
-const getGoogleMapsUrl = (label: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(label)}`
+const googleMapsLocations: Record<string, string> = {
+  FUJI: 'Fuji, Shizuoka, Japan',
+  'HILL OF THE BUDDHA': 'https://maps.app.goo.gl/zGbW4Y7NgWY2dcg16',
+  VICTORIA: 'Victoria, Malta',
+}
+
+const getGoogleMapsUrl = (label: string) => {
+  const location = googleMapsLocations[label] ?? label
+  if (location.startsWith('https://')) return location
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`
+}
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement | null>(null)

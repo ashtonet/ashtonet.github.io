@@ -12,8 +12,12 @@ type BlurredPhotoParallaxProps = {
 export default function BlurredPhotoParallax({ image, activeImage, variant = 'section', position = 'center', activePosition }: BlurredPhotoParallaxProps) {
   const ref = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], [-90, 90])
-  const scale = useTransform(scrollYProgress, [0, 1], [1.1, 1.18])
+  const defaultY = useTransform(scrollYProgress, [0, 1], [-90, 90])
+  const heroY = useTransform(scrollYProgress, [0, 1], [-36, 36])
+  const defaultScale = useTransform(scrollYProgress, [0, 1], [1.1, 1.18])
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1.01, 1.045])
+  const y = variant === 'hero' ? heroY : defaultY
+  const scale = variant === 'hero' ? heroScale : defaultScale
   const pointerX = useMotionValue(50)
   const pointerY = useMotionValue(45)
   const smoothX = useSpring(pointerX, { stiffness: 80, damping: 24, mass: .35 })

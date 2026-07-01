@@ -1,43 +1,16 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowDown, ChevronLeft, ChevronRight, Code2 as Github, Mail, UserRound as Linkedin } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
+import { landscapeHeroImages, portraitHeroImages } from '../data/heroImages.generated'
 import BlurredPhotoParallax from './BlurredPhotoParallax'
-
-type HeroImage = { src: string, label: string, position: string }
-
-const landscapeHeroImageModules = import.meta.glob('/public/images/hero-landscape/*.{jpg,jpeg,png,webp,avif}', {
-  eager: true,
-  import: 'default',
-  query: '?url',
-}) as Record<string, string>
-
-const portraitHeroImageModules = import.meta.glob('/public/images/hero-portrait/*.{jpg,jpeg,png,webp,avif}', {
-  eager: true,
-  import: 'default',
-  query: '?url',
-}) as Record<string, string>
-
-const formatHeroLabel = (path: string) => {
-  const fileName = path.split('/').pop() ?? ''
-  return fileName
-    .replace(/\.[^.]+$/, '')
-    .replace(/[-_]+/g, ' ')
-    .trim()
-    .toUpperCase()
-}
-
-const createHeroImages = (modules: Record<string, string>, position: string): HeroImage[] => Object.entries(modules)
-  .map(([path, src]) => ({ src, label: formatHeroLabel(path), position }))
-  .sort((a, b) => a.label.localeCompare(b.label))
-
-const landscapeHeroImages = createHeroImages(landscapeHeroImageModules, 'center 48%')
-const portraitHeroImages = createHeroImages(portraitHeroImageModules, 'center 42%')
 
 const fallbackHeroImage = { src: '/images/hero-landscape/Honolulu.jpg', label: 'HONOLULU', position: 'center 48%' }
 
 const HERO_ROTATION_MS = 12000
 const HERO_PRE_SWITCH_MS = 1800
+
+const getGoogleMapsUrl = (label: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(label)}`
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement | null>(null)
@@ -47,7 +20,10 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const fadeOpacity = useTransform(scrollYProgress, [0, .62, 1], [0, .18, .72])
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 44])
-  const heroImages = isMobileHero && portraitHeroImages.length > 0 ? portraitHeroImages : landscapeHeroImages
+  const heroImages = useMemo(
+    () => (isMobileHero && portraitHeroImages.length > 0 ? portraitHeroImages : landscapeHeroImages),
+    [isMobileHero],
+  )
   const activeImage = heroImages[activeImageIndex] ?? fallbackHeroImage
   const canControlHeroImages = heroImages.length > 1
 
@@ -96,28 +72,49 @@ export default function Hero() {
     }
   }, [heroImages.length])
 
+  useEffect(() => {
+    if (heroImages.length < 2) return
+    const nextImage = heroImages[(activeImageIndex + 1) % heroImages.length]
+    if (!nextImage) return
+    const preload = new Image()
+    preload.decoding = 'async'
+    preload.src = nextImage.src
+  }, [activeImageIndex, heroImages])
+
   return (
     <section ref={heroRef} id="home" className={`hero-section relative flex min-h-screen items-center overflow-hidden pt-24 ${isPreparingImageSwitch ? 'hero-section-preparing' : ''}`}>
       <BlurredPhotoParallax image={(heroImages[0] ?? fallbackHeroImage).src} activeImage={activeImage.src} variant="hero" position={(heroImages[0] ?? fallbackHeroImage).position} activePosition={activeImage.position} />
       <div className="mesh-bg hero-photo-mesh"><div className="mesh-grid" /></div>
       <motion.div className="hero-scroll-transition" style={{ opacity: fadeOpacity }} aria-hidden="true" />
-      <motion.div key={activeImage.label} className="hero-location-note" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 2.2, ease: [0.45, 0, 0.2, 1] }} aria-hidden="true">{activeImage.label}</motion.div>
+      <motion.a
+        key={activeImage.label}
+        className="hero-location-note"
+        href={getGoogleMapsUrl(activeImage.label)}
+        target="_blank"
+        rel="noreferrer"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 2.2, ease: [0.45, 0, 0.2, 1] }}
+        aria-label={`Open ${activeImage.label} in Google Maps`}
+      >
+        {activeImage.label}
+      </motion.a>
       {canControlHeroImages && (
         <div className="hero-photo-controls" aria-label="Hero photo controls">
-          <button type="button" className="hero-photo-arrow" onClick={() => showHeroImage(activeImageIndex - 1)} aria-label="Previous hero photo"><ChevronLeft size={16} /></button>
+          <button type="button" className="hero-photo-arrow" onClick={() => showHeroImage(activeImageIndex - 1, false)} aria-label="Previous hero photo"><ChevronLeft size={16} /></button>
           <div className="hero-photo-dots" aria-label="Choose hero photo">
             {heroImages.map((image, index) => (
               <button
                 type="button"
                 key={image.src}
                 className={`hero-photo-dot ${index === activeImageIndex ? 'active' : ''}`}
-                onClick={() => showHeroImage(index)}
+                onClick={() => showHeroImage(index, false)}
                 aria-label={`Show ${image.label} hero photo`}
                 aria-current={index === activeImageIndex ? 'true' : undefined}
               />
             ))}
           </div>
-          <button type="button" className="hero-photo-arrow" onClick={() => showHeroImage(activeImageIndex + 1)} aria-label="Next hero photo"><ChevronRight size={16} /></button>
+          <button type="button" className="hero-photo-arrow" onClick={() => showHeroImage(activeImageIndex + 1, false)} aria-label="Next hero photo"><ChevronRight size={16} /></button>
         </div>
       )}
       <motion.div className="shell relative z-10 py-24 text-center" style={{ y: contentY }}>

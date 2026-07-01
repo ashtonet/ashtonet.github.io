@@ -35,7 +35,9 @@ section { scroll-margin-top: 6rem; }
 .hero-type { color: rgba(226,232,240,.94); text-shadow: 0 2px 20px rgba(0,0,0,.78), 0 0 28px rgba(var(--accent-rgb),.16); }
 .hero-summary { color: rgba(226,232,240,.86); text-shadow: 0 2px 18px rgba(0,0,0,.78), 0 0 30px rgba(15,23,42,.72); }
 .hero-scroll-transition { position: absolute; inset: 0; z-index: 4; pointer-events: none; background: linear-gradient(180deg, transparent 0 34%, rgba(2,6,23,.5) 74%, #020617 100%); }
-.hero-location-note { position: absolute; right: clamp(1rem, 4vw, 3rem); bottom: clamp(1.4rem, 4vw, 3rem); z-index: 12; border-right: 1px solid rgba(255,255,255,.22); padding-right: .9rem; color: rgba(255,255,255,.82); font-size: .68rem; font-weight: 800; letter-spacing: .22em; text-align: right; text-transform: uppercase; animation: hero-note-in .9s ease-out .35s both; }
+.hero-location-note { position: absolute; right: clamp(1rem, 4vw, 3rem); bottom: clamp(1.4rem, 4vw, 3rem); z-index: 12; border-right: 1px solid rgba(255,255,255,.22); padding: .3rem .9rem .3rem 0; color: rgba(255,255,255,.82); font-size: .68rem; font-weight: 800; letter-spacing: .22em; text-align: right; text-transform: uppercase; animation: hero-note-in .9s ease-out .35s both; transition: color .2s ease, border-color .2s ease, text-shadow .2s ease, transform .2s ease; }
+.hero-location-note:hover { border-color: rgba(255,255,255,.48); color: white; text-shadow: 0 0 20px rgba(var(--accent-rgb),.36), 0 2px 14px rgba(0,0,0,.7); transform: translateY(-1px); }
+.hero-location-note:focus-visible { outline: 2px solid rgba(147,197,253,.85); outline-offset: 4px; border-radius: .35rem; }
 .hero-photo-controls { position: absolute; left: 50%; bottom: clamp(3.4rem, 7vw, 4.7rem); z-index: 14; display: inline-flex; align-items: center; gap: .55rem; transform: translateX(-50%); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; background: rgba(2,6,23,.34); padding: .36rem .46rem; box-shadow: 0 18px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.08); backdrop-filter: blur(14px) saturate(1.15); }
 .hero-photo-arrow { display: grid; height: 2rem; width: 2rem; place-items: center; border-radius: 999px; color: rgba(226,232,240,.72); transition: background .2s ease, color .2s ease, transform .2s ease; }
 .hero-photo-arrow:hover { background: rgba(255,255,255,.09); color: white; transform: translateY(-1px); }
@@ -78,7 +80,7 @@ section { scroll-margin-top: 6rem; }
 .photo-parallax-hero .photo-parallax-image { filter: blur(10px) saturate(1.22) contrast(1.04) brightness(.98); animation: living-photo-breathe 18s ease-in-out infinite alternate; }
 .photo-parallax-hero .photo-parallax-focus-image { animation: living-photo-focus-breathe 18s ease-in-out infinite alternate; }
 .photo-parallax-hero .photo-parallax-image,
-.photo-parallax-hero .photo-parallax-focus-image { inset: -8%; }
+.photo-parallax-hero .photo-parallax-focus-image { inset: -4%; }
 .photo-parallax-hero .photo-parallax-camera-light { animation: hero-exposure-light 1.5s ease-out both; }
 .photo-parallax-hero .photo-parallax-routes { display: none; }
 .photo-parallax-hero .photo-parallax-shade { background: radial-gradient(ellipse at 50% 46%, transparent 0 22%, rgba(3,7,18,.36) 62%, rgba(3,7,18,.72)), linear-gradient(180deg, rgba(3,7,18,.12), rgba(3,7,18,.68)); animation: hero-shade-settle 1.4s ease-out both; }
@@ -88,7 +90,7 @@ section { scroll-margin-top: 6rem; }
 
 @media (max-width: 767px) {
   .photo-parallax-hero .photo-parallax-image,
-  .photo-parallax-hero .photo-parallax-focus-image { inset: -10%; }
+  .photo-parallax-hero .photo-parallax-focus-image { inset: -6%; }
 }
 
 .mesh-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }

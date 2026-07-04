@@ -21,6 +21,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
   const index = projects.indexOf(project)
   const previous = projects[(index - 1 + projects.length) % projects.length]
   const next = projects[(index + 1) % projects.length]
+  const caseStudy = project.caseStudy
 
   return (
     <section className="section overflow-hidden">
@@ -51,10 +52,31 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1.6fr_.8fr]">
           <motion.article initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass rounded-3xl p-7 sm:p-10">
-            <div className="flex items-center gap-3 text-indigo-300"><Layers3 size={19} /><span className="text-xs font-semibold uppercase tracking-[.16em]">The work</span></div>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white">From idea to implementation.</h2>
-            <p className="mt-5 leading-8 text-slate-400">{project.description}</p>
-            <p className="mt-5 leading-8 text-slate-400">{projectFocus(project)}</p>
+            <div className="flex items-center gap-3 text-indigo-300"><Layers3 size={19} /><span className="text-xs font-semibold uppercase tracking-[.16em]">{caseStudy?.kicker ?? 'The work'}</span></div>
+            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white">{caseStudy?.heading ?? 'From idea to implementation.'}</h2>
+            {caseStudy ? <>
+              <div className="mt-5 space-y-5">
+                {caseStudy.overview.map((paragraph) => <p key={paragraph} className="leading-8 text-slate-400">{paragraph}</p>)}
+              </div>
+              {caseStudy.highlights && <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {caseStudy.highlights.map((item) => <div key={item.title} className="rounded-2xl border border-white/10 bg-white/[.03] p-5">
+                  <h3 className="text-sm font-semibold uppercase tracking-[.14em] text-indigo-300">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-slate-400">{item.description}</p>
+                </div>)}
+              </div>}
+              {caseStudy.sections && <div className="mt-8 space-y-7">
+                {caseStudy.sections.map((section) => <section key={section.title}>
+                  <h3 className="text-xl font-semibold tracking-tight text-white">{section.title}</h3>
+                  <p className="mt-3 leading-8 text-slate-400">{section.body}</p>
+                  {section.points && <ul className="mt-4 space-y-3">
+                    {section.points.map((point) => <li key={point} className="flex gap-3 text-sm leading-6 text-slate-400"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-300" />{point}</li>)}
+                  </ul>}
+                </section>)}
+              </div>}
+            </> : <>
+              <p className="mt-5 leading-8 text-slate-400">{project.description}</p>
+              <p className="mt-5 leading-8 text-slate-400">{projectFocus(project)}</p>
+            </>}
             {project.reportUrl && <a href={project.reportUrl} target="_blank" rel="noreferrer" className="secondary-button mt-7 w-fit">{project.reportLabel ?? 'View report'} <ArrowUpRight size={15} /></a>}
           </motion.article>
 

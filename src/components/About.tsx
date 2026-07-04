@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { BookOpen, BrainCircuit, Code2, Database, Globe2, Map, Tv, Wifi } from 'lucide-react'
+import { BrainCircuit, Camera, Code2, Database, Globe2, Map, Mountain, Wifi } from 'lucide-react'
 import BlurredPhotoParallax from './BlurredPhotoParallax'
 
 const skills = [
@@ -13,8 +13,8 @@ const skills = [
 
 const facts = [
   { icon: Globe2, label: 'Travel', value: 'Visited 52 countries & territories' },
-  { icon: BookOpen, label: 'Favorite books', value: 'A Song of Ice and Fire' },
-  { icon: Tv, label: 'Favorite television', value: 'Game of Thrones & House of the Dragon' },
+  { icon: Mountain, label: 'Outdoors', value: 'Backpacking and hiking' },
+  { icon: Camera, label: 'Travel photography', value: 'Documenting the places and perspectives I find along the way' },
 ]
 
 export default function About() {

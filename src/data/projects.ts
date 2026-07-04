@@ -8,6 +8,20 @@ export type Project = {
   date?: string
   reportUrl?: string
   reportLabel?: string
+  caseStudy?: {
+    kicker?: string
+    heading?: string
+    overview: string[]
+    highlights?: {
+      title: string
+      description: string
+    }[]
+    sections?: {
+      title: string
+      body: string
+      points?: string[]
+    }[]
+  }
   versions?: {
     version: string
     title: string
@@ -30,6 +44,61 @@ export const projects: Project[] = [
     description: `My team and I developed a scalable search engine similar to Google, using tf-idf for text analysis and PageRank for link analysis. We implemented a segmented inverted index through MapReduce programs, built a REST API for returning results, and designed the search interface. The project combined distributed systems, service-oriented architecture, parallel data processing, and full-stack development.`
   },
   {
+    title: 'AI-Assisted Engineering Agent',
+    languages: ['Python', 'AWS', 'TypeScript'],
+    categories: ['Python', 'Machine Learning', 'Web'],
+    image: 'https://unsplash.com/photos/8qEB0fTe9Vw/download?force=true',
+    href: '#/projects/ai-assisted-engineering-agent',
+    date: '2025 - Present',
+    description: `A public-safe summary of an AWS developer-tooling project focused on AI-assisted engineering automation. The system coordinates task intake, code generation, code-review lifecycle management, reliability checks, and operational observability while emphasizing privacy-aware data handling, validation, and production-readiness guardrails.`,
+    caseStudy: {
+      kicker: 'Internal developer tooling',
+      heading: 'Built around privacy, reviewability, and production readiness.',
+      overview: [
+        `This project explores how an AI-assisted engineering workflow can move from a loosely scoped engineering request toward review-ready software work without removing the human engineer from the loop. The goal is not to replace judgment; it is to reduce repetitive coordination, preserve context, and make each step easier to inspect.`,
+        `The page is intentionally written at a public level. It describes the shape of the work: task intake, implementation planning, code-change orchestration, review lifecycle tracking, reliability checks, and operational visibility. Internal systems, proprietary implementation details, and confidential metrics are omitted.`,
+      ],
+      highlights: [
+        {
+          title: 'Task context',
+          description: 'Transforms engineering task information into structured plans, constraints, and reviewable work artifacts.',
+        },
+        {
+          title: 'AI-assisted loop',
+          description: 'Coordinates implementation steps while keeping validation, traceability, and engineer oversight central to the workflow.',
+        },
+        {
+          title: 'Review lifecycle',
+          description: 'Tracks work from task framing through code review so generated artifacts can be evaluated like normal engineering changes.',
+        },
+        {
+          title: 'Operational guardrails',
+          description: 'Emphasizes privacy-aware data handling, reliability checks, and production-readiness signals before work moves forward.',
+        },
+      ],
+      sections: [
+        {
+          title: 'What I focused on',
+          body: `My work centered on the connective tissue between AI output and production engineering practice: defining safe inputs, shaping useful outputs, validating intermediate results, and surfacing enough context for engineers to trust or reject a recommendation.`,
+          points: [
+            'Structured task intake so automation could reason from clear goals, constraints, and repository context.',
+            'Designed guardrails around what data could be used, persisted, or surfaced in generated artifacts.',
+            'Supported review-ready outputs that align with normal code-review and software-delivery workflows.',
+            'Added reliability and observability hooks so failures could be understood instead of hidden behind the AI layer.',
+          ],
+        },
+        {
+          title: 'Why it matters',
+          body: `AI tools are only useful in serious engineering environments when they fit into the systems engineers already trust. This project treats AI as one component inside a larger delivery workflow, with human review, validation, and operational clarity as first-class requirements.`,
+        },
+        {
+          title: 'Public-safe takeaway',
+          body: `The interesting engineering challenge is less about asking a model to write code and more about designing the surrounding system: how context is gathered, how plans become changes, how those changes are checked, and how people stay in control of the final decision.`,
+        },
+      ],
+    }
+  },
+  {
     title: 'Instagram Clone', languages: ['Python', 'React', 'Flask', 'SQL'], categories: ['Python', 'Web'], image: `${oldSite}/new_images/instagram_clone.png`, href: `${oldSite}/instagram`, date: 'Winter 2024',
     description: `We created three versions of an Instagram clone: a static site, a dynamic server-rendered site, and a dynamic client-side application. The work progressed from HTML, Python, Jinja, and CSS templates to SQL, Flask, sessions, authentication, likes, comments, accounts, and posts. The final version used REST APIs, React, and JavaScript to eliminate hard reloads while adding infinite scroll and double-tap to like.`
   },
@@ -37,7 +106,7 @@ export const projects: Project[] = [
     title: 'MadiTaylorPhoto Website',
     languages: ['HTML', 'CSS', 'JavaScript'],
     categories: ['Web'],
-    image: '',
+    image: '/images/project-images/madi_taylor_photo.png',
     href: 'https://maditaylorphoto.com',
     date: 'Jun 2022 — Jul 2024',
     reportUrl: 'https://maditaylorphoto.com',
@@ -56,7 +125,7 @@ export const projects: Project[] = [
     title: 'Pizza Delivery Scheduler',
     languages: ['C++'],
     categories: ['C/C++', 'Algorithms'],
-    image: '',
+    image: 'https://images.unsplash.com/photo-1695654390723-479197a8c4a3?auto=format&fit=crop&w=1800&q=80',
     href: '#/projects/pizza-delivery-scheduler',
     description: `An EECS 482 multithreaded pizza-delivery simulation built around synchronization, condition variables, and mutex-protected shared state. Driver threads and customer threads coordinate through a matcher that pairs available drivers with waiting customers using rectilinear distance, then enforces the full order lifecycle: driver readiness, customer requests, matching, driving to the delivery location, payment, and safe reuse of drivers for future orders.`
   },
@@ -64,7 +133,7 @@ export const projects: Project[] = [
     title: 'User-Level Thread Library',
     languages: ['C++'],
     categories: ['C/C++'],
-    image: '',
+    image: 'https://unsplash.com/photos/bAEtENrPjf4/download?force=true',
     href: '#/projects/user-level-thread-library',
     description: `An EECS 482 thread-library implementation that builds user-level threading primitives on top of a simulated CPU interface. The library manages thread control blocks, manually allocated stacks, ucontext-based context switching, FIFO ready queues, thread creation, yielding, joining, mutex ownership, condition-variable wait, signal, and broadcast behavior, while carefully disabling and re-enabling simulated interrupts around scheduler and synchronization critical sections.`
   },
@@ -72,7 +141,7 @@ export const projects: Project[] = [
     title: 'Virtual Memory Pager',
     languages: ['C++'],
     categories: ['C/C++', 'Algorithms'],
-    image: '',
+    image: 'https://images.pexels.com/photos/6636474/pexels-photo-6636474.jpeg?cs=srgb&dl=pexels-sejio402-6636474.jpg&fm=jpg',
     href: '#/projects/virtual-memory-pager',
     description: `An EECS 482 virtual-memory pager that manages per-process arenas, page tables, physical frames, swap-backed pages, and shared file-backed mappings. The pager handles process creation and switching, page faults, zero-page optimization, copy-on-write behavior, dirty and reference tracking through page-table protection bits, swap block allocation, file block sharing, eviction, and a clock-style page replacement policy when physical memory fills.`
   },
@@ -80,7 +149,7 @@ export const projects: Project[] = [
     title: 'Networked File Server',
     languages: ['C++', 'Boost', 'Sockets'],
     categories: ['C/C++'],
-    image: '',
+    image: 'https://images.pexels.com/photos/6466143/pexels-photo-6466143.jpeg?cs=srgb&dl=pexels-sejio402-6466143.jpg&fm=jpg',
     href: '#/projects/networked-file-server',
     description: `An EECS 482 networked file-system server that accepts client requests over sockets and implements file and directory operations on a block-based disk abstraction. The server supports reading, writing, creating, and deleting files or directories while validating ownership, pathnames, usernames, offsets, file types, disk capacity, and directory capacity. It uses per-block shared and exclusive locking, hand-over-hand directory traversal, threaded request handling, free-block allocation, and safe cleanup of deleted file-system resources.`
   },
@@ -136,7 +205,7 @@ export const projects: Project[] = [
     title: 'Invariant Learning Experiments',
     languages: ['Python', 'NumPy', 'PyTorch', 'yfinance'],
     categories: ['Python', 'Machine Learning', 'Optimization'],
-    image: '',
+    image: 'https://images.unsplash.com/photo-1644325349124-d1756b79dd42?auto=format&fit=crop&fm=jpg&q=80&w=1800',
     href: 'https://github.com/aethom00/ECE_553_Final_Project',
     reportUrl: 'https://github.com/aethom00/ECE_553_Final_Project',
     reportLabel: 'View GitHub repo',
@@ -159,19 +228,8 @@ export const projects: Project[] = [
     description: `A subset of a fault-tolerant quantum circuit library centered on the Steane error-correction code. It corrects single-qubit errors, creates fault-tolerant X, Y, Z, H, S, T, and CNOT circuits, and decodes measurements into logical states for more reliable quantum computation.`
   },
   {
-    title: 'Study Group Coordinator', languages: ['Python', 'Qiskit'], categories: ['Python', 'Quantum'], image: `${oldSite}/new_images/studygroup.jpeg`, href: `${oldSite}/498_p2`,
+    title: 'Quantum Study Group Coordinator', languages: ['Python', 'Qiskit'], categories: ['Python', 'Quantum'], image: `${oldSite}/new_images/studygroup.jpeg`, href: `${oldSite}/498_p2`,
     description: `A quantum study-group scheduler that uses Grover's algorithm and quantum counting to satisfy constraints expressed in conjunctive normal form. It includes Bitflip and Phase Oracles, solution optimization, and a counting circuit for estimating the number of feasible groupings.`
-  },
-  {
-    title: 'Ethereum Consensus Landscape',
-    languages: ['Research', 'LaTeX'],
-    categories: ['Cryptography', 'Algorithms'],
-    image: '',
-    href: '/EECS_475_Final_Project.pdf',
-    date: 'Fall 2023',
-    reportUrl: '/EECS_475_Final_Project.pdf',
-    reportLabel: 'View final report',
-    description: `An EECS 475 final project report titled "Navigating the Consensus Landscape: A Comparative Analysis of Security and Consensus Algorithms of Ethereum in the Modern World." The paper traces the evolution from traditional currency to cryptocurrency, explains blockchain data structures and cryptographic hashes, and compares how decentralized systems use consensus mechanisms such as proof of work, proof of stake, and Byzantine fault-tolerant ideas to balance security, transparency, scalability, and environmental tradeoffs.`
   },
   {
     title: 'Tumor Detection', languages: ['MATLAB'], categories: ['MATLAB'], image: `${oldSite}/assets/img/old_photos/brain_final.png`, href: `${oldSite}/tumor_detection`,
@@ -225,6 +283,13 @@ export const getProjectSlug = (project: Project) => project.title
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/(^-|-$)/g, '')
 
-export const getProjectBySlug = (slug: string) => projects.find((project) => getProjectSlug(project) === slug)
+const projectSlugAliases: Record<string, string> = {
+  'study-group-coordinator': 'quantum-study-group-coordinator',
+}
+
+export const getProjectBySlug = (slug: string) => {
+  const canonicalSlug = projectSlugAliases[slug] ?? slug
+  return projects.find((project) => getProjectSlug(project) === canonicalSlug)
+}
 
 export const projectCategories = ['All', 'C/C++', 'Python', 'Web', 'Machine Learning', 'Assembly', 'MATLAB', 'Julia', 'Quantum', 'Cryptography', 'Algorithms', 'Optimization', 'XR']

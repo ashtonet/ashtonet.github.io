@@ -1,6 +1,37 @@
 import { projects } from '../data/projects'
 
 export const spanishPhrases: Record<string, string> = {
+  'See more': 'Ver mas',
+  '7 days': '7 dias',
+  'Month': 'Mes',
+  '1 year': '1 ano',
+  'All time': 'Todo el tiempo',
+  'Top artists · Month': 'Artistas principales · mes',
+  'Top artists · 1 year': 'Artistas principales · 1 ano',
+  'Top artists · All time': 'Artistas principales · todo el tiempo',
+  'Loading artists…': 'Cargando artistas...',
+  'Filter Apple Music listening stats by time period': 'Filtrar estadisticas de Apple Music por periodo',
+  'Highlighted projects': 'Proyectos destacados',
+  'The strongest work up front.': 'El trabajo mas fuerte primero.',
+  'A curated set of the projects that best represent my current software engineering, AI, systems, web, and research work.': 'Una seleccion de proyectos que mejor representan mi trabajo actual en ingenieria de software, IA, sistemas, web e investigacion.',
+  'Additional archive': 'Archivo adicional',
+  'More coursework, experiments, and older builds.': 'Mas trabajos de curso, experimentos y versiones anteriores.',
+  'Load the rest only if you want the deeper project history. Those cards and images stay out of the page until you ask for them.': 'Carga el resto solo si quieres ver la historia mas profunda de proyectos. Esas tarjetas e imagenes no se renderizan hasta que las pidas.',
+  'See more projects': 'Ver mas proyectos',
+  'Hide extra projects': 'Ocultar proyectos adicionales',
+  '34 projects across systems, machine learning, algorithms, web development, optimization, and quantum computing.': '34 proyectos de sistemas, aprendizaje automatico, algoritmos, desarrollo web, optimizacion y computacion cuantica.',
+  'Building developer-insights platforms at AWS for software delivery health, observability, and privacy-aware engineering analytics. My work spans Python services and automation, AWS data pipelines, reporting dashboards, and AI-assisted engineering tooling.': 'Construyo plataformas de insights para desarrolladores en AWS enfocadas en salud de entrega de software, observabilidad y analítica de ingeniería con privacidad. Mi trabajo abarca servicios y automatización en Python, pipelines de datos en AWS, dashboards de reportes y herramientas de ingeniería asistidas por IA.',
+  'Completed a Fall 2024 SDE internship on Alexa endpoint experiences, building software with React Native, responsive web patterns, and production engineering practices.': 'Completé unas prácticas SDE en otoño de 2024 en experiencias de Alexa endpoint, desarrollando software con React Native, patrones web adaptables y prácticas de ingeniería de producción.',
+  'Started full-time at AWS, working on developer-insights platforms, observability, data pipelines, and AI-assisted engineering tooling.': 'Comencé tiempo completo en AWS, trabajando en plataformas de insights para desarrolladores, observabilidad, pipelines de datos y herramientas de ingeniería asistidas por IA.',
+  'Completed a Fall 2024 SDE internship on Alexa endpoint experiences in Boston.': 'Completé unas prácticas SDE en otoño de 2024 en experiencias de Alexa endpoint en Boston.',
+  'Software engineer working across AWS-scale developer insights, data platforms, AI-assisted tooling, computer vision research, and full-stack web engineering.': 'Ingeniero de software trabajando en insights para desarrolladores a escala AWS, plataformas de datos, herramientas asistidas por IA, investigación en visión por computadora e ingeniería web full-stack.',
+  'Data Engineering': 'Ingeniería de datos',
+  'Observability': 'Observabilidad',
+  'AI-assisted Tooling': 'Herramientas asistidas por IA',
+  'Outdoors': 'Aire libre',
+  'Backpacking and hiking': 'Backpacking y senderismo',
+  'Travel photography': 'FotografÃ­a de viajes',
+  'Documenting the places and perspectives I find along the way': 'Documentando los lugares y perspectivas que encuentro en el camino',
   'Software Development Engineer · Amazon': 'Ingeniero de desarrollo de software · Amazon',
   'Machine learning systems': 'Sistemas de aprendizaje automático', 'Computer vision': 'Visión por computadora', 'Distributed infrastructure': 'Infraestructura distribuida', 'Optimization & robotics': 'Optimización y robótica',
   'I design intelligent, reliable systems that turn ambitious ideas into useful software at scale.': 'Diseño sistemas inteligentes y fiables que convierten ideas ambiciosas en software útil a gran escala.',
@@ -123,6 +154,7 @@ export const spanishPhrases: Record<string, string> = {
 }
 
 const projectDescriptions: Record<string, string> = {
+  'AI-Assisted Engineering Agent': 'Un resumen publico de un proyecto de herramientas para desarrolladores en AWS centrado en automatizacion de ingenieria asistida por IA. El sistema coordina recepcion de tareas, generacion de codigo, gestion del ciclo de revision de codigo, controles de fiabilidad y observabilidad operacional, con enfasis en manejo de datos con privacidad, validacion y guardrails de preparacion para produccion.',
   'Geoguessr AI': 'La versión 1 entrena una IA con panoramas de Mapillary para adivinar ubicaciones con un 90 % de precisión. La versión 2 usa un ResNet-50 modificado, 61 000 imágenes y una función de pérdida basada en la distancia de Haversine para reconocer lugares de Estados Unidos pese a cambios de estación e iluminación.',
   'Search Engine': 'Mi equipo y yo desarrollamos un motor de búsqueda escalable similar a Google, combinando TF-IDF, PageRank, un índice invertido segmentado creado con MapReduce, una API REST y una interfaz de búsqueda.',
   'Instagram Clone': 'Creamos tres versiones de un clon de Instagram: un sitio estático, uno dinámico renderizado en servidor y una aplicación React del lado del cliente con API REST, desplazamiento infinito y doble toque para dar me gusta.',
@@ -150,7 +182,7 @@ const projectDescriptions: Record<string, string> = {
   'Office Hours API': 'El backend de una cola de tutorías en línea. Las listas enlazadas gestionan estudiantes y las operaciones GET, POST y DELETE sincronizan la cola con la interfaz.',
   'K-means Machine Learning': 'Un análisis de agrupamiento de datos de vehículos, como consumo, cilindros y cilindrada, que clasifica modelos en tres grupos mediante K-means.',
   'Quantum Fault Tolerance Library': 'Una biblioteca cuántica tolerante a fallos basada en el código de Steane que corrige errores de un cúbit, crea puertas robustas y decodifica mediciones en estados lógicos.',
-  'Study Group Coordinator': 'Un planificador cuántico de grupos de estudio que usa el algoritmo de Grover y conteo cuántico para cumplir restricciones lógicas y estimar agrupaciones posibles.',
+  'Quantum Study Group Coordinator': 'Un planificador cuántico de grupos de estudio que usa el algoritmo de Grover y conteo cuántico para cumplir restricciones lógicas y estimar agrupaciones posibles.',
   'Ethereum Consensus Landscape': 'Un informe final de EECS 475 titulado "Navigating the Consensus Landscape", que analiza Ethereum, las estructuras blockchain, los hashes criptográficos y mecanismos de consenso como proof of work, proof of stake e ideas de tolerancia a fallos bizantinos.',
   'Tumor Detection': 'Un modelo de MATLAB que localiza tumores cerebrales y calcula la intensidad de radiación adecuada, equilibrando cobertura y protección del tejido circundante.',
   'Maze Solver': 'Un algoritmo que encuentra la salida de un laberinto sin conocimiento previo ni visibilidad, registra posiciones visitadas y retrocede únicamente en callejones sin salida.',
@@ -160,6 +192,31 @@ const projectDescriptions: Record<string, string> = {
 }
 
 for (const project of projects) spanishPhrases[project.description] = projectDescriptions[project.title]
+
+Object.assign(spanishPhrases, {
+  'Internal developer tooling': 'Herramientas internas para desarrolladores',
+  'Built around privacy, reviewability, and production readiness.': 'Construido alrededor de privacidad, revision y preparacion para produccion.',
+  'This project explores how an AI-assisted engineering workflow can move from a loosely scoped engineering request toward review-ready software work without removing the human engineer from the loop. The goal is not to replace judgment; it is to reduce repetitive coordination, preserve context, and make each step easier to inspect.': 'Este proyecto explora como un flujo de ingenieria asistido por IA puede pasar de una solicitud de ingenieria poco definida a trabajo de software listo para revision sin sacar al ingeniero humano del proceso. El objetivo no es reemplazar el criterio, sino reducir coordinacion repetitiva, preservar contexto y hacer que cada paso sea mas facil de inspeccionar.',
+  'The page is intentionally written at a public level. It describes the shape of the work: task intake, implementation planning, code-change orchestration, review lifecycle tracking, reliability checks, and operational visibility. Internal systems, proprietary implementation details, and confidential metrics are omitted.': 'La pagina esta escrita intencionalmente a un nivel publico. Describe la forma del trabajo: recepcion de tareas, planificacion de implementacion, orquestacion de cambios de codigo, seguimiento del ciclo de revision, controles de fiabilidad y visibilidad operacional. Se omiten sistemas internos, detalles propietarios y metricas confidenciales.',
+  'Task context': 'Contexto de tarea',
+  'Transforms engineering task information into structured plans, constraints, and reviewable work artifacts.': 'Transforma informacion de tareas de ingenieria en planes estructurados, restricciones y artefactos listos para revision.',
+  'AI-assisted loop': 'Ciclo asistido por IA',
+  'Coordinates implementation steps while keeping validation, traceability, and engineer oversight central to the workflow.': 'Coordina pasos de implementacion mientras mantiene validacion, trazabilidad y supervision de ingenieria en el centro del flujo.',
+  'Review lifecycle': 'Ciclo de revision',
+  'Tracks work from task framing through code review so generated artifacts can be evaluated like normal engineering changes.': 'Sigue el trabajo desde el planteamiento de la tarea hasta la revision de codigo para que los artefactos generados puedan evaluarse como cambios normales de ingenieria.',
+  'Operational guardrails': 'Guardrails operacionales',
+  'Emphasizes privacy-aware data handling, reliability checks, and production-readiness signals before work moves forward.': 'Enfatiza manejo de datos con privacidad, controles de fiabilidad y senales de preparacion para produccion antes de avanzar.',
+  'What I focused on': 'En que me enfoque',
+  'My work centered on the connective tissue between AI output and production engineering practice: defining safe inputs, shaping useful outputs, validating intermediate results, and surfacing enough context for engineers to trust or reject a recommendation.': 'Mi trabajo se centro en el tejido conectivo entre la salida de IA y la practica de ingenieria de produccion: definir entradas seguras, formar salidas utiles, validar resultados intermedios y mostrar suficiente contexto para que los ingenieros confien en una recomendacion o la rechacen.',
+  'Structured task intake so automation could reason from clear goals, constraints, and repository context.': 'Estructure la recepcion de tareas para que la automatizacion pudiera razonar desde objetivos claros, restricciones y contexto del repositorio.',
+  'Designed guardrails around what data could be used, persisted, or surfaced in generated artifacts.': 'Disene guardrails sobre que datos podian usarse, persistirse o mostrarse en artefactos generados.',
+  'Supported review-ready outputs that align with normal code-review and software-delivery workflows.': 'Apoye salidas listas para revision que se alinean con flujos normales de code review y entrega de software.',
+  'Added reliability and observability hooks so failures could be understood instead of hidden behind the AI layer.': 'Agregue hooks de fiabilidad y observabilidad para que las fallas pudieran entenderse en vez de quedar ocultas detras de la capa de IA.',
+  'Why it matters': 'Por que importa',
+  'AI tools are only useful in serious engineering environments when they fit into the systems engineers already trust. This project treats AI as one component inside a larger delivery workflow, with human review, validation, and operational clarity as first-class requirements.': 'Las herramientas de IA solo son utiles en entornos de ingenieria serios cuando encajan en los sistemas en los que los ingenieros ya confian. Este proyecto trata la IA como un componente dentro de un flujo de entrega mas grande, con revision humana, validacion y claridad operacional como requisitos principales.',
+  'Public-safe takeaway': 'Conclusion publica',
+  'The interesting engineering challenge is less about asking a model to write code and more about designing the surrounding system: how context is gathered, how plans become changes, how those changes are checked, and how people stay in control of the final decision.': 'El reto interesante de ingenieria no es tanto pedirle a un modelo que escriba codigo, sino disenar el sistema alrededor: como se reune el contexto, como los planes se convierten en cambios, como se verifican esos cambios y como las personas mantienen el control de la decision final.',
+})
 
 const personalWebsite = projects.find((project) => project.title === 'Personal Website')
 const versionTitles = ['Los cimientos', 'El archivo de proyectos', 'El portafolio actual']

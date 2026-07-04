@@ -1,0 +1,361 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-7pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeCoursework}[1]{
+  \vspace{1pt}\item[]
+    \begin{minipage}[t]{0.97\textwidth}
+      \small{\textit{#1}}
+    \end{minipage}\vspace{-4pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\linespread{1} % determines line spacing
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------Basic HEADING----------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\href{https://aethom00.github.io/}{\Large Ashton E. Thomas}} & \href{mailto:aethom@umich.edu}{aethom@umich.edu}\\
+  \href{https://aethom00.github.io}{aethom00.github.io} & \href{https://linkedin.com/in/aethom}{linkedin.com/in/aethom} \\
+  \href{https://github.com/aethom00}{github.com/aethom00} & New York, NY / New Jersey, USA \\
+\end{tabular*}
+
+%-----------PROFILE-----------
+\section{Profile}
+    \small{Software engineer with an M.S.E. in Computer Engineering and a Computer Vision Concentration, working across AWS-scale developer platforms, data engineering, observability, and AI-assisted tooling. Research interests include computer vision, artificial intelligence, machine learning, and mapping algorithms, especially systems that connect rigorous models with dependable production software.}
+
+%-----------EDUCATION-----------
+\section{Education}
+    \resumeSubHeadingListStart
+        \resumeSubheading
+            {\href{https://rackham.umich.edu}{University of Michigan - Rackham Graduate School}}{2025 -- 2026}
+            {M.S.E. Computer Engineering, Computer Vision Concentration, GPA - 4.00 / 4.00}{Ann Arbor, MI, USA}
+        \resumeCoursework{Machine Learning, Optimization in Signal Processing \& ML, Mathematics for Robotics, Robot Kinematics \& Dynamics}
+        \resumeSubheading
+            {\href{https://www.engin.umich.edu}{University of Michigan College of Engineering}}{08/2022 -- 05/2025}
+            {B.S.E. Computer Science Engineering; Minor in International Engineering, GPA - 3.81 / 4.0}{Ann Arbor, MI, USA}
+        \resumeCoursework{Computer Vision, Operating Systems, Computer Organization, Cryptography, Data Structures \& Algorithms, Foundations of Computer Science, Probability, Extended Reality, Web Systems, Data Analytics}
+    \resumeSubHeadingListEnd
+    \resumeSubHeadingListStart
+        \resumeSubheading
+            {\href{https://www.nmc.edu}{Northwestern Michigan College -- Dual Enrollment}}{2021 -- 2022}
+            {A.S.A. Liberal Arts, GPA -- 3.96 / 4.0}{Traverse City, MI, USA}
+    \resumeSubHeadingListEnd
+
+%-----------Research-----------
+\section{Research}
+    \resumeSubHeadingListStart
+        \resumeSubheading
+            {\href{https://sites.lsa.umich.edu/polklab/}{Polk Lab} | \textit{University of Michigan}}{09/2024 -- 06/2025}
+            {Computational Neuroscience Research Assistant}{Ann Arbor, MI, USA}
+            \resumeItemListStart
+                \resumeItem{Processed fMRI data using FS-FAST and Makefiles to study age-related neural dedifferentiation and its effects on neurocognition in healthy aging and Alzheimer's disease.}
+                \resumeItem{Contributed to machine learning workflows modeling neural distinctiveness and separating background noise from spoken language, connecting computational models with human-like auditory processing.}
+                \resumeItem{Built Python data-processing tools with Prof. Thad Polk for large CSV datasets, including wildcard column filtering, demographic parsing, node-hierarchy operations, and reproducible row filtration.}
+                \resumeItem{Used MATLAB, Python, Git, and structured research workflows to support computational neuroscience analysis and data management.}
+            \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+    \resumeSubHeadingListStart
+        \resumeSubheading
+            {\href{https://aws.amazon.com}{Amazon Web Services}}{06/2025 -- Present}
+            {Software Development Engineer I}{New York, NY, USA}
+            \resumeItemListStart
+                \resumeItem{Build developer-insights platforms for software delivery health, observability, and engineering analytics across large-scale internal software systems.}
+                \resumeItem{Design and operate AWS data pipelines using Python, S3, Glue, Athena, CloudWatch, QuickSight, and infrastructure-as-code workflows for analytics and reporting.}
+                \resumeItem{Develop privacy-aware data availability and access-control validation, including integration tests for row-level and column-level security across analytics datasets.}
+                \resumeItem{Designed AI-assisted engineering automation that coordinates task intake, code generation, code review lifecycle management, reliability checks, and operational observability.}
+                \resumeItem{Support production operations through canary checks, alarms, dashboarding, bug investigation, on-call readiness, and incident-driven reliability improvements.}
+            \resumeItemListEnd
+        \resumeSubheading
+            {\href{https://www.amazon.com}{Amazon}}{09/2024 -- 11/2024}
+            {Software Development Engineer Intern}{Boston, MA, USA}
+            \resumeItemListStart
+                \resumeItem{Worked on Alexa endpoint experiences, designing, testing, and optimizing customer-facing device functionality with a team of more than 20 engineers.}
+                \resumeItem{Implemented software features using React Native, Kotlin, TypeScript, and related technologies while applying production engineering and responsive design practices.}
+            \resumeItemListEnd
+        \resumeSubheading
+            {\href{https://www.usarmygvsc.com}{Ground Vehicle Systems Center (SEC)}}{05/2024 -- 07/2024}
+            {Software Engineer Intern}{Warren, MI, USA}
+            \resumeItemListStart
+                \resumeItem{Leveraged MagicDraw \& Excel to design databases for Jira tickets and hardware, leading to improved efficiency.}
+                \resumeItem{Created Python scripts to parse large csvs with 1000s of datapoints to update integrated networks in Jira.}
+            \resumeItemListEnd
+        \resumeSubheading
+            {\href{https://maditaylorphoto.com}{Madi Taylor Photo}}{06/2022 -- 07/2024}
+            {Full Stack Developer Intern}{Traverse City, MI, USA}
+            \resumeItemListStart
+                \resumeItem{Developed and maintained the corporate website, crafting a cohesive user interface with HTML, CSS, and JS.}
+                \resumeItem{Implemented robust back-end payment solutions and form validation to streamline user transactions.}
+            \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------Papers-----------
+\section{Selected Papers \& Reports}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
+        \href{https://aethom00.github.io/cryptographyFinalPaper.pdf}{\textbf{Navigating the Consensus Landscape}: An Analysis of Blockchain} & 2023 \\
+        \href{https://aethom00.github.io/EECS_442_Final_Project.pdf}{\textbf{Geoguessr AI}: A Look into AI Geolocation Accuracy} & 2024 \\
+    \end{tabular*}
+
+%-----------PROJECTS-----------
+\section{Selected Projects}
+    \resumeSubHeadingListStart
+        \resumeProjectHeading
+            {\textbf{\href{https://aethom00.github.io/EECS_442_Final_Project.pdf}{\textbf{Geoguessr AI}}, Computer Vision}}{2023 -- 2024} % 2024
+            \resumeItemListStart
+                % \resumeItem{Crafted a modified ResNet-50 architecture that accurately identifies U.S. geographic locations from images, overcoming lighting and seasonal variations. Through fine-tuning with a dataset of 61,000 images and innovative custom layers and a unique Haversine distance-based loss function, we achieved an accuracy of roughly 90\%.}
+                \resumeItem{Designed and implemented a modified ResNet-50 architecture for geographic location identification from images.}
+                \resumeItem{Fine-tuned the model using 61,000 images, addressing challenges related to lighting and seasonal variations.}
+                \resumeItem{Achieved approximately 90\% accuracy in predicting U.S. geographic locations from visual data.}
+            \resumeItemListEnd
+        \resumeProjectHeading
+            {\textbf{\href{https://aethom00.github.io/485_p5}{Google Search Engine}, Web Systems}}{2024} % 2024
+            \resumeItemListStart
+                % \resumeItem{Engineered a scalable search engine similar to Google. Our approach utilized a segmented inverted index implemented through MapReduce programs, a REST API for search results, tf-idf for text analysis, PageRank for link analysis, and a user interface to interact with the engine.}
+                \resumeItem{Engineered a scalable search engine leveraging a segmented inverted index implemented with MapReduce for efficient data processing.}
+                \resumeItem{Integrated tf-idf for text analysis and PageRank for link analysis to improve the relevance of search results.}
+                \resumeItem{Developed a REST API to deliver fast and accessible search query results.}
+                \resumeItem{Designed and implemented a user-friendly interface for seamless interaction with the search engine.}
+            \resumeItemListEnd
+        \resumeProjectHeading
+            {\textbf{AI-Assisted Engineering Agent, AWS Developer Tooling}}{2025 -- Present}
+            \resumeItemListStart
+                \resumeItem{Designed a privacy-aware internal automation system that turns engineering task context into implementation plans, code changes, and review-ready artifacts.}
+                \resumeItem{Coordinated task intake, code generation, code review lifecycle management, reliability checks, and operational observability across software delivery workflows.}
+                \resumeItem{Built guardrails around data access, validation, and production-readiness checks to keep AI-assisted work aligned with engineering standards.}
+            \resumeItemListEnd
+        \resumeProjectHeading
+            {\textbf{Virtual Memory Pager, Operating Systems}}{EECS 482}
+            \resumeItemListStart
+                \resumeItem{Built a virtual-memory pager managing per-process arenas, page tables, physical frames, swap-backed pages, and shared file-backed mappings.}
+                \resumeItem{Implemented page-fault handling, copy-on-write behavior, dirty/reference tracking, swap allocation, file-block sharing, eviction, and a clock-style page replacement policy.}
+            \resumeItemListEnd
+        \resumeProjectHeading
+            {\textbf{Networked File Server, Operating Systems}}{EECS 482}
+            \resumeItemListStart
+                \resumeItem{Implemented a socket-based network file server supporting read, write, create, and delete operations over a block-based disk abstraction.}
+                \resumeItem{Designed validation and concurrency logic for ownership, paths, users, permissions, capacity limits, shared/exclusive locks, threaded request handling, and safe cleanup.}
+            \resumeItemListEnd
+        \resumeProjectHeading
+            {\textbf{\href{https://github.com/aethom00/ECE_553_Final_Project}{Invariant Learning Experiments}, Machine Learning}}{ECE 553}
+            \resumeItemListStart
+                \resumeItem{Compared empirical risk minimization, invariant risk minimization, and IRM-Games under distribution shift across controlled experimental environments.}
+                \resumeItem{Evaluated model behavior on Colored MNIST, synthetic chain-equation data, and financial time-series settings with spurious correlations, trend regimes, and volatility shifts.}
+            \resumeItemListEnd
+        \resumeProjectHeading
+            {\textbf{\href{https://aethom00.github.io/498_p2}{Study Group Coordinator}, Quantum Computing}}{2024} % 2024
+            \resumeItemListStart
+                % \resumeItem{Developed a Study Group Scheduler using Grover's algorithm and quantum counting to efficiently form study groups under specific CNF constraints. I created a Bitflip Oracle and a Phase Oracle to transform CNF constraints into quantum operations, implemented Grover's algorithm for solution optimization, and engineered a quantum counting circuit to estimate feasible solutions.}
+                \resumeItem{Designed and developed a Study Group Scheduler with Quantum algorithms leveraging Grover's algorithm for efficient group formation under CNF constraints.}
+                \resumeItem{Created and implemented Bitflip and Phase Oracles to translate CNF constraints into quantum operations.}
+                \resumeItem{Engineered a quantum counting circuit to estimate the number of feasible solutions for optimal scheduling.}
+                \resumeItem{Utilized quantum algorithms to optimize solution search, showcasing advanced problem-solving techniques in quantum computing.}
+            \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------Technical SKILLS-----------
+\section{Technical Skills}
+    \begin{itemize}[leftmargin=0.15in, label={}]
+        \small{\item{
+            \textbf{Coding Languages}{: ARM, C/C++, CSS, HTML, Java, JavaScript, Kotlin, LaTeX, MATLAB, Python, SQL, TypeScript} \\
+            \textbf{Cloud \& Data}{: AWS, Lambda, S3, Glue, Athena, Redshift, CloudWatch, QuickSight, CDK} \\
+            \textbf{AI/ML \& Research}{: Computer vision, machine learning, neural data analysis, mapping algorithms, PyTorch, Keras, TensorFlow} \\
+            \textbf{Developer Tools}{: Git, VSCode, CI/CD pipelines, observability dashboards, code review automation} \\
+            \textbf{Engineering \& Mapping Tools}{: AutoCAD, ArcGIS, Excel, Jira, MagicDraw} \\
+            \textbf{Frameworks}{: Flask, React, React Native} \\
+            \textbf{Libraries}{: Jinja, NumPy, Qiskit} \\
+            \textbf{Operating Systems}{: Linux, Mac, Windows} \\
+        }}
+    \end{itemize}
+
+%-----------CERTIFICATIONS-----------
+\section{Certifications}
+    \small{
+        \begin{tabularx}{\textwidth}{@{}X r@{}}
+            \href{https://www.linkedin.com/in/aethom/overlay/Certifications/700791707/treasury?profileId=ACoAADN5bTEB18k0yztAXyUopICM-9S8EoTbpdo}{\textbf{Engineering Across Cultures}} --- University of Michigan College of Engineering & 02/2024 \\
+            \href{https://www.coursera.org/account/accomplishments/certificate/4S2MW9LSCTJC}{\textbf{Understanding and Visualizing Data with Python}} --- Coursera & 08/2023 \\
+            \href{https://www.coursera.org/account/accomplishments/certificate/G8BQCKNRNECB}{\textbf{Advanced Styling with Responsive Design}} --- Coursera & 08/2023 \\
+            \href{https://www.coursera.org/account/accomplishments/certificate/G6FXQ9S524CH}{\textbf{Programming for Everybody (Getting Started with Python)}} --- Coursera & 04/2023 \\
+            \href{https://www.coursera.org/account/accomplishments/certificate/ZJT5WX8NVHEU}{\textbf{Introduction to HTML5}} --- Coursera & 05/2023 \\
+            \href{https://www.coursera.org/account/accomplishments/certificate/3R6STSHFEJFY}{\textbf{Introduction to CSS3}} --- Coursera & 05/2023 \\
+            \href{https://www.coursera.org/account/accomplishments/certificate/UHH6VUA383U8}{\textbf{Python Data Structures}} --- Coursera & 04/2023 \\
+            \href{https://www.coursera.org/account/accomplishments/certificate/9HQE5QPSLG9S}{\textbf{Using Python to Access Web Data}} --- Coursera & 05/2023 \\
+        \end{tabularx}
+    }
+
+%-----------Leadership / Activities-----------
+\section{Leadership \& Activities}
+    \small {
+        \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
+            \textbf{\href{https://mdst.club}{Michigan Data Science Team}} & 2024 \\
+            \textbf{\href{https://mcity.umich.edu/what-mcity-offers/for-students/michigander-scholars-program/}{University of Michigan EV \& Mobility Scholars}} & 2023 -- 2026 \\
+            \textbf{\href{https://michhackers.com}{MHackers}} & 2022 -- 2024 \\
+            \textbf{\href{https://www.firstinspires.org}{First Robotics}} & 2021 -- 2022 \\
+        \end{tabular*}
+    }
+
+%-----------Volunteering / Service-----------
+\section{Volunteering \& Service}
+    \small {
+        \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
+            \textbf{\href{https://thekf.org}{The Kosciuszko Foundation}} & 10/2025 -- Present \\
+            \textbf{\href{https://www.nationalhonorsociety.org}{National Honor Society}} & 08/2021 -- 05/2022 \\
+        \end{tabular*}
+    }
+
+%-----------Awards / Honors-----------
+\section{Awards \& Honors}
+    \begin{itemize}[leftmargin=0.15in, label={}]
+        \small{\item{
+            {University of Michigan Grant, University of Michigan University Honors, University of Michigan Dean's List, Mary Sue and Kenneth Coleman Student Scholarship, Michigan Comp Scholarship, Michigan Regents Merit Scholarship, Riopelle/Dowden Technical Award, Robert Paul Dost Award, Ernest B. Isaacsen Award, Guy M. Wilson Award, Presidential Education Award, Marilla Church of the Brethren Scholarship, Northwestern Michigan College Dean's List} \\
+        }}
+    \end{itemize}
+
+    % \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
+    %     \textbf{University of Michigan Grant} & 2022, 2023, 2024 \\
+    %     \textbf{University of Michigan University Honors} & 2022, 2023, 2024 \\
+    %     \textbf{University of Michigan Dean's List} & 2022, 2023, 2024 \\
+    %     \textbf{Mary Sue and Kenneth Coleman Student Scholarship} & 2023 \\
+    %     \textbf{Michigan Comp Scholarship} & 2022, 2023 \\
+    %     \textbf{Michigan Regents Merit Scholarship} & 2022, 2023 \\
+    %     \textbf{Riopelle/Dowden Technical Award} & 2022 \\
+    %     \textbf{Robert Paul Dost Award} & 2022 \\
+    %     \textbf{Ernest B. Isaacsen Award} & 2022 \\
+    %     \textbf{Guy M. Wilson Award} & 2022 \\
+    %     \textbf{Presidential Education Award} & 2022 \\
+    %     \textbf{Marilla Church of the Brethren Scholarship} & 2022 \\
+    %     \textbf{Northwestern Michigan College Dean's List} & 2020, 2021, 2022 \\
+    % \end{tabular*}
+
+%-----------Interests/Hobbies-----------
+\section{Interests/Hobbies}
+    \begin{itemize}[leftmargin=0.15in, label={}]
+        \small{
+            \item{
+                \textbf{Artificial intelligence, backpacking, computer vision, geopolitics, hiking, machine learning, mapping algorithms, neuroscience, travel photography}
+            }
+        }
+    \end{itemize}
+
+%-----------Languages-----------
+\section{Languages}
+    \begin{itemize}[leftmargin=0.15in, label={}]
+        \small{
+            \item{
+                \begin{tabular}{@{}l l@{}}
+                    \textbf{English}: & \ Native \\
+                    \textbf{German}: & \ B1 \\
+                    \textbf{Spanish}: & \ A2 \\
+                    \textbf{Polish}: & \ A1 \\
+                    \textbf{French}: & \ A1 \\
+                    \textbf{Korean}: & \ Can sound Hangul \\
+                \end{tabular}
+            }
+        }
+    \end{itemize}
+
+
+%-------------------------------------------
+\end{document}

@@ -4,6 +4,7 @@ type PhraseMap = Record<string, string>
 
 export const sitePhrases: Record<Exclude<Language, 'en' | 'es'>, PhraseMap> = {
   de: {
+    'See more': 'Mehr sehen',
     'Building at the edge of research & engineering': 'An der Schnittstelle von Forschung und Technik',
     'Software Development Engineer · Amazon': 'Softwareentwicklungsingenieur · Amazon',
     'Machine learning systems': 'Systeme für maschinelles Lernen', 'Computer vision': 'Computer Vision', 'Distributed infrastructure': 'Verteilte Infrastruktur', 'Optimization & robotics': 'Optimierung & Robotik',
@@ -22,6 +23,7 @@ export const sitePhrases: Record<Exclude<Language, 'en' | 'es'>, PhraseMap> = {
     'Built with curiosity.': 'Mit Neugier entwickelt.', 'Home': 'Startseite', 'Back to all projects': 'Zurück zu allen Projekten', 'Project case study': 'Projekt-Fallstudie', 'The work': 'Die Arbeit', 'From idea to implementation.': 'Von der Idee zur Umsetzung.', 'Project details': 'Projektdetails', 'Built with': 'Erstellt mit', 'Focus areas': 'Schwerpunkte', 'Previous project': 'Vorheriges Projekt', 'Next project': 'Nächstes Projekt',
   },
   fr: {
+    'See more': 'Voir plus',
     'Building at the edge of research & engineering': 'À la frontière de la recherche et de l’ingénierie',
     'Software Development Engineer · Amazon': 'Ingénieur en développement logiciel · Amazon',
     'Machine learning systems': 'Systèmes d’apprentissage automatique', 'Computer vision': 'Vision par ordinateur', 'Distributed infrastructure': 'Infrastructure distribuée', 'Optimization & robotics': 'Optimisation et robotique',
@@ -39,6 +41,7 @@ export const sitePhrases: Record<Exclude<Language, 'en' | 'es'>, PhraseMap> = {
     'Built with curiosity.': 'Créé avec curiosité.', 'Home': 'Accueil', 'Back to all projects': 'Retour aux projets', 'Project case study': 'Étude de cas', 'The work': 'Le travail', 'From idea to implementation.': 'De l’idée à la réalisation.', 'Project details': 'Détails du projet', 'Built with': 'Réalisé avec', 'Focus areas': 'Domaines clés', 'Previous project': 'Projet précédent', 'Next project': 'Projet suivant',
   },
   pl: {
+    'See more': 'Zobacz wiecej',
     'Building at the edge of research & engineering': 'Na styku badań i inżynierii',
     'Software Development Engineer · Amazon': 'Inżynier oprogramowania · Amazon',
     'Machine learning systems': 'Systemy uczenia maszynowego', 'Computer vision': 'Wizja komputerowa', 'Distributed infrastructure': 'Infrastruktura rozproszona', 'Optimization & robotics': 'Optymalizacja i robotyka',

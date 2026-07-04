@@ -16,6 +16,14 @@ type Track = {
 
 type Artist = { name: string, playcount: string, url: string }
 type ListeningData = { tracks: Track[], artists: Artist[] }
+type MusicPeriod = '7day' | '1month' | '12month' | 'overall'
+
+const musicPeriods: { value: MusicPeriod, label: string }[] = [
+  { value: '7day', label: '7 days' },
+  { value: '1month', label: 'Month' },
+  { value: '12month', label: '1 year' },
+  { value: 'overall', label: 'All time' },
+]
 
 function imageFrom(images?: { '#text': string }[]) {
   return [...(images ?? [])].reverse().find((image) => image['#text'])?.['#text'] ?? ''
@@ -79,7 +87,9 @@ async function findOnAppleMusic(track: Track): Promise<Track> {
 export default function MusicProfile() {
   const [data, setData] = useState<ListeningData>({ tracks: [], artists: [] })
   const [loading, setLoading] = useState(Boolean(import.meta.env.VITE_LASTFM_API_KEY))
+  const [artistsLoading, setArtistsLoading] = useState(false)
   const [available, setAvailable] = useState(Boolean(import.meta.env.VITE_LASTFM_API_KEY))
+  const [period, setPeriod] = useState<MusicPeriod>('7day')
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_LASTFM_API_KEY
@@ -111,17 +121,39 @@ export default function MusicProfile() {
     }).catch(() => setAvailable(false)).finally(() => setLoading(false))
   }, [])
 
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_LASTFM_API_KEY
+    const username = import.meta.env.VITE_LASTFM_USERNAME || 'aethom00'
+    if (!apiKey || loading) return
+
+    const endpoint = 'https://ws.audioscrobbler.com/2.0/'
+    setArtistsLoading(true)
+    fetch(`${endpoint}?method=user.getTopArtists&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json&period=${period}&limit=5`)
+      .then((response) => {
+        if (!response.ok) throw new Error('Last.fm request failed')
+        return response.json()
+      })
+      .then((top) => {
+        const artists: Artist[] = (top.topartists?.artist ?? []).map((artist: { name: string, playcount: string }) => ({ name: artist.name, playcount: artist.playcount, url: appleSearchUrl(artist.name) }))
+        setData((current) => ({ ...current, artists }))
+        setAvailable(true)
+      })
+      .catch(() => setAvailable(false))
+      .finally(() => setArtistsLoading(false))
+  }, [loading, period])
+
   const leadTrack = data.tracks[0]
+  const selectedPeriod = musicPeriods.find((item) => item.value === period) ?? musicPeriods[0]
 
   return (
     <section id="music" className="section" aria-labelledby="music-profile-title">
       <div className="shell">
         <motion.div initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} className="relative overflow-hidden rounded-[1.35rem] border border-rose-400/15 bg-[#0b0710] shadow-[0_30px_100px_rgba(0,0,0,.35)] sm:rounded-[2rem]">
           <div className="grid md:grid-cols-[.78fr_1.22fr]">
-            <div className="relative min-h-[17rem] overflow-hidden bg-gradient-to-br from-[#fa2d65] via-[#b82891] to-[#5a32a3] p-5 sm:min-h-80 sm:p-10 md:min-h-[29rem]">
+            <div className="relative min-h-[21rem] overflow-hidden bg-gradient-to-br from-[#fa2d65] via-[#b82891] to-[#5a32a3] p-5 sm:min-h-80 sm:p-10 md:min-h-[29rem]">
               {leadTrack?.image && <img src={leadTrack.image} alt="" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-2xl" />}
               <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/10 to-black/55" />
-              <div className="relative flex min-h-[13.5rem] flex-col justify-between sm:min-h-[17rem] md:min-h-[24rem]">
+              <div className="relative flex min-h-[17.5rem] flex-col justify-between sm:min-h-[17rem] md:min-h-[24rem]">
                 <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[.18em] text-white/80"><span className="flex items-center gap-2"><Music2 size={16} /> Apple Music</span>{leadTrack?.nowPlaying && <span className="rounded-full bg-white/15 px-3 py-1.5 text-[.62rem] tracking-[.14em] backdrop-blur">Now playing</span>}</div>
                 <div>
                   {leadTrack?.image && <div className="relative mb-4 w-fit sm:mb-6">
@@ -129,7 +161,7 @@ export default function MusicProfile() {
                     <a href={leadTrack.url} target="_blank" rel="noreferrer" aria-label={`Open ${leadTrack.name} on Apple Music`} className="absolute -bottom-2 -right-2 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-black/70 text-white shadow-xl backdrop-blur transition hover:scale-105 hover:bg-black/85"><ArrowUpRight size={16} /></a>
                   </div>}
                   <div className="flex h-10 items-end gap-1.5" aria-hidden="true">{bars.map((height, index) => <span key={index} className="music-bar w-1.5 rounded-full bg-white/85" style={{ height, animationDelay: `${index * -.11}s` }} />)}</div>
-                  {leadTrack ? <div className="mt-5"><p className="text-lg font-semibold text-white">{leadTrack.name}</p><p className="mt-1 text-sm text-white/70">{leadTrack.artist}{leadTrack.album ? ` · ${leadTrack.album}` : ''}</p></div> : <p className="mt-5 text-sm text-white/70">A small window into what’s in my headphones.</p>}
+                  {leadTrack ? <div className="mt-7 sm:mt-5"><p className="text-lg font-semibold text-white">{leadTrack.name}</p><p className="mt-1 text-sm text-white/70">{leadTrack.artist}{leadTrack.album ? ` · ${leadTrack.album}` : ''}</p></div> : <p className="mt-7 text-sm text-white/70 sm:mt-5">A small window into what’s in my headphones.</p>}
                 </div>
               </div>
             </div>
@@ -162,8 +194,11 @@ export default function MusicProfile() {
                     </div>)}</div>
                   </div>
                   <div>
-                    <p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-slate-500">Top artists · 7 days</p>
-                    <ol className="mt-4 space-y-3">{data.artists.map((artist, index) => <li key={artist.name}><a href={artist.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm transition hover:text-white"><span className="w-4 text-xs text-slate-600">{index + 1}</span><span className="min-w-0 flex-1 truncate text-slate-300">{artist.name}</span><span className="text-[.65rem] text-slate-600">{artist.playcount} plays</span></a></li>)}</ol>
+                    <div className="mb-5 flex flex-wrap gap-2" aria-label="Filter Apple Music listening stats by time period">
+                      {musicPeriods.map((item) => <button type="button" key={item.value} onClick={() => setPeriod(item.value)} aria-pressed={period === item.value} className={`rounded-full border px-3.5 py-2 text-xs font-semibold transition ${period === item.value ? 'border-rose-300/50 bg-rose-400/15 text-rose-100' : 'border-white/10 bg-white/[.04] text-slate-400 hover:border-white/20 hover:text-white'}`}>{item.label}</button>)}
+                    </div>
+                    <p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-slate-500">Top artists · {selectedPeriod.label}</p>
+                    {artistsLoading ? <div className="mt-4 flex items-center gap-2 text-xs text-slate-500"><LoaderCircle size={14} className="animate-spin" /> Loading artists…</div> : <ol className="mt-4 space-y-3">{data.artists.map((artist, index) => <li key={artist.name}><a href={artist.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm transition hover:text-white"><span className="w-4 text-xs text-slate-600">{index + 1}</span><span className="min-w-0 flex-1 truncate text-slate-300">{artist.name}</span><span className="text-[.65rem] text-slate-600">{artist.playcount} plays</span></a></li>)}</ol>}
                   </div>
                 </div>}
 

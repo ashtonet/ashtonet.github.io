@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, FileText, Link2, Mail } from 'lucide-react'
+import { ArrowUpRight, FileText, Link2 } from 'lucide-react'
 
 function GitHubLogo({ size = 18 }: { size?: number }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.72 1.26 3.38.96.1-.75.4-1.26.74-1.55-2.57-.29-5.27-1.29-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18A10.95 10.95 0 0 1 12 6.12c.98 0 1.94.13 2.85.39 2.19-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.4-2.71 5.38-5.29 5.67.42.36.79 1.07.79 2.16v3.25c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg>
@@ -9,24 +9,118 @@ function LinkedInLogo({ size = 18 }: { size?: number }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.42v1.57h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.04H3.54V8.98H7.1v11.47Z" /></svg>
 }
 
-const contacts = [
-  { icon: Mail, label: 'Email', value: 'aethom@umich.edu', href: 'mailto:aethom@umich.edu' },
-  { icon: GitHubLogo, label: 'GitHub archive', value: '@aethom00', href: 'https://github.com/aethom00' },
-  { icon: LinkedInLogo, label: 'LinkedIn', value: '/in/aethom', href: 'https://www.linkedin.com/in/aethom' },
-  { icon: FileText, label: 'Résumé', value: 'View PDF', href: 'https://aethom00.github.io/Ashton_resume.pdf' },
-]
+function InstagramLogo({ size = 18 }: { size?: number }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+}
 
-const socialLinks = [
-  { label: 'Instagram', href: 'https://www.instagram.com/ashton.thomas_/' },
-  { label: 'Facebook', href: 'https://www.facebook.com/ashton.thomas.125760/' },
-  { label: 'Linktree', href: 'https://linktr.ee/thomasash00' },
-  { label: 'Discord', href: 'https://discordapp.com/users/greenbacon' },
+function FacebookLogo({ size = 18 }: { size?: number }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.3 8.1V6.6c0-.74.49-.91.84-.91h2.14V2.2L14.33 2.2c-3.28 0-4.03 2.46-4.03 4.03v1.87H7.72v3.6h2.58V22h4V11.7h3.02l.4-3.6h-3.42Z" /></svg>
+}
+
+function DiscordLogo({ size = 18 }: { size?: number }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.2 5.1A16.1 16.1 0 0 0 15.1 3.8l-.2.4c1.5.4 2.2 1 2.2 1s-1.9-1-5.1-1-5.1 1-5.1 1 .8-.6 2.3-1l-.3-.4A16.1 16.1 0 0 0 4.8 5.1C2.2 9 1.5 12.8 1.8 16.5A16.5 16.5 0 0 0 6.8 19c.4-.5.7-1 1-1.5-.6-.2-1.2-.5-1.8-.9l.4-.3c3.4 1.6 7.1 1.6 10.5 0l.4.3c-.6.4-1.2.7-1.8.9.3.5.6 1 1 1.5a16.4 16.4 0 0 0 5-2.5c.4-4.3-.7-8-2.3-11.4ZM8.6 14.2c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.8 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z" /></svg>
+}
+
+const linkGroups = [
+  {
+    title: 'Work',
+    accent: 'from-cyan-300/70 to-blue-400/70',
+    description: 'Code, professional context, and technical projects.',
+    links: [
+      { icon: GitHubLogo, label: 'GitHub', value: '@aethom00', href: 'https://github.com/aethom00' },
+      { icon: LinkedInLogo, label: 'LinkedIn', value: '/in/aethom', href: 'https://www.linkedin.com/in/aethom' },
+    ],
+  },
+  {
+    title: 'Personal',
+    accent: 'from-rose-300/70 to-amber-300/70',
+    description: 'Travel photos, snapshots, and broader internet presence.',
+    links: [
+      { icon: InstagramLogo, label: 'Instagram', value: '@ashton.thomas_', href: 'https://www.instagram.com/ashton.thomas_/' },
+      { icon: Link2, label: 'Linktree', value: 'thomasash00', href: 'https://linktr.ee/thomasash00' },
+      { icon: FacebookLogo, label: 'Facebook', value: 'Ashton Thomas', href: 'https://www.facebook.com/ashton.thomas.125760/' },
+    ],
+  },
+  {
+    title: 'Documents',
+    accent: 'from-violet-300/70 to-fuchsia-300/70',
+    description: 'A compact professional snapshot and academic CV.',
+    links: [
+      { icon: FileText, label: 'Résumé', value: 'View résumé', href: 'https://aethom00.github.io/Ashton_resume.pdf' },
+      { icon: FileText, label: 'CV', value: 'View CV', href: '/cv.tex' },
+    ],
+  },
+  {
+    title: 'Chat',
+    accent: 'from-emerald-300/70 to-teal-300/70',
+    description: 'A casual place to reach me online.',
+    links: [
+      { icon: DiscordLogo, label: 'Discord', value: 'greenbacon', href: 'https://discordapp.com/users/greenbacon' },
+    ],
+  },
 ]
 
 export default function Contact() {
   return <section id="contact" className="section border-t border-white/[.05]"><div className="shell">
-    <motion.div initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative overflow-hidden rounded-[2rem] border border-indigo-400/15 bg-gradient-to-br from-blue-600/10 via-slate-950 to-violet-600/10 px-6 py-14 text-center sm:px-12 sm:py-20"><div className="absolute left-1/2 top-0 h-56 w-96 -translate-x-1/2 rounded-full bg-indigo-500/10 blur-3xl" /><div className="relative"><div className="eyebrow justify-center before:hidden">Contact</div><h2 className="section-title mx-auto max-w-3xl">Let’s build something<br />worth caring about.</h2><p className="mx-auto mt-5 max-w-xl leading-7 text-slate-400">Questions, ideas, or just want to say hello? I’m always happy to talk about ambitious engineering, research, or the interesting space between them.</p><a href="mailto:aethom@umich.edu" className="primary-button mt-8">Send a message <Mail size={16} /></a></div></motion.div>
-    <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{contacts.map(({ icon: Icon, label, value, href }) => <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined} className="glass card group flex items-center gap-4 p-4"><div className="icon-box"><Icon size={18} /></div><div className="min-w-0"><div className="text-xs text-slate-500">{label}</div><div className="mt-1 truncate text-sm text-slate-200">{value}</div></div><ArrowUpRight size={14} className="ml-auto shrink-0 text-slate-600 transition group-hover:text-white" /></a>)}</div>
-    <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-slate-500"><span className="flex items-center gap-2 text-slate-600"><Link2 size={13} />Elsewhere</span>{socialLinks.map((link) => <a key={link.label} href={link.href} target="_blank" rel="noreferrer" className="transition hover:text-white">{link.label}</a>)}</div>
+    <motion.div initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="contact-business-card relative overflow-hidden rounded-[2.4rem] border border-white/[.09] p-5 shadow-2xl shadow-black/30 sm:p-7 lg:p-10">
+      <div aria-hidden="true" className="contact-card-glow absolute inset-0" />
+      <div aria-hidden="true" className="contact-card-topography absolute inset-0" />
+      <div aria-hidden="true" className="contact-card-sheen absolute inset-0" />
+      <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+      <div aria-hidden="true" className="absolute inset-x-8 bottom-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+
+      <div className="relative grid gap-8 lg:grid-cols-[1.04fr_.96fr] lg:items-stretch">
+        <div className="contact-identity-panel flex min-h-[30rem] flex-col justify-between rounded-[1.9rem] border border-white/[.07] p-6 sm:p-8">
+          <div>
+            <div className="eyebrow before:bg-gradient-to-r before:from-amber-300 before:to-rose-400">Contact</div>
+            <h2 className="mt-6 max-w-2xl bg-gradient-to-br from-white via-slate-100 to-amber-100 bg-clip-text text-6xl font-semibold tracking-[-.075em] text-transparent sm:text-7xl lg:text-8xl">Ashton Thomas</h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-slate-400">Software engineer, researcher, map obsessive, and travel-photo collector. This is the small directory of places where my work, documents, and life outside the terminal live.</p>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-5 border-t border-white/[.08] pt-6 sm:flex-row sm:items-center">
+            <img src="/ashton_pfp.jpg" alt="Ashton Thomas" loading="lazy" className="h-24 w-24 rounded-3xl border border-white/10 object-cover object-[50%_54%] shadow-xl shadow-black/30" />
+            <div>
+              <div className="text-sm font-medium text-white">Personal portfolio directory</div>
+              <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">A cleaner closing card for the practical links: professional profiles, social spaces, résumé, and CV.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="contact-directory-panel rounded-[1.9rem] border border-white/[.08] p-4 shadow-inner shadow-white/[.03] backdrop-blur-md sm:p-5">
+          <div className="flex items-center justify-between gap-4 border-b border-white/[.08] px-2 pb-5">
+            <div>
+              <div className="text-sm font-semibold uppercase tracking-[.18em] text-slate-500">Find me elsewhere</div>
+              <p className="mt-2 text-sm text-slate-500">No contact form, no friction — just the useful places.</p>
+            </div>
+            <div className="hidden h-12 w-12 place-items-center rounded-full border border-white/[.08] bg-white/[.04] text-sm font-semibold text-white sm:grid">AT</div>
+          </div>
+
+          <div className="divide-y divide-white/[.06]">
+            {linkGroups.filter(({ title }) => title !== 'Documents').map((group) => <div key={group.title} className="py-5">
+              <div className="mb-2 px-2 text-xs font-medium uppercase tracking-[.16em] text-slate-600">{group.title}</div>
+              {group.links.map(({ icon: Icon, label, value, href }) => <a key={label} href={href} target="_blank" rel="noreferrer" className="group flex items-center gap-4 rounded-2xl px-2 py-3 transition hover:bg-white/[.045]">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-white/[.08] bg-white/[.04] text-slate-400 shadow-inner shadow-white/[.03] transition group-hover:border-white/20 group-hover:text-white"><Icon size={17} /></span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium text-slate-200 transition group-hover:text-white">{label}</span>
+                  <span className="mt-1 block truncate text-xs text-slate-600 transition group-hover:text-slate-400">{value}</span>
+                </span>
+                <ArrowUpRight size={14} className="text-slate-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+              </a>)}
+            </div>)}
+          </div>
+
+          <div className="grid gap-3 border-t border-white/[.08] pt-5 sm:grid-cols-2">
+            {linkGroups.find(({ title }) => title === 'Documents')?.links.map(({ icon: Icon, label, value, href }) => <a key={label} href={href} target="_blank" rel="noreferrer" className="group rounded-3xl border border-white/[.08] bg-white/[.04] p-4 transition hover:border-white/20 hover:bg-white/[.065]">
+              <span className="flex items-center justify-between gap-4">
+                <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white/[.06] text-slate-300 transition group-hover:text-white"><Icon size={17} /></span>
+                <ArrowUpRight size={14} className="text-slate-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+              </span>
+              <span className="mt-5 block text-lg font-semibold tracking-[-.03em] text-white">{label}</span>
+              <span className="mt-1 block text-xs text-slate-500">{value}</span>
+            </a>)}
+          </div>
+        </div>
+      </div>
+    </motion.div>
   </div></section>
 }

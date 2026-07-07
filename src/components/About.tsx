@@ -1,14 +1,13 @@
 import { motion } from 'framer-motion'
-import { BrainCircuit, Camera, Code2, Database, Globe2, Map, Mountain, Wifi } from 'lucide-react'
-import BlurredPhotoParallax from './BlurredPhotoParallax'
+import { BrainCircuit, Camera, Code2, Database, Globe2, Map, Mountain } from 'lucide-react'
 
 const skills = [
-  { icon: Wifi, title: 'Web Development', text: 'Building full-stack experiences with HTML, CSS, JavaScript, React, APIs, and modern web tooling.' },
-  { icon: Code2, title: 'C / C++', text: 'My primary languages for performant algorithms, systems software, simulations, and large-scale data structures.' },
-  { icon: Code2, title: 'Python', text: 'A preferred language for machine learning, graph problems, APIs, data workflows, and algorithm practice.' },
-  { icon: Database, title: 'SQL', text: 'Designing reliable database operations and efficient back-end data flows for full-stack applications.' },
-  { icon: BrainCircuit, title: 'Machine Learning', text: 'Developing models with Python, Keras, TensorFlow, C++, computer vision architectures, and custom optimization methods.' },
-  { icon: Map, title: 'Geography', text: 'A lifelong interest in countries, capitals, flags, mapping, navigation, and the technology behind digital maps.' },
+  { icon: Code2, title: 'Software Engineering', text: 'Building production software with Python, React, APIs, automation, data pipelines, and reliability-focused engineering practices.' },
+  { icon: BrainCircuit, title: 'Machine Learning', text: 'Training and evaluating models with Python, TensorFlow, Keras, optimization methods, and experiment-driven workflows.' },
+  { icon: Camera, title: 'Computer Vision', text: 'Working with image-based models, visual datasets, ResNet-style architectures, geolocation tasks, and perception-focused research.' },
+  { icon: Database, title: 'Systems & Algorithms', text: 'Designing lower-level projects around C/C++, virtual memory, file servers, threading, graph search, and performance.' },
+  { icon: Globe2, title: 'Geography', text: 'A lifelong interest in countries, territories, capitals, flags, borders, and the human context behind places.' },
+  { icon: Map, title: 'Mapping', text: 'Building and thinking through map interfaces, globes, spatial data, coordinates, routes, and geolocation systems.' },
 ]
 
 const facts = [
@@ -20,7 +19,6 @@ const facts = [
 export default function About() {
   return (
     <section id="about" className="section overflow-hidden border-t border-white/[.05]">
-      <BlurredPhotoParallax image="/ashton_pfp.jpg" variant="section" position="50% 54%" />
       <div className="shell relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }}>

@@ -14,6 +14,12 @@ type TimelineEvent = {
   meta?: string
 }
 
+type TimelineVariant = 'photos' | 'education' | 'all'
+
+type TimelineProps = {
+  variant?: TimelineVariant
+}
+
 const photoEvents: TimelineEvent[] = [
   {
     dateLabel: 'May 7, 2025',
@@ -312,10 +318,66 @@ const milestoneEvents: TimelineEvent[] = [
   },
 ]
 
-const events = [...photoEvents, ...milestoneEvents].sort((a, b) => a.sortDate.localeCompare(b.sortDate))
-const imageEvents = events.filter((event) => event.image)
+const timelineCopy: Record<TimelineVariant, { id: string, eyebrow: string, title: string }> = {
+  photos: {
+    id: 'timeline',
+    eyebrow: 'Photo Timeline',
+    title: 'Places, frame by frame.',
+  },
+  education: {
+    id: 'education-timeline',
+    eyebrow: 'Education Timeline',
+    title: 'Degrees, in order.',
+  },
+  all: {
+    id: 'timeline',
+    eyebrow: 'Timeline',
+    title: 'A path through work, school, and places.',
+  },
+}
 
-export default function Timeline() {
+const getTimelineEvents = (variant: TimelineVariant) => {
+  if (variant === 'education') return milestoneEvents.filter((event) => event.meta === 'Education').sort((a, b) => a.sortDate.localeCompare(b.sortDate))
+  if (variant === 'all') return [...photoEvents, ...milestoneEvents].sort((a, b) => a.sortDate.localeCompare(b.sortDate))
+  return [...photoEvents].sort((a, b) => a.sortDate.localeCompare(b.sortDate))
+}
+
+function normalizeTarget(value?: string) {
+  return (value ?? '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, ' ').trim()
+}
+
+function getRequestedPhotoTarget() {
+  const queryStart = window.location.hash.indexOf('?')
+  if (queryStart < 0) return { photo: '', place: '' }
+  const params = new URLSearchParams(window.location.hash.slice(queryStart + 1))
+  return {
+    photo: params.get('photo') ?? '',
+    place: params.get('place') ?? '',
+  }
+}
+
+function findRequestedPhotoIndex(events: TimelineEvent[], target: { photo: string, place: string }) {
+  if (target.photo) {
+    const exactPhotoIndex = events.findIndex((event) => event.image === target.photo)
+    if (exactPhotoIndex >= 0) return exactPhotoIndex
+
+    const normalizedPhoto = normalizeTarget(target.photo)
+    const fuzzyPhotoIndex = events.findIndex((event) => normalizeTarget(event.image) === normalizedPhoto)
+    if (fuzzyPhotoIndex >= 0) return fuzzyPhotoIndex
+  }
+
+  if (target.place) {
+    const normalizedPlace = normalizeTarget(target.place)
+    return events.findIndex((event) => normalizeTarget(event.place) === normalizedPlace || normalizeTarget(event.title) === normalizedPlace)
+  }
+
+  return -1
+}
+
+export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
+  const events = useMemo(() => getTimelineEvents(variant), [variant])
+  const imageEvents = useMemo(() => events.filter((event) => event.image), [events])
+  const copy = timelineCopy[variant]
   const [activeIndex, setActiveIndex] = useState(0)
   const [fullscreenEvent, setFullscreenEvent] = useState<TimelineEvent | null>(null)
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -325,8 +387,14 @@ export default function Timeline() {
   const lastWheelStepAt = useRef(0)
   const wheelCorrectionTimeout = useRef<number | null>(null)
   const activeEvent = events[activeIndex] ?? events[0]
-  const nextImage = useMemo(() => events.slice(activeIndex + 1).find((event) => event.image)?.image, [activeIndex])
+  const nextImage = useMemo(() => events.slice(activeIndex + 1).find((event) => event.image)?.image, [activeIndex, events])
   const fullscreenImageIndex = fullscreenEvent ? imageEvents.findIndex((event) => event.image === fullscreenEvent.image && event.sortDate === fullscreenEvent.sortDate) : -1
+
+  useEffect(() => {
+    if (activeIndex < events.length) return
+    activeIndexRef.current = 0
+    setActiveIndex(0)
+  }, [activeIndex, events.length])
 
   useEffect(() => () => {
     if (wheelCorrectionTimeout.current !== null) window.clearTimeout(wheelCorrectionTimeout.current)
@@ -381,6 +449,22 @@ export default function Timeline() {
     })
   }
 
+  useEffect(() => {
+    if (variant !== 'photos') return undefined
+
+    const selectRequestedPhoto = (behavior: ScrollBehavior = 'smooth') => {
+      const targetIndex = findRequestedPhotoIndex(events, getRequestedPhotoTarget())
+      if (targetIndex < 0) return
+      window.requestAnimationFrame(() => selectEvent(targetIndex, behavior))
+    }
+
+    const handleHashChange = () => selectRequestedPhoto('smooth')
+
+    selectRequestedPhoto('auto')
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [events, variant])
+
   const getKeyTargetIndex = (key: string, index: number) => {
     const keyActions: Record<string, number> = {
       ArrowDown: index + 1,
@@ -421,10 +505,10 @@ export default function Timeline() {
   }
 
   return (
-    <section id="timeline" className="section" ref={sectionRef} onWheel={handleTimelineWheel}>
+    <section id={copy.id} className={`section timeline-section timeline-section-${variant}`} ref={sectionRef} onWheel={handleTimelineWheel}>
       <div className="shell">
-        <div className="eyebrow">Timeline</div>
-        <h2 className="section-title">A path through work, school, and places.</h2>
+        <div className="eyebrow">{copy.eyebrow}</div>
+        <h2 className="section-title">{copy.title}</h2>
 
         <div className="timeline-journey mt-14">
           <div className="relative">

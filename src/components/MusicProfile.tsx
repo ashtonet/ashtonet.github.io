@@ -3,6 +3,7 @@ import { ArrowUpRight, Headphones, LoaderCircle, Music2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 const appleProfileUrl = 'https://music.apple.com/profile/thomasash2003'
+const appleProfileImage = 'https://is1-ssl.mzstatic.com/image/thumb/tNn9lGaqF6u0NJ7k2xeLbg/500x500cc.jpg'
 const bars = [10, 18, 27, 15, 23, 32, 19, 28, 13, 24, 17, 30]
 
 type Track = {
@@ -154,7 +155,16 @@ export default function MusicProfile() {
               {leadTrack?.image && <img src={leadTrack.image} alt="" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-2xl" />}
               <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/10 to-black/55" />
               <div className="relative flex min-h-[17.5rem] flex-col justify-between sm:min-h-[17rem] md:min-h-[24rem]">
-                <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[.18em] text-white/80"><span className="flex items-center gap-2"><Music2 size={16} /> Apple Music</span>{leadTrack?.nowPlaying && <span className="rounded-full bg-white/15 px-3 py-1.5 text-[.62rem] tracking-[.14em] backdrop-blur">Now playing</span>}</div>
+                <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[.18em] text-white/80">
+                  <span className="flex items-center gap-2"><Music2 size={16} /> Apple Music</span>
+                  <div className="flex items-center gap-2">
+                    {leadTrack?.nowPlaying && <span className="rounded-full bg-white/15 px-3 py-1.5 text-[.62rem] tracking-[.14em] backdrop-blur">Now playing</span>}
+                    <a href={appleProfileUrl} target="_blank" rel="noreferrer" aria-label="Open Ashton Thomas on Apple Music" className="group/profile relative grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 p-0.5 shadow-xl shadow-black/25 backdrop-blur transition hover:scale-105 hover:border-white/45 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70">
+                      <img src={appleProfileImage} alt="Ashton Thomas Apple Music profile" loading="lazy" decoding="async" className="h-full w-full rounded-full object-cover" />
+                      <span className="absolute -bottom-1 -right-1 grid h-5 w-5 place-items-center rounded-full border border-white/25 bg-black/70 text-white shadow-lg transition group-hover/profile:bg-black/85"><ArrowUpRight size={10} /></span>
+                    </a>
+                  </div>
+                </div>
                 <div>
                   {leadTrack?.image && <div className="relative mb-4 w-fit sm:mb-6">
                     <a href={leadTrack.url} target="_blank" rel="noreferrer"><img src={leadTrack.image} alt={`${leadTrack.name} artwork`} className="h-24 w-24 rounded-xl object-cover shadow-2xl ring-1 ring-white/20 transition hover:scale-[1.03] sm:h-28 sm:w-28 sm:rounded-2xl" /></a>

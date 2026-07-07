@@ -5,11 +5,11 @@ export type Language = 'en' | 'de' | 'fr' | 'pl' | 'es'
 const supported: Language[] = ['en', 'de', 'fr', 'pl', 'es']
 
 const messages = {
-  en: { home: 'Home', about: 'About', experience: 'Experience', volunteering: 'Volunteering', education: 'Education', projects: 'Projects', research: 'Research', timeline: 'Timeline', travel: 'Travel', contact: 'Contact', navigation: 'Main navigation', toggle: 'Toggle navigation', language: 'Language' },
-  de: { home: 'Startseite', about: 'Über mich', experience: 'Erfahrung', volunteering: 'Ehrenamt', education: 'Ausbildung', projects: 'Projekte', research: 'Forschung', timeline: 'Werdegang', travel: 'Reisen', contact: 'Kontakt', navigation: 'Hauptnavigation', toggle: 'Navigation öffnen', language: 'Sprache' },
-  fr: { home: 'Accueil', about: 'À propos', experience: 'Expérience', volunteering: 'Bénévolat', education: 'Formation', projects: 'Projets', research: 'Recherche', timeline: 'Parcours', travel: 'Voyages', contact: 'Contact', navigation: 'Navigation principale', toggle: 'Ouvrir la navigation', language: 'Langue' },
-  pl: { home: 'Strona główna', about: 'O mnie', experience: 'Doświadczenie', volunteering: 'Wolontariat', education: 'Edukacja', projects: 'Projekty', research: 'Badania', timeline: 'Oś czasu', travel: 'Podróże', contact: 'Kontakt', navigation: 'Nawigacja główna', toggle: 'Otwórz nawigację', language: 'Język' },
-  es: { home: 'Inicio', about: 'Sobre mí', experience: 'Experiencia', volunteering: 'Voluntariado', education: 'Educación', projects: 'Proyectos', research: 'Investigación', timeline: 'Trayectoria', travel: 'Viajes', contact: 'Contacto', navigation: 'Navegación principal', toggle: 'Abrir navegación', language: 'Idioma' },
+  en: { home: 'Home', about: 'About', experience: 'Experience', volunteering: 'Volunteering', education: 'Education', projects: 'Projects', research: 'Research', timeline: 'Photos', travel: 'Travel', contact: 'Contact', navigation: 'Main navigation', toggle: 'Toggle navigation', language: 'Language' },
+  de: { home: 'Startseite', about: 'Über mich', experience: 'Erfahrung', volunteering: 'Ehrenamt', education: 'Ausbildung', projects: 'Projekte', research: 'Forschung', timeline: 'Fotos', travel: 'Reisen', contact: 'Kontakt', navigation: 'Hauptnavigation', toggle: 'Navigation öffnen', language: 'Sprache' },
+  fr: { home: 'Accueil', about: 'À propos', experience: 'Expérience', volunteering: 'Bénévolat', education: 'Formation', projects: 'Projets', research: 'Recherche', timeline: 'Photos', travel: 'Voyages', contact: 'Contact', navigation: 'Navigation principale', toggle: 'Ouvrir la navigation', language: 'Langue' },
+  pl: { home: 'Strona główna', about: 'O mnie', experience: 'Doświadczenie', volunteering: 'Wolontariat', education: 'Edukacja', projects: 'Projekty', research: 'Badania', timeline: 'Zdjęcia', travel: 'Podróże', contact: 'Kontakt', navigation: 'Nawigacja główna', toggle: 'Otwórz nawigację', language: 'Język' },
+  es: { home: 'Inicio', about: 'Sobre mí', experience: 'Experiencia', volunteering: 'Voluntariado', education: 'Educación', projects: 'Proyectos', research: 'Investigación', timeline: 'Fotos', travel: 'Viajes', contact: 'Contacto', navigation: 'Navegación principal', toggle: 'Abrir navegación', language: 'Idioma' },
 } as const
 
 type MessageKey = keyof typeof messages.en

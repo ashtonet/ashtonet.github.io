@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowDown, ChevronLeft, ChevronRight, Code2 as Github, Mail, UserRound as Linkedin } from 'lucide-react'
+import { ArrowDown, ChevronLeft, ChevronRight, Code2 as Github, Image as ImageIcon, Mail, UserRound as Linkedin } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import { landscapeHeroImages, portraitHeroImages } from '../data/heroImages.generated'
@@ -21,6 +21,8 @@ const getGoogleMapsUrl = (label: string) => {
   if (location.startsWith('https://')) return location
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`
 }
+
+const getPhotoTimelineUrl = (image: { src: string, label: string }) => `#/timeline?photo=${encodeURIComponent(image.src)}&place=${encodeURIComponent(image.label)}`
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement | null>(null)
@@ -96,19 +98,31 @@ export default function Hero() {
       <BlurredPhotoParallax image={(heroImages[0] ?? fallbackHeroImage).src} activeImage={activeImage.src} variant="hero" position={(heroImages[0] ?? fallbackHeroImage).position} activePosition={activeImage.position} />
       <div className="mesh-bg hero-photo-mesh"><div className="mesh-grid" /></div>
       <motion.div className="hero-scroll-transition" style={{ opacity: fadeOpacity }} aria-hidden="true" />
-      <motion.a
+      <motion.div
         key={activeImage.label}
-        className="hero-location-note"
-        href={getGoogleMapsUrl(activeImage.label)}
-        target="_blank"
-        rel="noreferrer"
+        className="hero-location-actions"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 2.2, ease: [0.45, 0, 0.2, 1] }}
-        aria-label={`Open ${activeImage.label} in Google Maps`}
       >
-        {activeImage.label}
-      </motion.a>
+        <a
+          className="hero-location-note"
+          href={getGoogleMapsUrl(activeImage.label)}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Open ${activeImage.label} in Google Maps`}
+        >
+          {activeImage.label}
+        </a>
+        <a
+          className="hero-location-photo-link"
+          href={getPhotoTimelineUrl(activeImage)}
+          aria-label={`Open ${activeImage.label} in the Photos timeline`}
+          title={`Open ${activeImage.label} in Photos`}
+        >
+          <ImageIcon size={15} aria-hidden="true" />
+        </a>
+      </motion.div>
       {canControlHeroImages && (
         <div className="hero-photo-controls" aria-label="Hero photo controls">
           <button type="button" className="hero-photo-arrow" onClick={() => showHeroImage(activeImageIndex - 1, false)} aria-label="Previous hero photo"><ChevronLeft size={16} /></button>

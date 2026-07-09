@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { getProjectSlug, projectCategories, projects, type Project } from '../data/projects'
 
 const highlightedProjectTitles = [
-  'AI-Assisted Engineering Agent',
+  'Automated Engineering Agent',
   'Geoguessr AI',
   'Search Engine',
   'Virtual Memory Pager',

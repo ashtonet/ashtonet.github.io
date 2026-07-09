@@ -22,7 +22,7 @@ export default function ResumeCard() {
                 <div className="icon-box"><FileText size={20} /></div>
                 <div className="eyebrow mt-8">Résumé</div>
                 <h2 className="mt-3 text-3xl font-semibold tracking-[-.045em] text-white md:text-4xl">A quick snapshot, ready to share.</h2>
-                <p className="mt-4 max-w-xl leading-7 text-slate-400">Software engineer working across AWS-scale developer insights, data platforms, AI-assisted tooling, computer vision research, and full-stack web engineering.</p>
+                <p className="mt-4 max-w-xl leading-7 text-slate-400">Software engineer working across AWS-scale developer insights, data platforms, engineering automation, computer vision research, and full-stack web engineering.</p>
                 <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.04] px-3 py-1 text-xs font-semibold text-slate-300"><CalendarClock size={14} />Updated June 2026</p>
               </div>
             </div>

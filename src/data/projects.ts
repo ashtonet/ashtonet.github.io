@@ -44,18 +44,18 @@ export const projects: Project[] = [
     description: `My team and I developed a scalable search engine similar to Google, using tf-idf for text analysis and PageRank for link analysis. We implemented a segmented inverted index through MapReduce programs, built a REST API for returning results, and designed the search interface. The project combined distributed systems, service-oriented architecture, parallel data processing, and full-stack development.`
   },
   {
-    title: 'AI-Assisted Engineering Agent',
+    title: 'Automated Engineering Agent',
     languages: ['Python', 'AWS', 'TypeScript'],
     categories: ['Python', 'Machine Learning', 'Web'],
     image: 'https://unsplash.com/photos/8qEB0fTe9Vw/download?force=true',
-    href: '#/projects/ai-assisted-engineering-agent',
+    href: '#/projects/automated-engineering-agent',
     date: '2025 - Present',
-    description: `A public-safe summary of an AWS developer-tooling project focused on AI-assisted engineering automation. The system coordinates task intake, code generation, code-review lifecycle management, reliability checks, and operational observability while emphasizing privacy-aware data handling, validation, and production-readiness guardrails.`,
+    description: `A public-safe summary of an AWS developer-tooling project focused on automated engineering workflows. The system coordinates task intake, code generation, code-review lifecycle management, reliability checks, and operational observability while emphasizing privacy-aware data handling, validation, and production-readiness guardrails.`,
     caseStudy: {
       kicker: 'Internal developer tooling',
       heading: 'Built around privacy, reviewability, and production readiness.',
       overview: [
-        `This project explores how an AI-assisted engineering workflow can move from a loosely scoped engineering request toward review-ready software work without removing the human engineer from the loop. The goal is not to replace judgment; it is to reduce repetitive coordination, preserve context, and make each step easier to inspect.`,
+        `This project explores how an automated engineering workflow can move from a loosely scoped engineering request toward review-ready software work without removing the human engineer from the loop. The goal is not to replace judgment; it is to reduce repetitive coordination, preserve context, and make each step easier to inspect.`,
         `The page is intentionally written at a public level. It describes the shape of the work: task intake, implementation planning, code-change orchestration, review lifecycle tracking, reliability checks, and operational visibility. Internal systems, proprietary implementation details, and confidential metrics are omitted.`,
       ],
       highlights: [
@@ -64,7 +64,7 @@ export const projects: Project[] = [
           description: 'Transforms engineering task information into structured plans, constraints, and reviewable work artifacts.',
         },
         {
-          title: 'AI-assisted loop',
+          title: 'Automation loop',
           description: 'Coordinates implementation steps while keeping validation, traceability, and engineer oversight central to the workflow.',
         },
         {
@@ -79,21 +79,21 @@ export const projects: Project[] = [
       sections: [
         {
           title: 'What I focused on',
-          body: `My work centered on the connective tissue between AI output and production engineering practice: defining safe inputs, shaping useful outputs, validating intermediate results, and surfacing enough context for engineers to trust or reject a recommendation.`,
+          body: `My work centered on the connective tissue between automation output and production engineering practice: defining safe inputs, shaping useful outputs, validating intermediate results, and surfacing enough context for engineers to trust or reject a recommendation.`,
           points: [
             'Structured task intake so automation could reason from clear goals, constraints, and repository context.',
             'Designed guardrails around what data could be used, persisted, or surfaced in generated artifacts.',
             'Supported review-ready outputs that align with normal code-review and software-delivery workflows.',
-            'Added reliability and observability hooks so failures could be understood instead of hidden behind the AI layer.',
+            'Added reliability and observability hooks so failures could be understood instead of hidden behind the automation layer.',
           ],
         },
         {
           title: 'Why it matters',
-          body: `AI tools are only useful in serious engineering environments when they fit into the systems engineers already trust. This project treats AI as one component inside a larger delivery workflow, with human review, validation, and operational clarity as first-class requirements.`,
+          body: `Automation tools are only useful in serious engineering environments when they fit into the systems engineers already trust. This project treats automation as one component inside a larger delivery workflow, with human review, validation, and operational clarity as first-class requirements.`,
         },
         {
           title: 'Public-safe takeaway',
-          body: `The interesting engineering challenge is less about asking a model to write code and more about designing the surrounding system: how context is gathered, how plans become changes, how those changes are checked, and how people stay in control of the final decision.`,
+          body: `The interesting engineering challenge is less about automating code changes and more about designing the surrounding system: how context is gathered, how plans become changes, how those changes are checked, and how people stay in control of the final decision.`,
         },
       ],
     }
@@ -285,6 +285,7 @@ export const getProjectSlug = (project: Project) => project.title
 
 const projectSlugAliases: Record<string, string> = {
   'study-group-coordinator': 'quantum-study-group-coordinator',
+  'ai-assisted-engineering-agent': 'automated-engineering-agent',
 }
 
 export const getProjectBySlug = (slug: string) => {

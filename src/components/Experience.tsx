@@ -4,7 +4,7 @@ import { BriefcaseBusiness, Building2, ExternalLink, MapPin } from 'lucide-react
 const experiences = [
   {
     role: 'Software Development Engineer I', company: 'Amazon Web Services (AWS)', type: 'Full-time', date: 'Jun 2025 — Present', location: 'New York, New York · On-site',
-    description: 'Building developer-insights platforms at AWS for software delivery health, observability, and privacy-aware engineering analytics. My work spans Python services and automation, AWS data pipelines, reporting dashboards, and AI-assisted engineering tooling.', skills: ['Python', 'AWS', 'Data Engineering', 'Observability', 'AI-assisted Tooling'], current: true,
+    description: 'Building developer-insights platforms at AWS for software delivery health, observability, and privacy-aware engineering analytics. My work spans Python services and automation, AWS data pipelines, reporting dashboards, and engineering automation tooling.', skills: ['Python', 'AWS', 'Data Engineering', 'Observability', 'Automation Tooling'], current: true,
   },
   {
     role: 'SDE Software Engineer Intern', company: 'Amazon', type: 'Full-time', date: 'Sep 2024 — Nov 2024', location: 'Boston, Massachusetts · On-site',

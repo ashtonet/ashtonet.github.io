@@ -20,12 +20,35 @@ type TimelineProps = {
   variant?: TimelineVariant
 }
 
+type TimelineWheelIntent = {
+  amount: number
+  direction: 1 | -1 | null
+  lastAt: number
+}
+
+const timelineWheelLineDelta = 16
+const timelineWheelPageDelta = 800
+const timelineWheelMaxDelta = 120
+const timelineWheelStepThreshold = 90
+const timelineWheelCooldownMs = 560
+const timelineWheelResetMs = 180
+const timelineWheelMinDelta = 1.5
+
+function normalizedTimelineWheelDelta(event: ReactWheelEvent<HTMLElement>) {
+  const delta = event.deltaMode === 1
+    ? event.deltaY * timelineWheelLineDelta
+    : event.deltaMode === 2
+      ? event.deltaY * timelineWheelPageDelta
+      : event.deltaY
+  return Math.min(Math.max(delta, -timelineWheelMaxDelta), timelineWheelMaxDelta)
+}
+
 const photoEvents: TimelineEvent[] = [
   {
     dateLabel: 'May 7, 2025',
     sortDate: '2025-05-07T00:00:00',
     title: 'Gibraltar',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A high overlook across Gibraltar, with the harbor, runway, and Mediterranean opening out below the Rock.',
     kind: 'photo',
     image: '/images/hero-landscape/Gibraltar.JPG',
     imagePosition: 'center 48%',
@@ -35,7 +58,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 19, 2025',
     sortDate: '2025-05-19T00:00:00',
     title: 'Malbun',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A green alpine valley in Liechtenstein, with snow still tucked into the ridges above the village.',
     kind: 'photo',
     image: '/images/hero-landscape/Malbun.JPG',
     imagePosition: 'center 48%',
@@ -45,7 +68,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'March 1, 2023',
     sortDate: '2023-03-01T23:15:00',
     title: 'Gros Piton',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A tall ship passing beneath Gros Piton, framed by the sharp volcanic peak and bright Caribbean water.',
     kind: 'photo',
     image: '/images/hero-landscape/Gros_Piton.jpeg',
     imagePosition: 'center 48%',
@@ -55,7 +78,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'March 4, 2023',
     sortDate: '2023-03-04T01:09:00',
     title: 'Marigot',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A hillside cross above Marigot, with stone ruins, dry brush, and clouds rolling over the ridge.',
     kind: 'photo',
     image: '/images/hero-landscape/Marigot.jpeg',
     imagePosition: 'center 48%',
@@ -65,7 +88,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'June 9, 2023',
     sortDate: '2023-06-09T15:46:00',
     title: 'Vienna',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'An ornate church interior in Vienna, all carved stone, high windows, and theatrical Baroque light.',
     kind: 'photo',
     image: '/images/hero-portrait/Vienna.jpeg',
     imagePosition: 'center 42%',
@@ -75,7 +98,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 3, 2024',
     sortDate: '2024-05-03T19:22:00',
     title: 'Tokyo',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'A lantern and striped awning caught in a tight Tokyo street scene, bright and close to the sidewalk.',
     kind: 'photo',
     image: '/images/hero-portrait/Tokyo.jpeg',
     imagePosition: 'center 42%',
@@ -85,7 +108,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 5, 2024',
     sortDate: '2024-05-05T03:37:00',
     title: 'Fuji',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'Mount Fuji rising cleanly across the water, the snow line catching a clear blue day.',
     kind: 'photo',
     image: '/images/hero-landscape/Fuji.jpeg',
     imagePosition: 'center 48%',
@@ -95,7 +118,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 6, 2024',
     sortDate: '2024-05-06T04:59:00',
     title: 'Sapporo',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'A rain-glossed Sapporo street at blue hour, with tram tracks pulling the eye through the city.',
     kind: 'photo',
     image: '/images/hero-portrait/Sapporo.jpeg',
     imagePosition: 'center 42%',
@@ -105,7 +128,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 6, 2024',
     sortDate: '2024-05-06T05:02:00',
     title: 'Sapporo',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A wider night view of Sapporo streets, neon, and traffic lights reflected on the rails.',
     kind: 'photo',
     image: '/images/hero-landscape/Sapporo.jpeg',
     imagePosition: 'center 48%',
@@ -115,7 +138,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 7, 2024',
     sortDate: '2024-05-07T15:13:00',
     title: 'Hill of the Buddha',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'Looking up through the circular opening at the Hill of the Buddha, where concrete frames the quiet statue.',
     kind: 'photo',
     image: '/images/hero-portrait/Hill_of_the_Buddha.jpeg',
     imagePosition: 'center 42%',
@@ -125,7 +148,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 10, 2024',
     sortDate: '2024-05-10T04:47:00',
     title: 'Osaka',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A red delivery van cutting through an Osaka crosswalk, turning an ordinary street moment into motion.',
     kind: 'photo',
     image: '/images/hero-landscape/Osaka.jpeg',
     imagePosition: 'center 48%',
@@ -135,7 +158,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 11, 2024',
     sortDate: '2024-05-11T02:12:00',
     title: 'Kyoto',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'A corridor of vermilion torii gates in Kyoto, glowing with warm light and repeating shadows.',
     kind: 'photo',
     image: '/images/hero-portrait/Kyoto.jpeg',
     imagePosition: 'center 42%',
@@ -145,7 +168,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 12, 2024',
     sortDate: '2024-05-12T01:56:00',
     title: 'Matsuyama',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A quiet Matsuyama side street, dense with bikes, signs, and everyday city texture.',
     kind: 'photo',
     image: '/images/hero-landscape/Matsuyama.jpeg',
     imagePosition: 'center 48%',
@@ -155,7 +178,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'December 12, 2024',
     sortDate: '2024-12-12T22:48:00',
     title: 'Sydney Zoo',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'A cassowary portrait from Sydney Zoo, vivid blue and green against the leafy enclosure.',
     kind: 'photo',
     image: '/images/hero-portrait/Sydney_Zoo.jpeg',
     imagePosition: 'center 42%',
@@ -165,7 +188,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'December 13, 2024',
     sortDate: '2024-12-13T05:55:00',
     title: 'Sydney',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'The Sydney Opera House glowing at night from the harbor walk, with crowds moving through the foreground.',
     kind: 'photo',
     image: '/images/hero-landscape/Sydney.jpeg',
     imagePosition: 'center 48%',
@@ -175,7 +198,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'December 13, 2024',
     sortDate: '2024-12-13T05:55:01',
     title: 'Sydney',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'A closer vertical view of the Opera House sails, lit gold against the night sky.',
     kind: 'photo',
     image: '/images/hero-portrait/Sydney.jpeg',
     imagePosition: 'center 42%',
@@ -185,7 +208,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 12, 2024',
     sortDate: '2024-05-12T00:00:00',
     title: 'Downtown Matsuyama',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A warm night storefront in downtown Matsuyama, glowing against the dark street.',
     kind: 'photo',
     image: '/images/hero-landscape/Downtown_Matsuyama.jpg',
     imagePosition: 'center 48%',
@@ -195,7 +218,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'December 11, 2024',
     sortDate: '2024-12-11T00:00:00',
     title: 'Honolulu',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'Palm silhouettes against a saturated Honolulu sunset, the sky turning orange and pink over the beach.',
     kind: 'photo',
     image: '/images/hero-landscape/Honolulu.jpg',
     imagePosition: 'center 48%',
@@ -205,7 +228,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 26, 2024',
     sortDate: '2024-05-26T00:00:00',
     title: 'Singapore',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'Singapore Supertrees rising into the sky, part garden, part sci-fi skyline.',
     kind: 'photo',
     image: '/images/hero-portrait/Singapore.jpeg',
     imagePosition: 'center 42%',
@@ -215,7 +238,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'July 1, 2023',
     sortDate: '2023-07-01T00:00:00',
     title: 'Vatican',
-    text: 'Travel photo from the landscape hero collection.',
+    text: 'A ceiling detail from the Vatican Museums, packed with figures, frescoes, and impossible scale.',
     kind: 'photo',
     image: '/images/hero-landscape/Vatican.jpeg',
     imagePosition: 'center 48%',
@@ -225,7 +248,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'May 19, 2024',
     sortDate: '2024-05-19T00:00:00',
     title: 'Hanoi',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'A rain-soaked Hanoi entrance under deep green trees, red signage glowing through the mist.',
     kind: 'photo',
     image: '/images/hero-portrait/Hanoi.png',
     imagePosition: 'center 42%',
@@ -235,7 +258,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'July 7, 2023',
     sortDate: '2023-07-07T00:00:00',
     title: 'San Marino',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'A San Marino tower at sunset, perched above the clouds with orange light on the horizon.',
     kind: 'photo',
     image: '/images/hero-portrait/San_Marino.jpeg',
     imagePosition: 'center 42%',
@@ -245,7 +268,7 @@ const photoEvents: TimelineEvent[] = [
     dateLabel: 'July 3, 2023',
     sortDate: '2023-07-03T00:00:00',
     title: 'Victoria',
-    text: 'Travel photo from the portrait hero collection.',
+    text: 'Stone walkways and clocktower lines in Victoria, all sunlit walls and old-city geometry.',
     kind: 'photo',
     image: '/images/hero-portrait/Victoria.jpeg',
     imagePosition: 'center 42%',
@@ -304,7 +327,7 @@ const milestoneEvents: TimelineEvent[] = [
     dateLabel: 'June 2025',
     sortDate: '2025-06-01T00:00:00',
     title: 'Amazon full-time',
-    text: 'Started full-time at AWS, working on developer-insights platforms, observability, data pipelines, and AI-assisted engineering tooling.',
+    text: 'Started full-time at AWS, working on developer-insights platforms, observability, data pipelines, and engineering automation tooling.',
     kind: 'milestone',
     meta: 'Experience',
   },
@@ -385,6 +408,7 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
   const activeIndexRef = useRef(0)
   const suppressViewportSelectionUntil = useRef(0)
   const lastWheelStepAt = useRef(0)
+  const wheelIntent = useRef<TimelineWheelIntent>({ amount: 0, direction: null, lastAt: 0 })
   const wheelCorrectionTimeout = useRef<number | null>(null)
   const activeEvent = events[activeIndex] ?? events[0]
   const nextImage = useMemo(() => events.slice(activeIndex + 1).find((event) => event.image)?.image, [activeIndex, events])
@@ -489,17 +513,38 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
   }
 
   const handleTimelineWheel = (event: ReactWheelEvent<HTMLElement>) => {
+    if (variant !== 'photos') return
     if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
 
-    const direction = event.deltaY > 0 ? 1 : -1
+    const delta = normalizedTimelineWheelDelta(event)
+    if (Math.abs(delta) < timelineWheelMinDelta) return
+
+    const direction = delta > 0 ? 1 : -1
     const nextIndex = activeIndexRef.current + direction
-    if (nextIndex < 0 || nextIndex >= events.length) return
+    if (nextIndex < 0 || nextIndex >= events.length) {
+      wheelIntent.current = { amount: 0, direction: null, lastAt: 0 }
+      return
+    }
 
     event.preventDefault()
     scheduleWheelCorrection()
     const now = window.performance.now()
-    if (now - lastWheelStepAt.current < 260) return
 
+    if (now - lastWheelStepAt.current < timelineWheelCooldownMs) {
+      wheelIntent.current = { amount: 0, direction, lastAt: now }
+      return
+    }
+
+    if (wheelIntent.current.direction !== direction || now - wheelIntent.current.lastAt > timelineWheelResetMs) {
+      wheelIntent.current = { amount: 0, direction, lastAt: now }
+    }
+
+    wheelIntent.current.amount += Math.abs(delta)
+    wheelIntent.current.direction = direction
+    wheelIntent.current.lastAt = now
+    if (wheelIntent.current.amount < timelineWheelStepThreshold) return
+
+    wheelIntent.current = { amount: 0, direction, lastAt: now }
     lastWheelStepAt.current = now
     selectEvent(nextIndex, 'auto')
   }
@@ -627,6 +672,7 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
               <div className="timeline-photo-caption">
                 <span>{activeEvent.dateLabel}</span>
                 <strong>{activeEvent.place ?? activeEvent.title}</strong>
+                <p>{activeEvent.text}</p>
               </div>
             </div>
           </aside>
@@ -689,6 +735,7 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
             <div className="timeline-fullscreen-caption">
               <span>{fullscreenEvent.dateLabel}</span>
               <strong>{fullscreenEvent.place ?? fullscreenEvent.title}</strong>
+              <p>{fullscreenEvent.text}</p>
             </div>
           </motion.div>
         )}

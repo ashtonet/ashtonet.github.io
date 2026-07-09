@@ -96,10 +96,16 @@ const globeZoomStepRatio = .2
 const globeMaxZoomStep = 4
 const globeMinDragScale = .1
 const globeDragZoomExponent = .8
+const globeWheelDeltaBaseline = 100
+const globeWheelMaxDelta = 100
+const globeWheelLineDelta = 16
+const globeWheelPageDelta = 800
 const degreeToRadian = Math.PI / 180
 
 type GlobeRotation = { lat: number; lng: number }
 type Coordinate = [number, number]
+type GlobePointerPosition = { x: number; y: number }
+type GlobePinchStart = { distance: number; zoom: number }
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
@@ -184,8 +190,28 @@ function nextGlobeZoom(current: number, direction: 1 | -1) {
   return clamp(Number((current + direction * globeZoomStepFor(current)).toFixed(2)), globeMinZoom, globeMaxZoom)
 }
 
+function normalizedWheelDelta(event: WheelEvent) {
+  const delta = event.deltaMode === 1
+    ? event.deltaY * globeWheelLineDelta
+    : event.deltaMode === 2
+      ? event.deltaY * globeWheelPageDelta
+      : event.deltaY
+  return clamp(delta, -globeWheelMaxDelta, globeWheelMaxDelta)
+}
+
+function nextGlobeWheelZoom(current: number, event: WheelEvent) {
+  const delta = normalizedWheelDelta(event)
+  if (delta === 0) return current
+  const zoomDelta = -(delta / globeWheelDeltaBaseline) * globeZoomStepFor(current)
+  return clamp(Number((current + zoomDelta).toFixed(2)), globeMinZoom, globeMaxZoom)
+}
+
 function globeDragScale(zoom: number) {
   return Math.max(globeMinDragScale, 1 / Math.max(zoom, globeMinZoom) ** globeDragZoomExponent)
+}
+
+function globePointerDistance(first: GlobePointerPosition, second: GlobePointerPosition) {
+  return Math.hypot(second.x - first.x, second.y - first.y)
 }
 
 const globeCountryRings = renderedCountryShapes.features.flatMap((feature) => (
@@ -416,8 +442,10 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
   const [fastVisitedOutlineRings, setFastVisitedOutlineRings] = useState<Coordinate[][]>([])
   const [isGlobeInteracting, setIsGlobeInteracting] = useState(false)
   const globeWheelRef = useRef<HTMLDivElement | null>(null)
+  const activePointers = useRef(new Map<number, GlobePointerPosition>())
   const dragStart = useRef<{ x: number; y: number; rotation: GlobeRotation; moved: boolean } | null>(null)
   const activePointerId = useRef<number | null>(null)
+  const pinchStart = useRef<GlobePinchStart | null>(null)
   const pendingRotation = useRef<GlobeRotation | null>(null)
   const pendingDragFrame = useRef<number | null>(null)
   const settleGlobeTimer = useRef<number | null>(null)
@@ -425,6 +453,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
   useEffect(() => () => {
     if (pendingDragFrame.current !== null) window.cancelAnimationFrame(pendingDragFrame.current)
     if (settleGlobeTimer.current !== null) window.clearTimeout(settleGlobeTimer.current)
+    activePointers.current.clear()
   }, [])
 
   const beginGlobeInteraction = () => {
@@ -448,7 +477,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
       event.preventDefault()
       event.stopPropagation()
       beginGlobeInteraction()
-      setGlobeZoom((current) => nextGlobeZoom(current, event.deltaY < 0 ? 1 : -1))
+      setGlobeZoom((current) => nextGlobeWheelZoom(current, event))
       settleGlobeInteraction()
     }
 
@@ -576,16 +605,62 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
     setHoveredPlace((current) => travelPlaceKey(current) === nextKey ? current : place)
   }
 
+  const firstTwoGlobePointers = () => {
+    const pointers = [...activePointers.current.values()]
+    return pointers.length >= 2 ? [pointers[0], pointers[1]] : null
+  }
+
+  const pointerPosition = (event: React.PointerEvent<SVGSVGElement>): GlobePointerPosition => ({
+    x: event.clientX,
+    y: event.clientY,
+  })
+
+  const beginPinchZoom = () => {
+    const pointers = firstTwoGlobePointers()
+    if (!pointers) return
+    const distance = globePointerDistance(pointers[0], pointers[1])
+    if (distance <= 0) return
+    pinchStart.current = { distance, zoom: globeZoom }
+    dragStart.current = null
+    activePointerId.current = null
+    updateHoveredPlace(null)
+  }
+
+  const updatePinchZoom = () => {
+    const pointers = firstTwoGlobePointers()
+    if (!pointers) return
+    if (!pinchStart.current) beginPinchZoom()
+    if (!pinchStart.current) return
+    const distance = globePointerDistance(pointers[0], pointers[1])
+    const ratio = distance / pinchStart.current.distance
+    setGlobeZoom(clamp(Number((pinchStart.current.zoom * ratio).toFixed(2)), globeMinZoom, globeMaxZoom))
+  }
+
   const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return
     event.preventDefault()
     event.currentTarget.setPointerCapture(event.pointerId)
+    activePointers.current.set(event.pointerId, pointerPosition(event))
     beginGlobeInteraction()
+    if (activePointers.current.size >= 2) {
+      beginPinchZoom()
+      return
+    }
     activePointerId.current = event.pointerId
     dragStart.current = { x: event.clientX, y: event.clientY, rotation, moved: false }
   }
 
   const handlePointerMove = (event: React.PointerEvent<SVGSVGElement>) => {
+    if (activePointers.current.has(event.pointerId)) {
+      activePointers.current.set(event.pointerId, pointerPosition(event))
+    }
+    if (activePointers.current.size >= 2) {
+      event.preventDefault()
+      beginGlobeInteraction()
+      updatePinchZoom()
+      settleGlobeInteraction()
+      return
+    }
     if (!dragStart.current) {
       updateHoveredPlace(findNearestGlobePlace(event))
       return
@@ -617,12 +692,23 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
   }
 
   const stopDrag = (event: React.PointerEvent<SVGSVGElement>) => {
-    const clickedPlace = !dragStart.current?.moved ? findNearestGlobePlace(event) : null
+    const wasPinching = pinchStart.current !== null || activePointers.current.size > 1
+    const clickedPlace = !wasPinching && !dragStart.current?.moved ? findNearestGlobePlace(event) : null
     if (activePointerId.current === event.pointerId && event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId)
     }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+    activePointers.current.delete(event.pointerId)
+    pinchStart.current = null
     clearDrag()
-    settleGlobeInteraction(160)
+    if (wasPinching && activePointers.current.size === 1) {
+      const [remainingPointerId, remainingPointer] = [...activePointers.current.entries()][0]
+      activePointerId.current = remainingPointerId
+      dragStart.current = { ...remainingPointer, rotation, moved: true }
+    }
+    if (!(wasPinching && activePointers.current.size === 1)) settleGlobeInteraction(160)
     if (clickedPlace) onSelect(clickedPlace)
   }
 
@@ -630,8 +716,19 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
     if (activePointerId.current === event.pointerId && event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId)
     }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+    activePointers.current.delete(event.pointerId)
+    pinchStart.current = null
     clearDrag()
     settleGlobeInteraction(160)
+  }
+
+  const handleLostPointerCapture = (event: React.PointerEvent<SVGSVGElement>) => {
+    activePointers.current.delete(event.pointerId)
+    if (activePointerId.current === event.pointerId) clearDrag()
+    if (activePointers.current.size < 2) pinchStart.current = null
   }
 
   const changeZoom = (direction: 1 | -1) => {
@@ -652,7 +749,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
     <div className="travel-globe-panel relative isolate overflow-hidden rounded-[1rem] bg-[#030712]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_16%,rgba(96,165,250,.16),transparent_28%),radial-gradient(circle_at_76%_22%,rgba(167,139,250,.15),transparent_30%),linear-gradient(180deg,rgba(2,6,23,.2),rgba(2,6,23,.88))]" />
       <div className="absolute inset-0 opacity-[.06] [background-image:radial-gradient(circle,rgba(255,255,255,.9)_0_1px,transparent_1.5px)] [background-size:32px_32px]" />
-      <div className="relative grid min-h-[34rem] items-center gap-8 p-5 md:min-h-[70vh] lg:grid-cols-[minmax(0,1fr)_18rem] lg:p-8">
+      <div className="travel-globe-layout relative grid min-h-[34rem] items-center gap-8 p-5 md:min-h-[70vh] lg:grid-cols-[minmax(0,1fr)_18rem] lg:p-8">
         <div ref={globeWheelRef} className="relative mx-auto aspect-square w-full max-w-[43rem]">
           <div className="absolute inset-[8%] rounded-full bg-blue-500/20 blur-3xl" />
           <svg
@@ -665,7 +762,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
             onPointerMove={handlePointerMove}
             onPointerUp={stopDrag}
             onPointerCancel={cancelDrag}
-            onLostPointerCapture={clearDrag}
+            onLostPointerCapture={handleLostPointerCapture}
             onPointerLeave={() => {
               if (!dragStart.current) updateHoveredPlace(null)
             }}
@@ -723,8 +820,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
                   role="button"
                   tabIndex={0}
                   aria-label={`Select ${place.name}`}
-                  onPointerDown={(event) => {
-                    event.stopPropagation()
+                  onPointerDown={() => {
                     updateHoveredPlace(place)
                   }}
                   onPointerEnter={() => updateHoveredPlace(place)}

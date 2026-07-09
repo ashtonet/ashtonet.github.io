@@ -34,8 +34,8 @@ export default function ProjectDetail({ project }: { project: Project }) {
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
           <div className="eyebrow">Project case study</div>
           <div className="mt-4 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
-            <div>
-              <h1 className="max-w-4xl text-5xl font-semibold leading-[.95] tracking-[-.06em] text-white sm:text-6xl lg:text-7xl">{project.title}</h1>
+            <div className="project-detail-copy min-w-0">
+              <h1 className="project-detail-title max-w-4xl text-5xl font-semibold leading-[.95] tracking-[-.06em] text-white sm:text-6xl lg:text-7xl">{project.title}</h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-400">{project.description}</p>
             </div>
             <div className="flex flex-wrap gap-2 lg:max-w-xs lg:justify-end">

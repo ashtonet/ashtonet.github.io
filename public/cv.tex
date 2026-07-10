@@ -78,10 +78,18 @@
 }
 
 \newcommand{\resumeCoursework}[1]{
-  \vspace{1pt}\item[]
+  \vspace{-2pt}\item[]
     \begin{minipage}[t]{0.97\textwidth}
       \small{\textit{#1}}
     \end{minipage}\vspace{-4pt}
+}
+
+\newcommand{\resumeEducationDetails}[2]{
+  \vspace{-4pt}\item[]
+    \begin{minipage}[t]{0.97\textwidth}
+      \small{\textit{#1}}\\[4.0pt]
+      \small{\textit{#2}}
+    \end{minipage}\vspace{-7.0pt}
 }
 
 \newcommand{\resumeSubSubheading}[2]{
@@ -120,32 +128,30 @@
   \href{https://github.com/aethom00}{github.com/aethom00} & New York, NY / New Jersey, USA \\
 \end{tabular*}
 
-%-----------RESEARCH PROFILE-----------
-\section{Research Profile}
-    \small{Software engineer with an M.S.E. in Computer Engineering and a Computer Vision Concentration, working across AWS-scale developer platforms, data engineering, observability, and engineering automation. Research interests include computer vision, artificial intelligence, machine learning, and mapping algorithms, especially systems that connect rigorous models with dependable production software.}
-
 %-----------EDUCATION-----------
 \section{Education}
     \resumeSubHeadingListStart
         \resumeSubheading
             {\href{https://rackham.umich.edu}{University of Michigan - Rackham Graduate School}}{2025 -- 2026}
-            {M.S.E. Computer Engineering, Computer Vision Concentration, GPA - 4.00 / 4.00}{Ann Arbor, MI, USA}
-        \resumeCoursework{Machine Learning, Robotic Kinematics \& Dynamics, Applied Math for Robotics, Cryptography, Quantum Computing, Surveillance \& Public Datasets, Statistics with R, Directed Study in Civil Engineering}
+            {M.S.E. Computer Engineering, Computer Vision Concentration}{Ann Arbor, MI, USA}
+        \resumeEducationDetails{summa cum laude; GPA -- 4.00 / 4.00}{Machine Learning, Robotic Kinematics \& Dynamics, Applied Math for Robotics, Cryptography, Quantum Computing, Surveillance \& Public Datasets, Statistics with R, Civil Engineering Directed Study}
         \resumeSubheading
             {\href{https://www.engin.umich.edu}{University of Michigan College of Engineering}}{08/2022 -- 05/2025}
-            {B.S.E. Computer Science Engineering; Minor in International Engineering, GPA - 3.81 / 4.0}{Ann Arbor, MI, USA}
-        \resumeCoursework{Discrete Math, Programming \& Data Structures, Data Structures \& Algorithms, Computer Organization, Foundations of CS, Extended Reality, Operating Systems, Web Systems, Probability, Data Analytics}
-    \resumeSubHeadingListEnd
-    \resumeSubHeadingListStart
+            {B.S.E. Computer Science Engineering; Minor in International Engineering}{Ann Arbor, MI, USA}
+        \resumeEducationDetails{summa cum laude; GPA -- 3.8 / 4.0}{Discrete Math, Data Structures \& Algorithms, Computer Organization, Theoretical Computer Science, Extended Reality, Operating Systems, Web Systems, Probability, Data Analytics}
         \resumeSubheading
             {\href{https://www.nmc.edu}{Northwestern Michigan College -- Dual Enrollment}}{2021 -- 2022}
-            {A.S.A. Liberal Arts, GPA -- 3.96 / 4.0}{Traverse City, MI, USA}
+            {A.S.A. Liberal Arts, GPA -- 3.96 / 4.00}{Traverse City, MI, USA}
         \resumeSubheading
             {Traverse City West Senior High School}{2018 -- 2022}
             {High School Diploma}{Traverse City, MI, USA}
     \resumeSubHeadingListEnd
 
-%-----------Research-----------
+%-----------RESEARCH INTERESTS-----------
+\section{Research Interests}
+    \small{Computer vision, artificial intelligence, machine learning, mapping algorithms, and reliable software systems. I am especially interested in systems that connect rigorous models with dependable production software, including visual understanding, geolocation, neural data analysis, and agentic engineering workflows.}
+
+%-----------RESEARCH EXPERIENCE-----------
 \section{Research Experience}
     \resumeSubHeadingListStart
         \resumeSubheading
@@ -154,71 +160,10 @@
             \resumeItemListStart
                 \resumeItem{Processed fMRI data using FS-FAST and Makefiles to study age-related neural dedifferentiation and its effects on neurocognition in healthy aging and Alzheimer's disease.}
                 \resumeItem{Contributed to machine learning workflows modeling neural distinctiveness and separating background noise from spoken language, connecting computational models with human-like auditory processing.}
-                \resumeItem{Built Python data-processing tools with Prof. Thad Polk for CSV datasets with thousands of columns, including wildcard column filtering, demographic parsing, node-hierarchy operations, and reproducible row filtration.}
+                \resumeItem{Built Python data-processing tools with Prof. Thad Polk for CSV datasets with 1,000+ columns, including wildcard column filtering, demographic parsing, node-hierarchy operations, and reproducible row filtration.}
                 \resumeItem{Used MATLAB, Python, Git, and structured research workflows to support computational neuroscience analysis and data management.}
             \resumeItemListEnd
     \resumeSubHeadingListEnd
-
-%-----------EXPERIENCE-----------
-\section{Professional Experience}
-    \resumeSubHeadingListStart
-        \resumeSubheading
-            {\href{https://aws.amazon.com}{Amazon Web Services}}{06/2025 -- Present}
-            {Software Development Engineer I}{New York, NY, USA}
-            \resumeItemListStart
-                \resumeItem{Build developer-insights platforms for software delivery health, observability, and engineering analytics across large-scale internal software systems.}
-                \resumeItem{Design and operate AWS data pipelines using Python, S3, Glue, Athena, CloudWatch, QuickSight, and infrastructure-as-code workflows for analytics and reporting.}
-                \resumeItem{Develop privacy-aware data availability and access-control validation, including integration tests for row-level and column-level security across analytics datasets.}
-                \resumeItem{Designed automated engineering workflows that coordinate task intake, code generation, code review lifecycle management, reliability checks, and operational observability.}
-                \resumeItem{Support production operations through canary checks, alarms, dashboarding, bug investigation, on-call readiness, and incident-driven reliability improvements.}
-            \resumeItemListEnd
-        \resumeSubheading
-            {\href{https://www.amazon.com}{Amazon}}{09/2024 -- 11/2024}
-            {Software Development Engineer Intern}{Boston, MA, USA}
-            \resumeItemListStart
-                \resumeItem{Worked on Alexa endpoint experiences, designing, testing, and optimizing customer-facing device functionality with a team of more than 20 engineers.}
-                \resumeItem{Implemented software features using React Native, Kotlin, TypeScript, and related technologies while applying production engineering and responsive design practices.}
-            \resumeItemListEnd
-        \resumeSubheading
-            {\href{https://www.usarmygvsc.com}{Ground Vehicle Systems Center (SEC)}}{05/2024 -- 07/2024}
-            {Software Engineer Intern}{Warren, MI, USA}
-            \resumeItemListStart
-                \resumeItem{Leveraged MagicDraw \& Excel to design databases for Jira tickets and hardware, leading to improved efficiency.}
-                \resumeItem{Created Python scripts to parse large csvs with 1000s of datapoints to update integrated networks in Jira.}
-            \resumeItemListEnd
-        \resumeSubheading
-            {\href{https://maditaylorphoto.com}{Madi Taylor Photo}}{06/2022 -- 07/2024}
-            {Full Stack Developer Intern}{Traverse City, MI, USA}
-            \resumeItemListStart
-                \resumeItem{Developed and maintained the corporate website, crafting a cohesive user interface with HTML, CSS, and JS.}
-                \resumeItem{Implemented robust back-end payment solutions and form validation to streamline user transactions.}
-            \resumeItemListEnd
-    \resumeSubHeadingListEnd
-
-%-----------Teaching / Mentoring-----------
-\section{Teaching \& Mentoring}
-    \resumeSubHeadingListStart
-        \resumeProjectHeading
-            {\textbf{Peer Tutoring, Lab Assistance, and Study Group Leadership}}{University of Michigan}
-            \resumeItemListStart
-                \resumeItem{Tutored peers in mathematics, computer science, and related technical coursework, supporting problem solving, conceptual review, and exam preparation.}
-                \resumeItem{Led university computer science study groups ranging from approximately 4--20 students, coordinating review sessions around programming, algorithms, systems, and theory coursework.}
-                \resumeItem{Served as a lab assistant, supporting hands-on technical learning, troubleshooting, and student progress through applied coursework.}
-            \resumeItemListEnd
-        \resumeProjectHeading
-            {\textbf{Engineering Onboarding and Technical Review Mentorship}}{Amazon / AWS}
-            \resumeItemListStart
-                \resumeItem{Onboarded 2 new graduate engineers into team codebases, operational practices, software delivery workflows, and engineering standards.}
-                \resumeItem{Led document-review sessions to improve technical clarity, system-design reasoning, implementation planning, and review quality across engineering work.}
-            \resumeItemListEnd
-    \resumeSubHeadingListEnd
-
-%-----------Papers-----------
-\section{Selected Papers \& Reports}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
-        \href{https://aethom00.github.io/cryptographyFinalPaper.pdf}{\textbf{Navigating the Consensus Landscape}: An Analysis of Blockchain} & 2023 \\
-        \href{https://aethom00.github.io/EECS_442_Final_Project.pdf}{\textbf{Geoguessr AI}: A Look into AI Geolocation Accuracy} & 2024 \\
-    \end{tabular*}
 
 %-----------PROJECTS-----------
 \section{Selected Projects}
@@ -248,19 +193,19 @@
                 \resumeItem{Built guardrails around data access, validation, and production-readiness checks to keep automated work aligned with engineering standards.}
             \resumeItemListEnd
         \resumeProjectHeading
-            {\textbf{Virtual Memory Pager, Operating Systems}}{EECS 482}
+            {\textbf{Virtual Memory Pager, Operating Systems}}{2025}
             \resumeItemListStart
                 \resumeItem{Built a virtual-memory pager managing per-process arenas, page tables, physical frames, swap-backed pages, and shared file-backed mappings.}
                 \resumeItem{Implemented page-fault handling, copy-on-write behavior, dirty/reference tracking, swap allocation, file-block sharing, eviction, and a clock-style page replacement policy.}
             \resumeItemListEnd
         \resumeProjectHeading
-            {\textbf{Networked File Server, Operating Systems}}{EECS 482}
+            {\textbf{Networked File Server, Operating Systems}}{2025}
             \resumeItemListStart
                 \resumeItem{Implemented a socket-based network file server supporting read, write, create, and delete operations over a block-based disk abstraction.}
                 \resumeItem{Designed validation and concurrency logic for ownership, paths, users, permissions, capacity limits, shared/exclusive locks, threaded request handling, and safe cleanup.}
             \resumeItemListEnd
         \resumeProjectHeading
-            {\textbf{\href{https://github.com/aethom00/ECE_553_Final_Project}{Invariant Learning Experiments}, Machine Learning}}{ECE 553}
+            {\textbf{\href{https://github.com/aethom00/ECE_553_Final_Project}{Invariant Learning Experiments}, Machine Learning}}{2025}
             \resumeItemListStart
                 \resumeItem{Compared empirical risk minimization, invariant risk minimization, and IRM-Games under distribution shift across controlled experimental environments.}
                 \resumeItem{Evaluated model behavior on Colored MNIST, synthetic chain-equation data, and financial time-series settings with spurious correlations, trend regimes, and volatility shifts.}
@@ -273,6 +218,65 @@
                 \resumeItem{Created and implemented Bitflip and Phase Oracles to translate CNF constraints into quantum operations.}
                 \resumeItem{Engineered a quantum counting circuit to estimate the number of feasible solutions for optimal scheduling.}
                 \resumeItem{Utilized quantum algorithms to optimize solution search, showcasing advanced problem-solving techniques in quantum computing.}
+            \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------PROFESSIONAL EXPERIENCE-----------
+\section{Professional Experience}
+    \resumeSubHeadingListStart
+        \resumeSubheading
+            {\href{https://aws.amazon.com}{Amazon Web Services}}{06/2025 -- Present}
+            {Software Development Engineer I}{New York, NY, USA}
+            \resumeItemListStart
+                \resumeItem{Build developer-insights platforms for software delivery health, observability, and engineering analytics across large-scale internal software systems as part of a 12+ person AWS team.}
+                \resumeItem{Design and operate AWS data pipelines using Python, S3, Glue, Athena, CloudWatch, QuickSight, and infrastructure-as-code workflows for analytics and reporting.}
+                \resumeItem{Develop privacy-aware data availability and access-control validation, including integration tests for row-level and column-level security across analytics datasets.}
+                \resumeItem{Designed AI-assisted engineering automation that coordinates task intake, code generation, code review lifecycle management, reliability checks, and operational observability.}
+                \resumeItem{Support production operations through canary checks, alarms, dashboarding, bug investigation, on-call readiness, and incident-driven reliability improvements.}
+            \resumeItemListEnd
+        \resumeSubheading
+            {\href{https://www.amazon.com}{Amazon}}{09/2024 -- 11/2024}
+            {Software Development Engineer Intern}{Boston, MA, USA}
+            \resumeItemListStart
+                \resumeItem{Worked on Alexa endpoint experiences, designing, testing, and optimizing customer-facing device functionality with a team of more than 20 engineers.}
+                \resumeItem{Implemented software features using React Native, Kotlin, TypeScript, and related technologies while applying production engineering and responsive design practices.}
+            \resumeItemListEnd
+        \resumeSubheading
+            {\href{https://www.usarmygvsc.com}{Ground Vehicle Systems Center (SEC)}}{05/2024 -- 07/2024}
+            {Software Engineer Intern}{Warren, MI, USA}
+            \resumeItemListStart
+                \resumeItem{Leveraged MagicDraw \& Excel to design databases for Jira tickets and hardware, leading to improved efficiency.}
+                \resumeItem{Created Python scripts to parse large csvs with 1000s of datapoints to update integrated networks in Jira.}
+            \resumeItemListEnd
+        \resumeSubheading
+            {\href{https://maditaylorphoto.com}{Madi Taylor Photo}}{06/2022 -- 07/2024}
+            {Full Stack Developer Intern}{Traverse City, MI, USA}
+            \resumeItemListStart
+                \resumeItem{Developed and maintained the corporate website, crafting a cohesive user interface with HTML, CSS, and JS.}
+                \resumeItem{Implemented robust back-end payment solutions and form validation to streamline user transactions.}
+            \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------Papers-----------
+\section{Selected Papers \& Reports}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
+        \href{https://aethom00.github.io/EECS_442_Final_Project.pdf}{\textbf{Geoguessr AI}: A Look into AI Geolocation Accuracy} & 2024 \\
+    \end{tabular*}
+
+%-----------Teaching / Mentoring-----------
+\section{Teaching \& Mentoring}
+    \resumeSubHeadingListStart
+        \resumeProjectHeading
+            {\textbf{Peer Tutoring and Study Group Leadership}}{University of Michigan}
+            \resumeItemListStart
+                \resumeItem{Tutored peers in mathematics, computer science, and related technical coursework, supporting problem solving, conceptual review, and exam preparation.}
+                \resumeItem{Led university computer science study groups ranging from approximately 4--20 students, coordinating review sessions around programming, algorithms, systems, and theory coursework.}
+                \resumeItem{Served as a lab assistant, supporting hands-on technical learning, troubleshooting, and student progress through applied coursework.}
+            \resumeItemListEnd
+        \resumeProjectHeading
+            {\textbf{Engineering Onboarding}}{Amazon}
+            \resumeItemListStart
+                \resumeItem{Onboarded 2 new graduate engineers into team codebases, operational practices, software delivery workflows, and engineering standards.}
             \resumeItemListEnd
     \resumeSubHeadingListEnd
 
@@ -306,26 +310,6 @@
         \end{tabularx}
     }
 
-%-----------Leadership / Activities-----------
-\section{Leadership \& Activities}
-    \small {
-        \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
-            \textbf{\href{https://mdst.club}{Michigan Data Science Team}} & 2024 \\
-            \textbf{\href{https://mcity.umich.edu/what-mcity-offers/for-students/michigander-scholars-program/}{University of Michigan EV \& Mobility Scholars}} & 2023 -- 2026 \\
-            \textbf{\href{https://michhackers.com}{MHackers}} & 2022 -- 2024 \\
-            \textbf{\href{https://www.firstinspires.org}{First Robotics}} & 2021 -- 2022 \\
-        \end{tabular*}
-    }
-
-%-----------Volunteering / Service-----------
-\section{Volunteering \& Service}
-    \small {
-        \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
-            \textbf{\href{https://thekf.org}{The Kosciuszko Foundation}} & 10/2025 -- Present \\
-            \textbf{\href{https://www.nationalhonorsociety.org}{National Honor Society}} & 08/2021 -- 05/2022 \\
-        \end{tabular*}
-    }
-
 %-----------Awards / Honors-----------
 \section{Awards \& Honors}
     \begin{itemize}[leftmargin=0.15in, label={}]
@@ -350,16 +334,6 @@
     %     \textbf{Northwestern Michigan College Dean's List} & 2020, 2021, 2022 \\
     % \end{tabular*}
 
-%-----------Interests/Hobbies-----------
-\section{Interests/Hobbies}
-    \begin{itemize}[leftmargin=0.15in, label={}]
-        \small{
-            \item{
-                \textbf{Artificial intelligence, backpacking, computer vision, geopolitics, hiking, machine learning, mapping algorithms, neuroscience, travel photography}
-            }
-        }
-    \end{itemize}
-
 %-----------Languages-----------
 \section{Languages}
     \begin{itemize}[leftmargin=0.15in, label={}]
@@ -369,10 +343,37 @@
                     \textbf{English}: & \ Native \\
                     \textbf{German}: & \ B1 \\
                     \textbf{Spanish}: & \ A2 \\
-                    \textbf{Polish}: & \ A1 \\
-                    \textbf{French}: & \ A1 \\
-                    \textbf{Korean}: & \ Can sound Hangul \\
                 \end{tabular}
+            }
+        }
+    \end{itemize}
+
+%-----------Leadership / Activities-----------
+\section{Leadership \& Activities}
+    \small {
+        \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
+            \textbf{\href{https://mdst.club}{Michigan Data Science Team}} & 2024 \\
+            \textbf{\href{https://mcity.umich.edu/what-mcity-offers/for-students/michigander-scholars-program/}{University of Michigan EV \& Mobility Scholars}} & 2023 -- 2026 \\
+            \textbf{\href{https://michhackers.com}{MHackers}} & 2022 -- 2024 \\
+            \textbf{\href{https://www.firstinspires.org}{First Robotics}} & 2021 -- 2022 \\
+        \end{tabular*}
+    }
+
+%-----------Volunteering / Service-----------
+\section{Volunteering \& Service}
+    \small {
+        \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l}
+            \textbf{\href{https://thekf.org}{The Kosciuszko Foundation}} & 10/2025 -- Present \\
+            \textbf{\href{https://www.nationalhonorsociety.org}{National Honor Society}} & 08/2021 -- 05/2022 \\
+        \end{tabular*}
+    }
+
+%-----------Interests/Hobbies-----------
+\section{Interests/Hobbies}
+    \begin{itemize}[leftmargin=0.15in, label={}]
+        \small{
+            \item{
+                \textbf{Artificial intelligence, backpacking, computer vision, geopolitics, hiking, machine learning, mapping algorithms, neuroscience, travel photography}
             }
         }
     \end{itemize}

@@ -2,6 +2,24 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Generated resume PDFs
+
+The source documents live in `public/cv.tex` and `public/resume.tex`. Run:
+
+```sh
+npm run build:pdfs
+```
+
+This writes fresh PDFs to `public/generated-pdfs/cv.pdf` and `public/generated-pdfs/resume.pdf`, replacing existing files. The command requires `latexmk` or `pdflatex`.
+
+Local Git hooks are tracked in `.githooks`. Enable them in a checkout with:
+
+```sh
+npm run hooks:install
+```
+
+When LaTeX is installed locally, the hooks generate and stage PDFs before commits that change the TeX sources, then check PDF freshness before pushes. If LaTeX is not installed locally, GitHub Actions generates and commits the PDFs after changes reach `main`.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)

@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "node scripts/generateHeroImages.cjs && node scripts/generateWorldGlobeRings.cjs && vite",
     "build": "node scripts/generateHeroImages.cjs && node scripts/generateWorldGlobeRings.cjs && tsc -b && vite build",
+    "build:pdfs": "bash scripts/build-tex-pdfs.sh",
+    "hooks:install": "git config core.hooksPath .githooks",
     "lint": "eslint .",
     "preview": "vite preview"
   },

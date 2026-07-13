@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CHANGED_TEX="$(git diff --cached --name-only -- public/cv.tex public/resume.tex)"
+
+if [[ -z "$CHANGED_TEX" ]]; then
+  exit 0
+fi
+
+if ! command -v latexmk >/dev/null 2>&1 && ! command -v pdflatex >/dev/null 2>&1; then
+  cat >&2 <<'EOF'
+Skipping local PDF generation because no LaTeX compiler was found.
+GitHub Actions will generate and push PDFs after this change reaches main.
+
+Install latexmk or pdflatex locally to generate PDFs before commit.
+EOF
+  exit 0
+fi
+
+npm run build:pdfs
+git add public/generated-pdfs/cv.pdf public/generated-pdfs/resume.pdf

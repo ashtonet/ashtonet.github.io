@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v latexmk >/dev/null 2>&1 && ! command -v pdflatex >/dev/null 2>&1; then
+  cat >&2 <<'EOF'
+Skipping local PDF freshness check because no LaTeX compiler was found.
+GitHub Actions will generate and push PDFs after this change reaches main.
+
+Install latexmk or pdflatex locally to check PDFs before push.
+EOF
+  exit 0
+fi
+
+npm run build:pdfs
+
+if ! git diff --quiet -- public/generated-pdfs/cv.pdf public/generated-pdfs/resume.pdf; then
+  cat >&2 <<'EOF'
+Generated PDFs changed during pre-push.
+
+Commit the updated files, then push again:
+  git add public/generated-pdfs/cv.pdf public/generated-pdfs/resume.pdf
+  git commit -m "Update generated PDFs"
+  git push
+EOF
+  exit 1
+fi

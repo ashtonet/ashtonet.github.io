@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight, CalendarClock, FileText } from 'lucide-react'
 
-const resumeUrl = 'https://aethom00.github.io/Ashton_resume.pdf'
+const resumeUrl = 'https://ashtonet.github.io/generated-pdfs/resume.pdf'
 const resumeViewerUrl = `https://docs.google.com/gview?embedded=false&url=${encodeURIComponent(resumeUrl)}`
 const cvRequestUrl = 'mailto:aethom@umich.edu?subject=CV%20request'
 const highlights = [

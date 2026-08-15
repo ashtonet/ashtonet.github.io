@@ -46,8 +46,8 @@ const linkGroups = [
     accent: 'from-violet-300/70 to-fuchsia-300/70',
     description: 'A compact professional snapshot and academic CV.',
     links: [
-      { icon: FileText, label: 'Résumé', value: 'View résumé', href: 'https://aethom00.github.io/Ashton_resume.pdf' },
-      { icon: FileText, label: 'CV', value: 'View CV', href: '/cv.tex' },
+      { icon: FileText, label: 'Résumé', value: 'View résumé', href: 'https://ashtonet.github.io/generated-pdfs/resume.pdf' },
+      { icon: FileText, label: 'CV', value: 'View CV', href: 'https://ashtonet.github.io/generated-pdfs/cv.pdf' },
     ],
   },
   {

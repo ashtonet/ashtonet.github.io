@@ -3,24 +3,24 @@ import { lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNod
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
-import Experience from './components/Experience'
 import Volunteering from './components/Volunteering'
-import Education from './components/Education'
 import Projects from './components/Projects'
 import Research from './components/Research'
-import Timeline from './components/Timeline'
 import ResumeCard from './components/ResumeCard'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ProjectDetail from './components/ProjectDetail'
 import MusicProfile from './components/MusicProfile'
 import AppleMusicDock from './components/AppleMusicDock'
-import VisualEffectsLab from './components/VisualEffectsLab'
 import SiteTranslator from './i18n/SiteTranslator'
 import { getProjectBySlug } from './data/projects'
 
 const Travel = lazy(() => import('./components/Travel'))
 const HomeGlobeSection = lazy(() => import('./components/Travel').then((module) => ({ default: module.HomeGlobeSection })))
+const Experience = lazy(() => import('./components/Experience'))
+const Education = lazy(() => import('./components/Education'))
+const Timeline = lazy(() => import('./components/Timeline'))
+const VisualEffectsLab = lazy(() => import('./components/VisualEffectsLab'))
 
 const pages = ['home', 'about', 'experience', 'volunteering', 'education', 'projects', 'research', 'timeline', 'travel', 'contact', 'effects'] as const
 type Page = (typeof pages)[number]
@@ -41,18 +41,22 @@ function readPage(): Page {
   return readRoute().page
 }
 
+function SectionFallback() {
+  return <div className="section grid min-h-[50vh] place-items-center text-sm text-slate-500">Loading…</div>
+}
+
 function PageContent({ page }: { page: Page }) {
   switch (page) {
-    case 'about': return <HomeAtmosphere><About /><Timeline /></HomeAtmosphere>
-    case 'experience': return <Experience />
+    case 'about': return <HomeAtmosphere><About /><Suspense fallback={<SectionFallback />}><Timeline /></Suspense></HomeAtmosphere>
+    case 'experience': return <Suspense fallback={<SectionFallback />}><Experience /></Suspense>
     case 'volunteering': return <Volunteering />
-    case 'education': return <><Education /><Timeline variant="education" /></>
+    case 'education': return <><Suspense fallback={<SectionFallback />}><Education /></Suspense><Suspense fallback={<SectionFallback />}><Timeline variant="education" /></Suspense></>
     case 'projects': return <Projects />
     case 'research': return <Research />
-    case 'timeline': return <Timeline />
+    case 'timeline': return <Suspense fallback={<SectionFallback />}><Timeline /></Suspense>
     case 'travel': return <Suspense fallback={<div className="grid min-h-[70vh] place-items-center text-sm text-slate-500">Loading travel atlas…</div>}><Travel /></Suspense>
     case 'contact': return <><MusicProfile /><ResumeCard /><Contact /></>
-    case 'effects': return <VisualEffectsLab />
+    case 'effects': return <Suspense fallback={<SectionFallback />}><VisualEffectsLab /></Suspense>
     default: return <><Hero /><HomeAtmosphere><About /><Projects featured /><Research /><Volunteering /><LazyHomeGlobeSection /><MusicProfile /><ResumeCard /><Contact /></HomeAtmosphere></>
   }
 }

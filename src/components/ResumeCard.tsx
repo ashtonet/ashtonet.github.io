@@ -3,7 +3,7 @@ import { ArrowUpRight, CalendarClock, FileText } from 'lucide-react'
 
 const resumeUrl = 'https://ashtonet.github.io/generated-pdfs/resume.pdf'
 const resumeViewerUrl = `https://docs.google.com/gview?embedded=false&url=${encodeURIComponent(resumeUrl)}`
-const cvRequestUrl = 'mailto:aethom@umich.edu?subject=CV%20request'
+const cvUrl = 'https://ashtonet.github.io/generated-pdfs/cv.pdf'
 const highlights = [
   'Software Development Engineer I at AWS',
   'M.S.E. Computer Engineering · Computer Vision Concentration',
@@ -40,7 +40,7 @@ export default function ResumeCard() {
 
               <div className="mt-7 flex flex-wrap gap-3">
                 <a href={resumeViewerUrl} target="_blank" rel="noreferrer" className="primary-button">View PDF <ArrowUpRight size={16} /></a>
-                <a href={cvRequestUrl} className="secondary-button">View CV <FileText size={16} /></a>
+                <a href={cvUrl} target="_blank" rel="noreferrer" className="secondary-button">View CV <FileText size={16} /></a>
               </div>
             </div>
           </div>

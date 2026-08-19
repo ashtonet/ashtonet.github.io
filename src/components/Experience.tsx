@@ -4,11 +4,11 @@ import { BriefcaseBusiness, Building2, ExternalLink, MapPin } from 'lucide-react
 const experiences = [
   {
     role: 'Software Development Engineer I', company: 'Amazon Web Services (AWS)', type: 'Full-time', date: 'Jun 2025 — Present', location: 'New York, New York · On-site',
-    description: 'Building developer-insights platforms at AWS for software delivery health, observability, and privacy-aware engineering analytics. My work spans Python services and automation, AWS data pipelines, reporting dashboards, and engineering automation tooling.', skills: ['Python', 'AWS', 'Data Engineering', 'Observability', 'Automation Tooling'], current: true,
+    description: 'Building developer-insights platforms at AWS for software delivery health, observability, and privacy-aware engineering analytics. My work spans Python services and automation, AWS data pipelines, reporting dashboards, and engineering automation tooling. I also manage company-wide employee data for 100,000s of employees, including collection, processing, and executive-level reporting.', skills: ['Python', 'AWS', 'Data Engineering', 'Observability', 'Automation Tooling'], current: true,
   },
   {
     role: 'SDE Software Engineer Intern', company: 'Amazon', type: 'Full-time', date: 'Sep 2024 — Nov 2024', location: 'Boston, Massachusetts · On-site',
-    description: 'Completed a Fall 2024 SDE internship on Alexa endpoint experiences, building software with React Native, responsive web patterns, and production engineering practices.', skills: ['Software Engineering', 'React Native', 'Responsive Web Design'],
+    description: 'Completed a Fall 2024 SDE internship on Alexa endpoint experiences, building software with React Native, responsive web patterns, and production engineering practices. Shipped features into Alexa+.', skills: ['Software Engineering', 'React Native', 'Responsive Web Design'],
   },
   {
     role: 'Software Development Intern', company: 'U.S. Army DEVCOM Ground Vehicle Systems Center', type: 'Internship', date: 'May 2024 — Jul 2024', location: 'Warren, Michigan · Hybrid',

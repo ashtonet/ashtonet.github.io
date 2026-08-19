@@ -12,9 +12,12 @@ type TravelView = 'atlas' | 'globe'
 
 const googleMyMapsUrl = ''
 const globeDetailedMapResolution = '10m'
+const globeMediumMapResolution = 'medium'
 const globeFastMapResolution = '50m'
 const detailedWorldMapRingsUrl = `${import.meta.env.BASE_URL}data/world-map-units-${globeDetailedMapResolution}-rings.json`
 const detailedVisitedMapRingsUrl = `${import.meta.env.BASE_URL}data/world-visited-map-units-${globeDetailedMapResolution}-rings.json`
+const mediumWorldMapRingsUrl = `${import.meta.env.BASE_URL}data/world-map-units-${globeMediumMapResolution}-rings.json`
+const mediumVisitedMapRingsUrl = `${import.meta.env.BASE_URL}data/world-visited-map-units-${globeMediumMapResolution}-rings.json`
 const fastWorldMapRingsUrl = `${import.meta.env.BASE_URL}data/world-map-units-${globeFastMapResolution}-rings.json`
 const fastVisitedMapRingsUrl = `${import.meta.env.BASE_URL}data/world-visited-map-units-${globeFastMapResolution}-rings.json`
 
@@ -460,6 +463,8 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset, globeCou
   const [hoveredPlace, setHoveredPlace] = useState<TravelPlace | null>(null)
   const [detailedWorldOutlineRings, setDetailedWorldOutlineRings] = useState<Coordinate[][]>([])
   const [detailedVisitedOutlineRings, setDetailedVisitedOutlineRings] = useState<Coordinate[][]>([])
+  const [mediumWorldOutlineRings, setMediumWorldOutlineRings] = useState<Coordinate[][]>([])
+  const [mediumVisitedOutlineRings, setMediumVisitedOutlineRings] = useState<Coordinate[][]>([])
   const [fastWorldOutlineRings, setFastWorldOutlineRings] = useState<Coordinate[][]>([])
   const [fastVisitedOutlineRings, setFastVisitedOutlineRings] = useState<Coordinate[][]>([])
   const [isGlobeInteracting, setIsGlobeInteracting] = useState(false)
@@ -512,13 +517,17 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset, globeCou
     Promise.all([
       fetch(detailedWorldMapRingsUrl).then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load detailed world outline data'))),
       fetch(detailedVisitedMapRingsUrl).then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load detailed visited outline data'))),
+      fetch(mediumWorldMapRingsUrl).then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load medium world outline data'))),
+      fetch(mediumVisitedMapRingsUrl).then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load medium visited outline data'))),
       fetch(fastWorldMapRingsUrl).then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load fast world outline data'))),
       fetch(fastVisitedMapRingsUrl).then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load fast visited outline data'))),
     ])
-      .then(([detailedWorldRings, detailedVisitedRings, fastWorldRings, fastVisitedRings]: [Coordinate[][], Coordinate[][], Coordinate[][], Coordinate[][]]) => {
+      .then(([detailedWorldRings, detailedVisitedRings, mediumWorldRings, mediumVisitedRings, fastWorldRings, fastVisitedRings]: [Coordinate[][], Coordinate[][], Coordinate[][], Coordinate[][], Coordinate[][], Coordinate[][]]) => {
         if (!mounted) return
         setDetailedWorldOutlineRings(detailedWorldRings)
         setDetailedVisitedOutlineRings(detailedVisitedRings)
+        setMediumWorldOutlineRings(mediumWorldRings)
+        setMediumVisitedOutlineRings(mediumVisitedRings)
         setFastWorldOutlineRings(fastWorldRings)
         setFastVisitedOutlineRings(fastVisitedRings)
       })
@@ -526,6 +535,8 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset, globeCou
         if (!mounted) return
         setDetailedWorldOutlineRings([])
         setDetailedVisitedOutlineRings([])
+        setMediumWorldOutlineRings([])
+        setMediumVisitedOutlineRings([])
         setFastWorldOutlineRings([])
         setFastVisitedOutlineRings([])
       })
@@ -541,13 +552,17 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset, globeCou
   }
 
   const projectedRadius = globeRadius * globeZoom
-  const worldRingsForFrame = isGlobeInteracting && fastWorldOutlineRings.length > 0
-    ? fastWorldOutlineRings
+  const worldRingsForFrame = isGlobeInteracting
+    ? mediumWorldOutlineRings.length > 0
+      ? mediumWorldOutlineRings
+      : fastWorldOutlineRings
     : detailedWorldOutlineRings.length > 0
       ? detailedWorldOutlineRings
       : fastWorldOutlineRings
-  const visitedRingsForFrame = isGlobeInteracting && fastVisitedOutlineRings.length > 0
-    ? fastVisitedOutlineRings
+  const visitedRingsForFrame = isGlobeInteracting
+    ? mediumVisitedOutlineRings.length > 0
+      ? mediumVisitedOutlineRings
+      : fastVisitedOutlineRings
     : detailedVisitedOutlineRings.length > 0
       ? detailedVisitedOutlineRings
       : fastVisitedOutlineRings
@@ -870,7 +885,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset, globeCou
         <div className="relative z-10">
           <div className="glass rounded-2xl p-5">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.18em] text-violet-300"><Globe2 size={15} />Globe mode</div>
-            <p className="mt-3 text-sm leading-6 text-slate-500">Drag to rotate, scroll to zoom, or use search to jump to a place. Outlines stay lighter while moving, then sharpen once the globe settles.</p>
+            <p className="mt-3 text-sm leading-6 text-slate-500">Drag to rotate, scroll to zoom, or use search to jump to a place. Outlines sharpen while moving, then ease back once the globe settles.</p>
             <div className="mt-5 flex items-center gap-2">
               <button type="button" onClick={() => changeZoom(-1)} disabled={globeZoom <= globeMinZoom} aria-label="Zoom out globe" className="grid h-10 w-10 place-items-center rounded-xl border border-white/[.08] bg-white/[.04] text-slate-300 transition hover:border-white/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"><Minus size={14} /></button>
               <div className="grid h-10 min-w-20 place-items-center rounded-xl border border-white/[.08] bg-slate-950/45 px-3 text-xs font-semibold text-slate-300">{Math.round(globeZoom * 100)}%</div>

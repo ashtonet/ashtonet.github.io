@@ -1,9 +1,10 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowDown, ChevronLeft, ChevronRight, Code2 as Github, Image as ImageIcon, Mail, UserRound as Linkedin } from 'lucide-react'
+import { ArrowDown, ChevronLeft, ChevronRight, Image as ImageIcon, Mail } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import { landscapeHeroImages, portraitHeroImages } from '../data/heroImages.generated'
 import BlurredPhotoParallax from './BlurredPhotoParallax'
+import { GitHubLogo, LinkedInLogo } from './BrandIcons'
 
 const fallbackHeroImage = { src: '/images/hero-landscape/Honolulu.jpg', label: 'HONOLULU', position: 'center 48%' }
 
@@ -155,8 +156,8 @@ export default function Hero() {
             <a href="#/contact" className="secondary-button">Start a conversation</a>
           </div>
           <div className="mt-8 flex justify-center gap-2">
-            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="https://github.com/aethom00" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={18} /></a>
-            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="#/contact" aria-label="LinkedIn"><Linkedin size={18} /></a>
+            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="https://github.com/aethom00" target="_blank" rel="noreferrer" aria-label="GitHub"><GitHubLogo size={18} /></a>
+            <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="#/contact" aria-label="LinkedIn"><LinkedInLogo size={18} /></a>
             <a className="grid h-10 w-10 place-items-center rounded-full text-slate-500 transition hover:bg-white/5 hover:text-white" href="#/contact" aria-label="Email"><Mail size={18} /></a>
           </div>
         </motion.div>

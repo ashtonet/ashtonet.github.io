@@ -200,7 +200,7 @@ export default function MusicProfile() {
                   <a href={leadTrack.url} target="_blank" rel="noreferrer" aria-label={`Open ${leadTrack.name} on Apple Music`} className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[.06] text-white transition hover:bg-white/[.1]"><ArrowUpRight size={15} /></a>
                 </div>}
 
-                {!loading && available && data.tracks.length > 0 && <div className="mt-6 grid gap-7 sm:mt-8 lg:grid-cols-[1.2fr_.8fr]">
+                {!loading && available && data.tracks.length > 0 && <div className="mt-6 grid gap-7 sm:mt-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,.8fr)]">
                   <div>
                     <p className="text-[.68rem] font-semibold uppercase tracking-[.16em] text-slate-500">Recent tracks</p>
                     <div className="mt-3 space-y-2">{data.tracks.slice(leadTrack?.nowPlaying ? 1 : 0, 4).map((track) => <div key={`${track.name}-${track.artist}`} className="group flex items-center gap-3 rounded-xl p-2 transition hover:bg-white/[.05]">

@@ -143,7 +143,7 @@ export default function Hero() {
       )}
       <motion.div className="shell relative z-10 py-24 text-center" style={{ y: contentY }}>
         <motion.div className="hero-copy-lockup mx-auto max-w-5xl" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
-          <h1 className="gradient-text hero-name-light mx-auto max-w-5xl text-[clamp(3.2rem,10vw,7.5rem)] font-semibold leading-[.86] tracking-[-.075em]">Ashton Thomas</h1>
+          <h1 className="gradient-text hero-name-light mx-auto max-w-5xl text-[clamp(2.25rem,10vw,7.5rem)] font-semibold leading-[.92] tracking-[-.075em]">Ashton Thomas</h1>
           <p className="hero-role mt-7 text-sm font-medium uppercase tracking-[.22em]">Software Development Engineer &middot; Amazon</p>
           <div className="hero-type mt-4 min-h-9 text-xl md:text-2xl">
             <TypeAnimation sequence={['Machine learning systems', 1700, 'Computer vision', 1700, 'Distributed infrastructure', 1700, 'Optimization & robotics', 1700]} repeat={Infinity} speed={45} />

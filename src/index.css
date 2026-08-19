@@ -16,6 +16,7 @@ section { scroll-margin-top: 6rem; }
 
 .shell { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
 .section { position: relative; padding: 7rem 0; }
+@media (max-width: 767px) { .section { padding: 3.75rem 0; } }
 .home-atmosphere {
   background:
     radial-gradient(ellipse at 16% 8%, rgba(251,191,36,.22), transparent 36rem),
@@ -156,7 +157,7 @@ section { scroll-margin-top: 6rem; }
 }
 .eyebrow { display: flex; align-items: center; gap: .65rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .eyebrow::before { content: ""; width: 1.75rem; height: 1px; background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
-.section-title { margin: .8rem 0 0; color: #f8fafc; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1; letter-spacing: -.055em; font-weight: 650; }
+.section-title { margin: .8rem 0 0; color: #f8fafc; font-size: clamp(1.65rem, 5vw, 3.25rem); line-height: 1.05; letter-spacing: -.055em; font-weight: 650; }
 .section-copy { max-width: 40rem; margin: 1rem 0 0; color: #94a3b8; font-size: 1rem; line-height: 1.75; }
 .glass { background: linear-gradient(145deg, rgba(var(--panel),.72), rgba(var(--panel-deep),.52)); border: 1px solid rgba(148,163,184,.13); box-shadow: 0 24px 80px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.035); backdrop-filter: blur(20px); }
 .card { position: relative; overflow: hidden; border-radius: 1.25rem; transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease; }

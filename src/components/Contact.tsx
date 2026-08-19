@@ -73,7 +73,7 @@ export default function Contact() {
         <div className="contact-identity-panel flex min-h-[30rem] flex-col justify-between rounded-[1.9rem] border border-white/[.07] p-6 sm:p-8">
           <div>
             <div className="eyebrow before:bg-gradient-to-r before:from-amber-300 before:to-rose-400">Contact</div>
-            <h2 className="mt-6 max-w-2xl bg-gradient-to-br from-white via-slate-100 to-amber-100 bg-clip-text text-6xl font-semibold tracking-[-.075em] text-transparent sm:text-7xl lg:text-8xl">Ashton Thomas</h2>
+            <h2 className="mt-6 max-w-2xl bg-gradient-to-br from-white via-slate-100 to-amber-100 bg-clip-text text-[clamp(2.5rem,9vw,6rem)] font-semibold leading-[1.05] tracking-[-.075em] text-transparent">Ashton Thomas</h2>
             <p className="mt-6 max-w-xl text-base leading-8 text-slate-400">Software engineer, researcher, map obsessive, and travel-photo collector. This is the small directory of places where my work, documents, and life outside the terminal live.</p>
           </div>
 

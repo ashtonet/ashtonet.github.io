@@ -160,6 +160,7 @@ section { scroll-margin-top: 6rem; }
 .section-title { margin: .8rem 0 0; color: #f8fafc; font-size: clamp(1.65rem, 5vw, 3.25rem); line-height: 1.05; letter-spacing: -.055em; font-weight: 650; }
 .section-copy { max-width: 40rem; margin: 1rem 0 0; color: #94a3b8; font-size: 1rem; line-height: 1.75; }
 .glass { background: linear-gradient(145deg, rgba(var(--panel),.72), rgba(var(--panel-deep),.52)); border: 1px solid rgba(148,163,184,.13); box-shadow: 0 24px 80px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.035); backdrop-filter: blur(20px); }
+nav.glass { background: linear-gradient(145deg, rgba(var(--panel),.99), rgba(var(--panel-deep),.98)); }
 .card { position: relative; overflow: hidden; border-radius: 1.25rem; transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease; }
 .card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(500px circle at var(--x, 50%) var(--y, 0%), rgba(var(--accent-rgb),.13), transparent 42%); opacity: 0; transition: opacity .3s; }
 .card:hover { transform: translateY(-5px); border-color: rgba(129,140,248,.35); box-shadow: 0 28px 80px rgba(0,0,0,.38); }
@@ -186,7 +187,8 @@ section { scroll-margin-top: 6rem; }
 .hero-photo-arrow:hover { background: rgba(255,255,255,.09); color: white; transform: translateY(-1px); }
 .hero-photo-arrow:focus-visible, .hero-photo-dot:focus-visible { outline: 2px solid rgba(147,197,253,.85); outline-offset: 3px; }
 .hero-photo-dots { display: flex; align-items: center; gap: .42rem; }
-.hero-photo-dot { height: .42rem; width: .42rem; border-radius: 999px; background: rgba(226,232,240,.36); box-shadow: 0 0 0 1px rgba(255,255,255,.08); transition: width .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease; }
+.hero-photo-dot { position: relative; height: .42rem; width: .42rem; border-radius: 999px; background: rgba(226,232,240,.36); box-shadow: 0 0 0 1px rgba(255,255,255,.08); transition: width .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease; }
+.hero-photo-dot::before { content: ""; position: absolute; top: -.79rem; bottom: -.79rem; left: -.15rem; right: -.15rem; }
 .hero-photo-dot:hover { background: rgba(255,255,255,.72); transform: scale(1.12); }
 .hero-photo-dot.active { width: 1.45rem; background: rgba(255,255,255,.9); box-shadow: 0 0 18px rgba(var(--accent-rgb),.28); }
 .hero-section-preparing .photo-parallax-camera-light { opacity: .46; }

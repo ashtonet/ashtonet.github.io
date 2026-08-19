@@ -127,20 +127,28 @@ export default function MusicProfile() {
     const username = import.meta.env.VITE_LASTFM_USERNAME || 'aethom00'
     if (!apiKey || loading) return
 
+    let cancelled = false
     const endpoint = 'https://ws.audioscrobbler.com/2.0/'
-    setArtistsLoading(true)
-    fetch(`${endpoint}?method=user.getTopArtists&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json&period=${period}&limit=5`)
-      .then((response) => {
+
+    const loadTopArtists = async () => {
+      setArtistsLoading(true)
+      try {
+        const response = await fetch(`${endpoint}?method=user.getTopArtists&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json&period=${period}&limit=5`)
         if (!response.ok) throw new Error('Last.fm request failed')
-        return response.json()
-      })
-      .then((top) => {
+        const top = await response.json()
+        if (cancelled) return
         const artists: Artist[] = (top.topartists?.artist ?? []).map((artist: { name: string, playcount: string }) => ({ name: artist.name, playcount: artist.playcount, url: appleSearchUrl(artist.name) }))
         setData((current) => ({ ...current, artists }))
         setAvailable(true)
-      })
-      .catch(() => setAvailable(false))
-      .finally(() => setArtistsLoading(false))
+      } catch {
+        if (!cancelled) setAvailable(false)
+      } finally {
+        if (!cancelled) setArtistsLoading(false)
+      }
+    }
+
+    loadTopArtists()
+    return () => { cancelled = true }
   }, [loading, period])
 
   const leadTrack = data.tracks[0]

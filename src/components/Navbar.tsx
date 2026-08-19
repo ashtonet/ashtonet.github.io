@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Globe2, Menu, Palette, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useLanguage, type Language } from '../i18n/LanguageContext'
-import { themes, useTheme, type Theme } from '../theme/ThemeContext'
+import { useLanguage, type Language } from '../i18n/languageState'
+import { themes, useTheme, type Theme } from '../theme/themeState'
 
 const links = [
   { key: 'home', page: 'home', href: '#/' },

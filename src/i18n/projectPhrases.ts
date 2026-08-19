@@ -1,5 +1,5 @@
 import { projects } from '../data/projects'
-import type { Language } from './LanguageContext'
+import type { Language } from './languageState'
 
 type SupportedLanguage = Exclude<Language, 'en' | 'es'>
 

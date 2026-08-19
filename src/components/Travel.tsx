@@ -1,23 +1,10 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Globe2, Home, Map as MapIcon, MapPin, Minus, Plus, Search, X } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { Geometry } from 'geojson'
+import type { Feature, FeatureCollection, Geometry } from 'geojson'
 import * as L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { travelPlaces, type TravelPlace } from '../data/travelPlaces'
-import { correctedCountryShapes } from '../data/correctedCountries'
-import { detailedCanadaShape } from '../data/detailedCanada'
-import { alpineDetailedCountryShapes } from '../data/detailedAlpineCountries'
-import { detailedCyprusAndPuertoRicoShapes } from '../data/detailedCyprusAndPuertoRico'
-import { detailedCountryShapes } from '../data/detailedCountries'
-import { extendedDetailedCountryShapes } from '../data/detailedCountriesExtended'
-import { detailedIndonesiaShape } from '../data/detailedIndonesia'
-import { detailedIslandCountryShapes } from '../data/detailedIslandCountries'
-import { microDetailedCountryShapes } from '../data/detailedMicroCountries'
-import { southeastAsiaCoreShapes } from '../data/detailedSoutheastAsiaCore'
-import { detailedSaintMartinShapes } from '../data/detailedSaintMartin'
-import { detailedUnitedStatesShape } from '../data/detailedUnitedStates'
-import { visitedCountryShapes } from '../data/visitedCountries'
 import BlurredPhotoParallax from './BlurredPhotoParallax'
 
 type TravelKind = TravelPlace['kind']
@@ -63,27 +50,56 @@ const countryByAtlasName = new Map(
     .map((place) => [atlasAliases[place.name] ?? place.name, place]),
 )
 
-const detailedCountryFeatures = [...new Map([
-  ...detailedCountryShapes.features,
-  ...extendedDetailedCountryShapes.features,
-  ...microDetailedCountryShapes.features,
-  ...alpineDetailedCountryShapes.features,
-  ...southeastAsiaCoreShapes.features,
-  ...detailedIndonesiaShape.features,
-  ...detailedIslandCountryShapes.features,
-  ...detailedCyprusAndPuertoRicoShapes.features,
-  ...detailedUnitedStatesShape.features,
-  ...detailedCanadaShape.features,
-  ...correctedCountryShapes.features,
-  ...detailedSaintMartinShapes.features,
-].map((country) => [country.properties.name, country])).values()]
-const detailedCountryNames = new Set(detailedCountryFeatures.map((country) => country.properties.name))
-const renderedCountryShapes = {
-  ...visitedCountryShapes,
-  features: [
-    ...visitedCountryShapes.features.filter((country) => !detailedCountryNames.has(country.properties.name)),
-    ...detailedCountryFeatures,
-  ],
+// Detailed country boundary data is fetched at runtime from public/data/countries/
+// (rather than bundled as source) so it doesn't bloat this route's JS chunk. The
+// underlying .ts data modules still exist for scripts/generateWorldGlobeRings.cjs.
+const countryDataBase = `${import.meta.env.BASE_URL}data/countries/`
+const detailedCountryDataFiles = [
+  'detailedCountries', 'detailedCountriesExtended', 'detailedMicroCountries', 'detailedAlpineCountries',
+  'detailedSoutheastAsiaCore', 'detailedIndonesia', 'detailedIslandCountries', 'detailedCyprusAndPuertoRico',
+  'detailedUnitedStates', 'detailedCanada', 'correctedCountries', 'detailedSaintMartin',
+] as const
+
+type CountryFeature = Feature<Geometry, { name: string }>
+type CountryShapeData = { renderedCountryShapes: FeatureCollection<Geometry, { name: string }>, globeCountryRings: Coordinate[][] }
+
+let countryShapeDataPromise: Promise<CountryShapeData> | null = null
+
+function fetchCountryShapeData(): Promise<CountryShapeData> {
+  if (!countryShapeDataPromise) {
+    countryShapeDataPromise = Promise.all([
+      Promise.all(detailedCountryDataFiles.map((name) => fetch(`${countryDataBase}${name}.json`).then((response) => response.json() as Promise<FeatureCollection<Geometry, { name: string }>>))),
+      fetch(`${countryDataBase}visitedCountries.json`).then((response) => response.json() as Promise<FeatureCollection<Geometry, { name: string }>>),
+    ]).then(([detailedCollections, visitedCountryShapes]) => {
+      const detailedCountryFeatures = [...new Map(
+        detailedCollections.flatMap((collection) => collection.features as CountryFeature[])
+          .map((country) => [country.properties.name, country]),
+      ).values()]
+      const detailedCountryNames = new Set(detailedCountryFeatures.map((country) => country.properties.name))
+      const renderedCountryShapes: FeatureCollection<Geometry, { name: string }> = {
+        ...visitedCountryShapes,
+        features: [
+          ...(visitedCountryShapes.features as CountryFeature[]).filter((country) => !detailedCountryNames.has(country.properties.name)),
+          ...detailedCountryFeatures,
+        ],
+      }
+      const globeCountryRings = renderedCountryShapes.features.flatMap((feature) => (
+        extractRings(feature.geometry).map(simplifyRing).filter((ring) => ring.length > 2)
+      ))
+      return { renderedCountryShapes, globeCountryRings }
+    })
+  }
+  return countryShapeDataPromise
+}
+
+function useCountryShapeData() {
+  const [data, setData] = useState<CountryShapeData | null>(null)
+  useEffect(() => {
+    let mounted = true
+    fetchCountryShapeData().then((result) => { if (mounted) setData(result) })
+    return () => { mounted = false }
+  }, [])
+  return data
 }
 
 const globeSize = 720
@@ -214,10 +230,6 @@ function globePointerDistance(first: GlobePointerPosition, second: GlobePointerP
   return Math.hypot(second.x - first.x, second.y - first.y)
 }
 
-const globeCountryRings = renderedCountryShapes.features.flatMap((feature) => (
-  extractRings(feature.geometry).map(simplifyRing).filter((ring) => ring.length > 2)
-))
-
 export default function Travel() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<L.Map | null>(null)
@@ -227,6 +239,7 @@ export default function Travel() {
   const [selected, setSelected] = useState<TravelPlace | null>(null)
   const [travelView, setTravelView] = useState<TravelView>('atlas')
   const [visibleLayers, setVisibleLayers] = useState<Record<TravelKind, boolean>>({ lived: true, visited: true, country: true })
+  const countryData = useCountryShapeData()
 
   const results = useMemo(() => {
     const search = query.trim().toLocaleLowerCase()
@@ -267,27 +280,6 @@ export default function Travel() {
     }
     const markers = markersRef.current
 
-    L.geoJSON(renderedCountryShapes, {
-      style: {
-        pane: 'country-polygons',
-        color: '#8b5cf6',
-        weight: .8,
-        opacity: .7,
-        fillColor: '#6366f1',
-        fillOpacity: .14,
-      },
-      onEachFeature: (country, layer) => {
-        const place = countryByAtlasName.get(country.properties.name)
-        if (!place) return
-        layer.bindTooltip(place.name, { sticky: true, opacity: .95 })
-        layer.on({
-          mouseover: () => (layer as L.Path).setStyle({ fillOpacity: .25, weight: 1.25, color: '#a78bfa' }),
-          mouseout: () => (layer as L.Path).setStyle({ fillOpacity: .14, weight: .8, color: '#8b5cf6' }),
-          click: () => setSelected(place),
-        })
-      },
-    }).addTo(groups.country)
-
     travelPlaces.forEach((place) => {
       if (place.kind === 'country') return
       const detail = layerDetails[place.kind]
@@ -321,6 +313,35 @@ export default function Travel() {
       markers.clear()
     }
   }, [travelView])
+
+  useEffect(() => {
+    if (!countryData || !groupsRef.current) return
+
+    const countryLayer = L.geoJSON(countryData.renderedCountryShapes, {
+      style: {
+        pane: 'country-polygons',
+        color: '#8b5cf6',
+        weight: .8,
+        opacity: .7,
+        fillColor: '#6366f1',
+        fillOpacity: .14,
+      },
+      onEachFeature: (country, layer) => {
+        const place = countryByAtlasName.get(country.properties.name)
+        if (!place) return
+        layer.bindTooltip(place.name, { sticky: true, opacity: .95 })
+        layer.on({
+          mouseover: () => (layer as L.Path).setStyle({ fillOpacity: .25, weight: 1.25, color: '#a78bfa' }),
+          mouseout: () => (layer as L.Path).setStyle({ fillOpacity: .14, weight: .8, color: '#8b5cf6' }),
+          click: () => setSelected(place),
+        })
+      },
+    })
+    countryLayer.addTo(groupsRef.current.country)
+    return () => {
+      countryLayer.remove()
+    }
+  }, [countryData, travelView])
 
   useEffect(() => {
     const map = mapRef.current
@@ -393,7 +414,7 @@ export default function Travel() {
           {selected && <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass absolute bottom-4 left-1/2 z-[450] hidden -translate-x-1/2 items-center gap-3 rounded-xl px-4 py-3 sm:flex"><span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: layerDetails[selected.kind].color }} /><div><div className="text-xs text-slate-500">{layerDetails[selected.kind].description}</div><div className="text-sm font-medium text-white">{selected.name}</div></div><button type="button" onClick={() => { setSelected(null); mapRef.current?.closePopup() }} aria-label="Close location details" className="ml-3 text-slate-600 hover:text-white"><X size={14} /></button></motion.div>}
         </div>
       ) : (
-        <InteractiveGlobe selected={selected} visibleLayers={visibleLayers} onSelect={setSelected} onReset={resetMap} />
+        <InteractiveGlobe selected={selected} visibleLayers={visibleLayers} onSelect={setSelected} onReset={resetMap} globeCountryRings={countryData?.globeCountryRings ?? []} />
       )}
     </motion.div>
     <p className="mt-4 text-center text-xs text-slate-600">Map data migrated from the original travel atlas. Tiles by OpenStreetMap and CARTO; boundaries by Natural Earth and geoBoundaries.</p>
@@ -403,6 +424,7 @@ export default function Travel() {
 export function HomeGlobeSection() {
   const [selected, setSelected] = useState<TravelPlace | null>(null)
   const visibleLayers = useMemo<Record<TravelKind, boolean>>(() => ({ lived: true, visited: true, country: true }), [])
+  const countryData = useCountryShapeData()
 
   return (
     <section id="home-globe" className="section overflow-hidden">
@@ -425,14 +447,14 @@ export function HomeGlobeSection() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: .1 }} className="glass mt-10 overflow-hidden rounded-[1.5rem] p-2">
-          <InteractiveGlobe selected={selected} visibleLayers={visibleLayers} onSelect={setSelected} onReset={() => setSelected(null)} />
+          <InteractiveGlobe selected={selected} visibleLayers={visibleLayers} onSelect={setSelected} onReset={() => setSelected(null)} globeCountryRings={countryData?.globeCountryRings ?? []} />
         </motion.div>
       </div>
     </section>
   )
 }
 
-function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { selected: TravelPlace | null; visibleLayers: Record<TravelKind, boolean>; onSelect: (place: TravelPlace | null) => void; onReset: () => void }) {
+function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset, globeCountryRings }: { selected: TravelPlace | null; visibleLayers: Record<TravelKind, boolean>; onSelect: (place: TravelPlace | null) => void; onReset: () => void; globeCountryRings: Coordinate[][] }) {
   const [rotation, setRotation] = useState<GlobeRotation>({ lat: 18, lng: -18 })
   const [globeZoom, setGlobeZoom] = useState(globeMinZoom)
   const [hoveredPlace, setHoveredPlace] = useState<TravelPlace | null>(null)
@@ -512,10 +534,11 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
     }
   }, [])
 
-  useEffect(() => {
-    if (!selected) return
-    setRotation({ lat: clamp(selected.lat, -62, 72), lng: selected.lng })
-  }, [selected])
+  const [prevSelected, setPrevSelected] = useState(selected)
+  if (selected !== prevSelected) {
+    setPrevSelected(selected)
+    if (selected) setRotation({ lat: clamp(selected.lat, -62, 72), lng: selected.lng })
+  }
 
   const projectedRadius = globeRadius * globeZoom
   const worldRingsForFrame = isGlobeInteracting && fastWorldOutlineRings.length > 0
@@ -544,7 +567,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
   const baseOutlinePath = useMemo(() => {
     const rings = worldRingsForFrame.length > 0 ? worldRingsForFrame : globeCountryRings
     return rings.flatMap((ring) => projectedShapeSegments(ring, rotation, projectedRadius).outlines).join(' ')
-  }, [projectedRadius, rotation, worldRingsForFrame])
+  }, [projectedRadius, rotation, worldRingsForFrame, globeCountryRings])
 
   const visitedCountryShapePaths = useMemo(() => {
     const outlines: string[] = []
@@ -556,7 +579,7 @@ function InteractiveGlobe({ selected, visibleLayers, onSelect, onReset }: { sele
       fills.push(...projected.fills)
     })
     return { outline: outlines.join(' '), fill: fills.join(' ') }
-  }, [projectedRadius, rotation, visitedRingsForFrame])
+  }, [projectedRadius, rotation, visitedRingsForFrame, globeCountryRings])
 
   const markerPaths = useMemo(() => {
     const paths: Record<TravelKind, string[]> = { lived: [], visited: [], country: [] }

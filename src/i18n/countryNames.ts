@@ -1,4 +1,4 @@
-import type { Language } from './LanguageContext'
+import type { Language } from './languageState'
 
 const countryCodes: Record<string, string> = {
   'United States': 'US', Iceland: 'IS', 'Saint Kitts and Nevis': 'KN', Barbados: 'BB', 'Saint Lucia': 'LC',

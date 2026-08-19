@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLanguage } from './LanguageContext'
+import { useLanguage } from './languageState'
 import { sitePhrases } from './sitePhrases'
 import { projectPhrases } from './projectPhrases'
 import { sectionPhrases } from './sectionPhrases'

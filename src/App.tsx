@@ -78,16 +78,13 @@ function HomeGlobeFallback() {
 
 function LazyHomeGlobeSection() {
   const ref = useRef<HTMLDivElement | null>(null)
-  const [shouldLoad, setShouldLoad] = useState(false)
+  const [shouldLoad, setShouldLoad] = useState(() => typeof window !== 'undefined' && !('IntersectionObserver' in window))
 
   useEffect(() => {
     if (shouldLoad) return
     const element = ref.current
     if (!element) return
-    if (!('IntersectionObserver' in window)) {
-      setShouldLoad(true)
-      return
-    }
+    if (!('IntersectionObserver' in window)) return
 
     const observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return

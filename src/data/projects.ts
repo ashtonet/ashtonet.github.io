@@ -47,7 +47,7 @@ export const projects: Project[] = [
     title: 'Automated Engineering Agent',
     languages: ['Python', 'AWS', 'TypeScript'],
     categories: ['Python', 'Machine Learning', 'Web'],
-    image: 'https://unsplash.com/photos/8qEB0fTe9Vw/download?force=true',
+    image: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1800&q=80',
     href: '#/projects/automated-engineering-agent',
     date: '2025 - Present',
     description: `A public-safe summary of an AWS developer-tooling project focused on automated engineering workflows. The system coordinates task intake, code generation, code-review lifecycle management, reliability checks, and operational observability while emphasizing privacy-aware data handling, validation, and production-readiness guardrails.`,
@@ -133,7 +133,7 @@ export const projects: Project[] = [
     title: 'User-Level Thread Library',
     languages: ['C++'],
     categories: ['C/C++'],
-    image: 'https://unsplash.com/photos/bAEtENrPjf4/download?force=true',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=80',
     href: '#/projects/user-level-thread-library',
     description: `An EECS 482 thread-library implementation that builds user-level threading primitives on top of a simulated CPU interface. The library manages thread control blocks, manually allocated stacks, ucontext-based context switching, FIFO ready queues, thread creation, yielding, joining, mutex ownership, condition-variable wait, signal, and broadcast behavior, while carefully disabling and re-enabling simulated interrupts around scheduler and synchronization critical sections.`
   },

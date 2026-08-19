@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
-import { type KeyboardEvent as ReactKeyboardEvent, type WheelEvent as ReactWheelEvent, useEffect, useMemo, useRef, useState } from 'react'
+import { type KeyboardEvent as ReactKeyboardEvent, type WheelEvent as ReactWheelEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 type TimelineEvent = {
   dateLabel: string
@@ -414,22 +414,29 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
   const nextImage = useMemo(() => events.slice(activeIndex + 1).find((event) => event.image)?.image, [activeIndex, events])
   const fullscreenImageIndex = fullscreenEvent ? imageEvents.findIndex((event) => event.image === fullscreenEvent.image && event.sortDate === fullscreenEvent.sortDate) : -1
 
+  const [prevEventsLength, setPrevEventsLength] = useState(events.length)
+  if (events.length !== prevEventsLength) {
+    setPrevEventsLength(events.length)
+    if (activeIndex >= events.length) setActiveIndex(0)
+  }
+
+  // Refs can't be written during render, so keep this as a backstop that mirrors
+  // activeIndex into the ref shortly after; interactive handlers below also set
+  // the ref synchronously themselves for same-tick reads.
   useEffect(() => {
-    if (activeIndex < events.length) return
-    activeIndexRef.current = 0
-    setActiveIndex(0)
-  }, [activeIndex, events.length])
+    activeIndexRef.current = activeIndex
+  }, [activeIndex])
 
   useEffect(() => () => {
     if (wheelCorrectionTimeout.current !== null) window.clearTimeout(wheelCorrectionTimeout.current)
   }, [])
 
-  const showFullscreenNeighbor = (direction: 1 | -1) => {
+  const showFullscreenNeighbor = useCallback((direction: 1 | -1) => {
     if (!fullscreenEvent || imageEvents.length === 0) return
     const currentIndex = fullscreenImageIndex >= 0 ? fullscreenImageIndex : 0
     const nextIndex = (currentIndex + direction + imageEvents.length) % imageEvents.length
     setFullscreenEvent(imageEvents[nextIndex])
-  }
+  }, [fullscreenEvent, imageEvents, fullscreenImageIndex])
 
   useEffect(() => {
     if (!fullscreenEvent) return undefined
@@ -446,14 +453,14 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
       window.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
     }
-  }, [fullscreenEvent, fullscreenImageIndex])
+  }, [fullscreenEvent, showFullscreenNeighbor])
 
-  const centerSelectedEvent = (behavior: ScrollBehavior = 'smooth') => {
+  const centerSelectedEvent = useCallback((behavior: ScrollBehavior = 'smooth') => {
     const node = eventRefs.current[activeIndexRef.current]
     if (!node) return
     node.focus({ preventScroll: true })
     node.scrollIntoView({ behavior, block: 'center' })
-  }
+  }, [])
 
   const scheduleWheelCorrection = () => {
     if (wheelCorrectionTimeout.current !== null) window.clearTimeout(wheelCorrectionTimeout.current)
@@ -463,7 +470,7 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
     }, 180)
   }
 
-  const selectEvent = (index: number, behavior: ScrollBehavior = 'smooth') => {
+  const selectEvent = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
     const boundedIndex = Math.min(Math.max(index, 0), events.length - 1)
     activeIndexRef.current = boundedIndex
     suppressViewportSelectionUntil.current = window.performance.now() + 650
@@ -471,7 +478,7 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
     window.requestAnimationFrame(() => {
       centerSelectedEvent(behavior)
     })
-  }
+  }, [events.length, centerSelectedEvent])
 
   useEffect(() => {
     if (variant !== 'photos') return undefined
@@ -487,7 +494,7 @@ export default function Timeline({ variant = 'photos' }: TimelineProps = {}) {
     selectRequestedPhoto('auto')
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [events, variant])
+  }, [events, variant, selectEvent])
 
   const getKeyTargetIndex = (key: string, index: number) => {
     const keyActions: Record<string, number> = {

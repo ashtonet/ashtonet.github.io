@@ -1,4 +1,4 @@
-import type { Language } from './LanguageContext'
+import type { Language } from './languageState'
 
 type L = Exclude<Language, 'en' | 'es'>
 type T = [string, string, string]

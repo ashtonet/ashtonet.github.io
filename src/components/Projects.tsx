@@ -61,26 +61,20 @@ export default function Projects({ featured = false }: { featured?: boolean }) {
     .map((title) => projects.find((project) => project.title === title))
     .filter((project): project is Project => Boolean(project)), [])
   const archiveProjects = useMemo(() => projects.filter((project) => !highlightedProjectTitleSet.has(project.title)), [])
-  const searchableProjects = archiveLoaded ? [...highlightedProjects, ...archiveProjects] : highlightedProjects
+  const searchableProjects = useMemo(() => archiveLoaded ? [...highlightedProjects, ...archiveProjects] : highlightedProjects, [archiveLoaded, highlightedProjects, archiveProjects])
   const availableCategories = useMemo(() => projectCategories.filter((item) => item === 'All' || searchableProjects.some((project) => project.categories.includes(item))), [searchableProjects])
   const search = query.trim().toLowerCase()
-  const visibleHighlightedProjects = useMemo(() => highlightedProjects.filter((project) => projectMatches(project, category, search)), [category, highlightedProjects, search])
+  const effectiveCategory = availableCategories.includes(category) ? category : 'All'
+  const visibleHighlightedProjects = useMemo(() => highlightedProjects.filter((project) => projectMatches(project, effectiveCategory, search)), [effectiveCategory, highlightedProjects, search])
   const visibleArchiveProjects = useMemo(() => {
     if (!archiveLoaded) return []
-    return archiveProjects.filter((project) => projectMatches(project, category, search))
-  }, [archiveLoaded, archiveProjects, category, search])
+    return archiveProjects.filter((project) => projectMatches(project, effectiveCategory, search))
+  }, [archiveLoaded, archiveProjects, effectiveCategory, search])
   const featuredWindowSize = isMobileCarousel ? 1 : desktopFeaturedWindowSize
   const featuredStep = featuredWindowSize
   const maxFeaturedStart = Math.max(highlightedProjects.length - featuredWindowSize, 0)
-  const visibleProjects = featured ? highlightedProjects.slice(featuredStart, featuredStart + featuredWindowSize) : visibleHighlightedProjects
-
-  useEffect(() => {
-    if (!availableCategories.includes(category)) setCategory('All')
-  }, [availableCategories, category])
-
-  useEffect(() => {
-    if (featuredStart > maxFeaturedStart) setFeaturedStart(maxFeaturedStart)
-  }, [featuredStart, maxFeaturedStart])
+  const effectiveFeaturedStart = Math.min(featuredStart, maxFeaturedStart)
+  const visibleProjects = featured ? highlightedProjects.slice(effectiveFeaturedStart, effectiveFeaturedStart + featuredWindowSize) : visibleHighlightedProjects
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 767px)')
@@ -100,7 +94,7 @@ export default function Projects({ featured = false }: { featured?: boolean }) {
 
         {!featured && <div className="mt-9 space-y-4">
           <label className="glass flex max-w-md items-center gap-3 rounded-xl px-4"><Search size={17} className="text-slate-500" /><span className="sr-only">Search projects</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search projects or technologies" className="h-12 w-full bg-transparent text-sm text-white placeholder:text-slate-600 focus:outline-none" /></label>
-          <div className="flex flex-wrap gap-2" aria-label="Filter projects by category">{availableCategories.map((item) => <button type="button" key={item} onClick={() => setCategory(item)} aria-pressed={category === item} className={`pill project-filter cursor-pointer transition ${category === item ? 'active' : 'hover:border-white/25 hover:text-white'}`}>{category === item && <Check size={12} strokeWidth={2.5} />}{item}</button>)}</div>
+          <div className="flex flex-wrap gap-2" aria-label="Filter projects by category">{availableCategories.map((item) => <button type="button" key={item} onClick={() => setCategory(item)} aria-pressed={effectiveCategory === item} className={`pill project-filter cursor-pointer transition ${effectiveCategory === item ? 'active' : 'hover:border-white/25 hover:text-white'}`}>{effectiveCategory === item && <Check size={12} strokeWidth={2.5} />}{item}</button>)}</div>
         </div>}
 
         <motion.div layout className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -108,10 +102,10 @@ export default function Projects({ featured = false }: { featured?: boolean }) {
         </motion.div>
 
         {featured && maxFeaturedStart > 0 && <div className="mx-auto mt-7 flex max-w-2xl items-center justify-center gap-4">
-          <button type="button" onClick={() => setFeaturedStart((value) => Math.max(value - featuredStep, 0))} disabled={featuredStart === 0} aria-label="Previous highlighted projects" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[.04] text-slate-300 transition hover:border-indigo-300/40 hover:bg-white/[.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-35">
+          <button type="button" onClick={() => setFeaturedStart((value) => Math.max(value - featuredStep, 0))} disabled={effectiveFeaturedStart === 0} aria-label="Previous highlighted projects" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[.04] text-slate-300 transition hover:border-indigo-300/40 hover:bg-white/[.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-35">
             <ChevronLeft size={18} />
           </button>
-          <button type="button" onClick={() => setFeaturedStart((value) => Math.min(value + featuredStep, maxFeaturedStart))} disabled={featuredStart === maxFeaturedStart} aria-label="Next highlighted projects" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[.04] text-slate-300 transition hover:border-indigo-300/40 hover:bg-white/[.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-35">
+          <button type="button" onClick={() => setFeaturedStart((value) => Math.min(value + featuredStep, maxFeaturedStart))} disabled={effectiveFeaturedStart === maxFeaturedStart} aria-label="Next highlighted projects" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[.04] text-slate-300 transition hover:border-indigo-300/40 hover:bg-white/[.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-35">
             <ChevronRight size={18} />
           </button>
         </div>}

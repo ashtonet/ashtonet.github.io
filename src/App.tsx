@@ -47,7 +47,7 @@ function SectionFallback() {
 
 function PageContent({ page }: { page: Page }) {
   switch (page) {
-    case 'about': return <HomeAtmosphere><About /><Suspense fallback={<SectionFallback />}><Timeline /></Suspense></HomeAtmosphere>
+    case 'about': return <><HomeAtmosphere><About /></HomeAtmosphere><Suspense fallback={<SectionFallback />}><Timeline /></Suspense></>
     case 'experience': return <Suspense fallback={<SectionFallback />}><Experience /></Suspense>
     case 'volunteering': return <Volunteering />
     case 'education': return <><Suspense fallback={<SectionFallback />}><Education /></Suspense><Suspense fallback={<SectionFallback />}><Timeline variant="education" /></Suspense></>

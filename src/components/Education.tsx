@@ -18,7 +18,7 @@ const schools = [
     note: 'Majored in Computer Science Engineering with a minor in International Engineering.',
   },
   {
-    range: '2021 — 2022',
+    range: '2020 — 2022',
     degree: 'Associate Degree in Liberal Arts',
     schools: [{ name: 'Northwestern Michigan College', href: 'https://www.nmc.edu' }],
     note: 'Completed an accelerated early-college foundation before transferring into engineering.',
